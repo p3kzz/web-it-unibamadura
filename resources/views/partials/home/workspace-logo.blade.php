@@ -36,7 +36,7 @@
 
         {{-- Footer Badge --}}
         <div class="pt-3 sm:pt-4 border-t border-gray-200">
-            <p class="text-xs sm:text-sm text-gray-500 font-medium">✨ Unlimited Storage</p>
+            <p class="text-xs sm:text-sm text-gray-500 font-medium"> Unlimited Storage</p>
         </div>
     </div>
 </div>

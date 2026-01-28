@@ -2,7 +2,7 @@
     <div class="space-y-4 sm:space-y-6">
         {{-- Badge --}}
         <div class="inline-block bg-blue-100 text-blue-700 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-semibold animate-fade-in">
-            🚀 Premium Features
+            Premium Features
         </div>
 
         {{-- Title --}}

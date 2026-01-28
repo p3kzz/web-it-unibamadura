@@ -14,7 +14,7 @@
             </div>
 
             <div class="hidden xl:flex items-center space-x-6 text-sm font-medium">
-                <a href="#" class="text-uniba-blue font-bold hover:scale-105 transition-transform">Beranda</a>
+                <a href="/" class="text-uniba-blue font-bold hover:scale-105 transition-transform">Beranda</a>
 
                 @include('partials.navbar.dropdown-tentang')
                 @include('partials.navbar.dropdown-layanan')

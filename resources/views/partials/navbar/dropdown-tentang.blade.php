@@ -13,7 +13,7 @@
             Misi</a>
         <a href="/sejarah" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Sejarah
             TIK</a>
-        <a href="struktur-organisasi"
+        <a href="/struktur-organisasi"
             class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Struktur
             Organisasi</a>
         <a href="/sumber-daya-manusia"
@@ -22,6 +22,7 @@
         <a href="/program-kerja"
             class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Program
             Kerja</a>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Prestasi</a>
+        <a href="/prestasi"
+            class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Prestasi</a>
     </div>
 </div>

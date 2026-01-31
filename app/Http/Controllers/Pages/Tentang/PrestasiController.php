@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\CompanyProfile;
+namespace App\Http\Controllers\Pages\Tentang;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class VisiMisiController extends Controller
+class PrestasiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.tentang.visi-misi');
+        return view('pages.tentang.prestasi');
     }
 
     /**

@@ -126,7 +126,7 @@
             </nav>
 
             <div class="p-4 border-t border-blue-800 bg-blue-900">
-                <a href="{{ route('logout') }}"
+                <a href="#"
                     class="flex items-center px-4 py-2 text-sm text-white hover:text-uniba-yellow transition-colors">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -181,8 +181,7 @@
                             <a href="#"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Pengaturan</a>
                             <div class="border-t border-gray-100"></div>
-                            <a href="{{ route('logout') }}"
-                                class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">Logout</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">Logout</a>
                         </div>
                     </div>
                 </div>

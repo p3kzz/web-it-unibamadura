@@ -1,4 +1,5 @@
 import './bootstrap';
+
 import Alpine from 'alpinejs';
 
 // Make Alpine available globally
@@ -25,3 +26,4 @@ document.addEventListener('DOMContentLoaded', function() {
     const animatedElements = document.querySelectorAll('.scroll-animate');
     animatedElements.forEach(el => observer.observe(el));
 });
+

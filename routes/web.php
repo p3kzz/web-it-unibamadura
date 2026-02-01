@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardAdminController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Pages\Tentang\PrestasiController;
 use App\Http\Controllers\Pages\Tentang\ProgramKerjaController;
@@ -35,9 +37,7 @@ Route::resource('/prestasi', PrestasiController::class);
 
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::resource('/dashboard', DashboardAdminController::class);
 });
 
 require __DIR__ . '/auth.php';

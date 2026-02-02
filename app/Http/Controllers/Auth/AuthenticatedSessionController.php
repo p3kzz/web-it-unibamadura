@@ -37,7 +37,7 @@ class AuthenticatedSessionController extends Controller
                 ]);
         }
 
-        return redirect('/dashboard');
+        return redirect('/admin/dashboard');
     }
 
     /**

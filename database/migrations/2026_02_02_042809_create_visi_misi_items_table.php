@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('misi', function (Blueprint $table) {
+        Schema::create('visi_misi_items', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->integer('sort_order')->default(0);
+            $table->enum('type', ['visi', 'misi', 'tujuan', 'sasaran']);
+            $table->text('content');
+            $table->unsignedInteger('order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('misi');
+        Schema::dropIfExists('visi_misi_items');
     }
 };

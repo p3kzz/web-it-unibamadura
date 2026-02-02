@@ -177,61 +177,6 @@
                 @endforeach
             </div>
         </div>
-
-        {{-- Quick Actions --}}
-        <div class="bg-white rounded-2xl shadow-sm p-6">
-            <h3 class="text-lg font-bold text-gray-800 mb-6">Aksi Cepat</h3>
-
-            <div class="space-y-3">
-                <button
-                    class="w-full flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                    </svg>
-                    <span class="font-medium">Tambah Berita</span>
-                </button>
-
-                <button
-                    class="w-full flex items-center gap-3 px-4 py-3 bg-white border-2 border-gray-200 text-gray-700 rounded-xl hover:border-uniba-blue hover:text-uniba-blue transition-all duration-200">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01">
-                        </path>
-                    </svg>
-                    <span class="font-medium">Kelola Layanan</span>
-                </button>
-
-                <button
-                    class="w-full flex items-center gap-3 px-4 py-3 bg-white border-2 border-gray-200 text-gray-700 rounded-xl hover:border-uniba-blue hover:text-uniba-blue transition-all duration-200">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                        </path>
-                    </svg>
-                    <span class="font-medium">Buat Agenda</span>
-                </button>
-
-                <button
-                    class="w-full flex items-center gap-3 px-4 py-3 bg-white border-2 border-gray-200 text-gray-700 rounded-xl hover:border-uniba-blue hover:text-uniba-blue transition-all duration-200">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
-                        </path>
-                    </svg>
-                    <span class="font-medium">Tambah User</span>
-                </button>
-            </div>
-
-            <div class="mt-6 pt-6 border-t border-gray-200">
-                <div class="flex items-center justify-between text-sm mb-3">
-                    <span class="text-gray-600">Storage Website</span>
-                    <span class="font-semibold text-gray-800">2.4 GB / 10 GB</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full" style="width: 24%"></div>
-                </div>
-            </div>
-        </div>
     </div>
 
     {{-- Recent Posts & Upcoming Events --}}

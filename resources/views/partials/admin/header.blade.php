@@ -1,6 +1,5 @@
 <header class="flex items-center justify-between px-6 py-4 bg-white shadow-sm border-b border-gray-200">
     <div class="flex items-center gap-4">
-        {{-- Mobile Menu Toggle --}}
         <button @click="sidebarOpen = true"
             class="text-gray-500 hover:text-gray-700 focus:outline-none lg:hidden transition-colors duration-200">
             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -9,7 +8,6 @@
             </svg>
         </button>
 
-        {{-- Page Title --}}
         <div>
             <h2 class="text-xl font-bold text-gray-800">@yield('page-title', 'Dashboard Overview')</h2>
             <p class="text-sm text-gray-500 mt-0.5">@yield('page-subtitle', 'Selamat datang di Admin Panel')</p>
@@ -43,8 +41,8 @@
                 class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg py-2.5 border border-gray-100 z-50">
 
                 <div class="px-4 py-3 border-b border-gray-100">
-                    <p class="text-sm font-semibold text-gray-700">Admin TIK</p>
-                    <p class="text-xs text-gray-500 mt-0.5">admin@uniba.ac.id</p>
+                    <p class="text-sm font-semibold text-gray-700">{{ Auth::user()->name }}</p>
+                    <p class="text-xs text-gray-500 mt-0.5">{{ Auth::user()->email }}</p>
                 </div>
 
                 <a href="#"

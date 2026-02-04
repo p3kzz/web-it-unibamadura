@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pages\Tentang;
 
 use App\Http\Controllers\Controller;
+use App\Models\VisiMisiItem;
 use Illuminate\Http\Request;
 
 class VisiMisiController extends Controller
@@ -12,7 +13,26 @@ class VisiMisiController extends Controller
      */
     public function index()
     {
-        return view('pages.tentang.visi-misi');
+        $visi = VisiMisiItem::where('section', 'visi')
+            ->where('is_active', true)
+            ->latest()
+            ->first();
+
+        $misi = VisiMisiItem::where('section', 'misi')
+            ->where('is_active', true)
+            ->latest()
+            ->get();
+
+        $tujuan = VisiMisiItem::where('section', 'tujuan')
+            ->where('is_active', true)
+            ->latest()
+            ->get();
+
+        $sasaran = VisiMisiItem::where('section', 'sasaran')
+            ->where('is_active', true)
+            ->latest()
+            ->get();
+        return view('pages.tentang.visi-misi', compact('visi', 'misi', 'tujuan', 'sasaran'));
     }
 
     /**

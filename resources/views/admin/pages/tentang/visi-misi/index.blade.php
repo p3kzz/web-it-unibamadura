@@ -5,14 +5,12 @@
 
 @section('content')
 
-    {{-- Alert --}}
     @if (session('success'))
         <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
             {{ session('success') }}
         </div>
     @endif
 
-    {{-- Error --}}
     @if ($errors->any())
         <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
             <ul class="list-disc ml-5">
@@ -23,7 +21,6 @@
         </div>
     @endif
 
-    {{-- Filter section --}}
     <div class="flex items-center justify-between mb-6">
         <div class="flex gap-2">
             @foreach (['visi', 'misi', 'tujuan', 'sasaran'] as $t)

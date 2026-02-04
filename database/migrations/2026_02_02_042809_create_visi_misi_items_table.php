@@ -16,7 +16,6 @@ return new class extends Migration
             $table->enum('section', ['visi', 'misi', 'tujuan', 'sasaran']);
             $table->string('title')->nullable();
             $table->text('content');
-            $table->unsignedInteger('order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

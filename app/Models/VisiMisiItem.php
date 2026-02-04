@@ -14,7 +14,6 @@ class VisiMisiItem extends Model
         'section',
         'title',
         'content',
-        'order',
         'is_active',
     ];
 
@@ -43,8 +42,4 @@ class VisiMisiItem extends Model
         return $query->where('is_active', true);
     }
 
-    public function scopeOrdered(Builder $query)
-    {
-        return $query->orderBy('order');
-    }
 }

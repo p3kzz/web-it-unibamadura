@@ -18,7 +18,7 @@ class VisiMisiItemsController extends Controller
         $section = $request->get('section', 'visi');
 
         $items = VisiMisiItem::whereSection($section)
-            ->ordered()
+            ->latest()
             ->simplePaginate(10);
 
         return view('admin.pages.tentang.visi-misi.index', compact('items', 'section'));
@@ -76,7 +76,20 @@ class VisiMisiItemsController extends Controller
     public function destroy(VisiMisiItem $visiMisi)
     {
         $visiMisi->delete();
-
         return redirect()->back()->with('success', 'Item Visi/Misi berhasil dihapus.');
+    }
+
+    private function normalizeOrder(string $section): void
+    {
+        VisiMisiItem::section($section)
+            ->orderBy('order')
+            ->orderBy('id')
+            ->get()
+            ->values()
+            ->each(function ($item, $index) {
+                $item->update([
+                    'order' => $index + 1
+                ]);
+            });
     }
 }

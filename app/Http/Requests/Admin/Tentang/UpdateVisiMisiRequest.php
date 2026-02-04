@@ -31,14 +31,13 @@ class UpdateVisiMisiRequest extends FormRequest
 
             'title' => [
                 Rule::requiredIf(
-                    in_array($this->section, ['misi', 'sasaran'])
+                    in_array($this->section, ['misi', 'tujuan', 'sasaran'])
                 ),
                 'nullable',
                 'string',
                 'max:255',
             ],
             'content' => 'required|string|min:5',
-            'order' => 'nullable|integer|min:0',
             'is_active' => 'nullable|boolean',
         ];
     }

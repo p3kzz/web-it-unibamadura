@@ -11,7 +11,8 @@ class VisiMisiItem extends Model
     use HasFactory;
     protected $table = 'visi_misi_items';
     protected $fillable = [
-        'type',
+        'section',
+        'title',
         'content',
         'order',
         'is_active',
@@ -19,22 +20,22 @@ class VisiMisiItem extends Model
 
     public function scopeVisi(Builder $query)
     {
-        return $query->where('type', 'visi');
+        return $query->where('section', 'visi');
     }
 
     public function scopeMisi(Builder $query)
     {
-        return $query->where('type', 'misi');
+        return $query->where('section', 'misi');
     }
 
     public function scopeTujuan(Builder $query)
     {
-        return $query->where('type', 'tujuan');
+        return $query->where('section', 'tujuan');
     }
 
     public function scopeSasaran(Builder $query)
     {
-        return $query->where('type', 'sasaran');
+        return $query->where('section', 'sasaran');
     }
 
     public function scopeActive(Builder $query)

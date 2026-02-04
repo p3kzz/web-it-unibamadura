@@ -3,13 +3,21 @@
 
     <div class="bg-white rounded-xl w-full max-w-lg p-6">
         <h3 class="text-lg font-bold mb-4">
-            Tambah {{ ucfirst($type) }}
+            Tambah {{ ucfirst($section) }}
         </h3>
 
         <form method="POST" action="{{ route('admin.tentang.visi-misi.store') }}">
             @csrf
 
-            <input type="hidden" name="type" value="{{ $type }}">
+            <input type="hidden" name="section" value="{{ $section }}">
+
+            @if (in_array($section, ['misi', 'sasaran']))
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold mb-1">Judul</label>
+                    <input type="text" name="title" class="w-full border rounded-lg px-3 py-2"
+                        value="{{ old('title', $item->title ?? '') }}" required>
+                </div>
+            @endif
 
             <div class="mb-4">
                 <label class="block text-sm font-semibold mb-1">Konten</label>

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\Tentang;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StoreVisiMisiRequest extends FormRequest
 {
@@ -23,7 +24,19 @@ class StoreVisiMisiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'required|in:visi,misi,tujuan,sasaran',
+            'section' => [
+                'required',
+                Rule::in(['visi', 'misi', 'tujuan', 'sasaran']),
+            ],
+
+            'title' => [
+                Rule::requiredIf(
+                    in_array($this->section, ['misi', 'sasaran'])
+                ),
+                'nullable',
+                'string',
+                'max:255',
+            ],
             'content' => 'required|string|min:5',
             'order' => 'nullable|integer|min:0',
         ];
@@ -32,8 +45,9 @@ class StoreVisiMisiRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'type.required' => 'Tipe wajib dipilih',
-            'type.in' => 'Tipe tidak valid',
+            'section.required' => 'Tipe wajib dipilih',
+            'section.in' => 'Tipe tidak valid',
+            'title.max' => 'Judul terlalu panjang',
             'content.required' => 'Konten tidak boleh kosong',
             'content.min' => 'Konten terlalu pendek',
         ];

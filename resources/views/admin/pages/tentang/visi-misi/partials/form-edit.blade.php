@@ -6,10 +6,10 @@
 
     <div class="bg-white rounded-xl w-full max-w-lg p-6">
         <h3 class="text-lg font-bold mb-4">
-            Edit {{ ucfirst($type) }}
+            Edit {{ ucfirst($section) }}
         </h3>
 
-        <form :action="`/admin/tentang/visi-misi/${form.id}`" method="POST">
+        <form :action="`/admin/visi-misi/${form.id}`" method="POST">
             @csrf
             @method('PUT')
 

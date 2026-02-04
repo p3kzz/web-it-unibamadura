@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\Tentang;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdateVisiMisiRequest extends FormRequest
 {
@@ -23,6 +24,19 @@ class UpdateVisiMisiRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'section' => [
+                'required',
+                Rule::in(['visi', 'misi', 'tujuan', 'sasaran']),
+            ],
+
+            'title' => [
+                Rule::requiredIf(
+                    in_array($this->section, ['misi', 'sasaran'])
+                ),
+                'nullable',
+                'string',
+                'max:255',
+            ],
             'content' => 'required|string|min:5',
             'order' => 'nullable|integer|min:0',
             'is_active' => 'nullable|boolean',

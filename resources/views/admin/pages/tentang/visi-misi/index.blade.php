@@ -23,13 +23,13 @@
         </div>
     @endif
 
-    {{-- Filter Type --}}
+    {{-- Filter section --}}
     <div class="flex items-center justify-between mb-6">
         <div class="flex gap-2">
             @foreach (['visi', 'misi', 'tujuan', 'sasaran'] as $t)
-                <a href="{{ route('admin.tentang.visi-misi.index', ['type' => $t]) }}"
+                <a href="{{ route('admin.tentang.visi-misi.index', ['section' => $t]) }}"
                     class="px-4 py-2 rounded-lg text-sm font-semibold
-                {{ $type === $t ? 'bg-uniba-blue text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
+                {{ $section === $t ? 'bg-uniba-blue text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
                     {{ ucfirst($t) }}
                 </a>
             @endforeach
@@ -37,7 +37,7 @@
 
         <button @click="$dispatch('open-create')"
             class="px-4 py-2 bg-uniba-blue text-white rounded-lg hover:bg-blue-800 transition">
-            + Tambah {{ ucfirst($type) }}
+            + Tambah {{ ucfirst($section) }}
         </button>
     </div>
 

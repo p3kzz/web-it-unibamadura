@@ -3,6 +3,9 @@
         <thead class="bg-gray-100 text-gray-700">
             <tr>
                 <th class="px-4 py-3 text-left">Urutan</th>
+                @if (in_array($section, ['misi', 'sasaran']))
+                    <th class="px-4 py-3 text-left">Judul</th>
+                @endif
                 <th class="px-4 py-3 text-left">Konten</th>
                 <th class="px-4 py-3 text-center w-32">Aksi</th>
             </tr>
@@ -11,6 +14,12 @@
             @forelse ($items as $item)
                 <tr class="border-t">
                     <td class="px-4 py-3">{{ $item->order ?? '-' }}</td>
+                    @if (in_array($section, ['misi', 'sasaran']))
+                        <td class="px-4 py-3">
+                            {{ Str::limit($item->title, 120) }}
+                        </td>
+                    @endif
+
                     <td class="px-4 py-3">
                         {{ Str::limit($item->content, 120) }}
                     </td>

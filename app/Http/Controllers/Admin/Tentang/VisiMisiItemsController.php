@@ -15,13 +15,13 @@ class VisiMisiItemsController extends Controller
      */
     public function index(Request $request)
     {
-        $type = $request->get('type', 'visi');
+        $section = $request->get('section', 'visi');
 
-        $items = VisiMisiItem::whereType($type)
+        $items = VisiMisiItem::whereSection($section)
             ->ordered()
             ->simplePaginate(10);
 
-        return view('admin.pages.tentang.visi-misi.index', compact('items', 'type'));
+        return view('admin.pages.tentang.visi-misi.index', compact('items', 'section'));
     }
 
     /**
@@ -61,9 +61,11 @@ class VisiMisiItemsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVisiMisiRequest $request, VisiMisiItem $visiMisiItem)
+    public function update(UpdateVisiMisiRequest $request, VisiMisiItem $visiMisi)
     {
-        $visiMisiItem->update($request->validated());
+        // dd($visiMisi->id);
+
+        $visiMisi->update($request->validated());
 
         return redirect()->back()->with('success', 'Item Visi/Misi berhasil diperbarui.');
     }
@@ -71,9 +73,9 @@ class VisiMisiItemsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(VisiMisiItem $visiMisiItem)
+    public function destroy(VisiMisiItem $visiMisi)
     {
-        $visiMisiItem->delete();
+        $visiMisi->delete();
 
         return redirect()->back()->with('success', 'Item Visi/Misi berhasil dihapus.');
     }

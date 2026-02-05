@@ -3,7 +3,7 @@
         <div class="flex justify-between h-20">
             <div class="flex items-center">
                 <a href="/" class="flex items-center gap-3 group">
-                    <img src="{{ asset('images/logo/logo-uniba.png') }}" alt="UNIBA Madura"
+                    <img src="{{ asset('images/logo/logo.webp') }}" alt="UNIBA Madura"
                         class="w-10 h-10 bg-uniba-blue rounded-full flex items-center justify-center text-white font-bold text-xl transform group-hover:rotate-12 transition-transform duration-300">
                     <div class="leading-tight">
                         <h1 class="text-xl font-bold text-uniba-blue group-hover:text-blue-700 transition-colors">IT

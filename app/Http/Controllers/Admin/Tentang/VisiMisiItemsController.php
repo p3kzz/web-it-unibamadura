@@ -86,17 +86,5 @@ class VisiMisiItemsController extends Controller
         return redirect()->back()->with('success', 'Item Visi/Misi berhasil dihapus.');
     }
 
-    private function normalizeOrder(string $section): void
-    {
-        VisiMisiItem::section($section)
-            ->orderBy('order')
-            ->orderBy('id')
-            ->get()
-            ->values()
-            ->each(function ($item, $index) {
-                $item->update([
-                    'order' => $index + 1
-                ]);
-            });
-    }
+    
 }

@@ -35,7 +35,7 @@
                     <div class="flex items-center gap-3">
                         <a href="/"
                             class="w-10 h-10 bg-gradient-to-br rounded-xl flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-200">
-                            <img src="{{ asset('images/logo/logo-uniba.png') }}" alt="UNIBA Logo"
+                            <img src="{{ asset('images/logo/logo.webp') }}" alt="UNIBA Logo"
                                 class="w-10 h-10 object-contain">
                         </a>
                         <div>

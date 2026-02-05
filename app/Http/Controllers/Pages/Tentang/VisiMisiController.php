@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pages\Tentang;
 
 use App\Http\Controllers\Controller;
+use App\Models\Periode;
 use App\Models\VisiMisiItem;
 use Illuminate\Http\Request;
 
@@ -13,26 +14,44 @@ class VisiMisiController extends Controller
      */
     public function index()
     {
-        $visi = VisiMisiItem::where('section', 'visi')
+        $periodeAktif = Periode::where('is_active', true)->first();
+
+        if (!$periodeAktif) {
+            return view('pages.tentang.visi-misi', [
+                'visi' => null,
+                'misi' => collect(),
+                'tujuan' => collect(),
+                'sasaran' => collect(),
+            ]);
+        }
+
+        $visi = $periodeAktif->visiMisiItems()
+            ->where('section', 'visi')
             ->where('is_active', true)
             ->latest()
             ->first();
 
-        $misi = VisiMisiItem::where('section', 'misi')
+        $misi = $periodeAktif->visiMisiItems()
+            ->where('section', 'misi')
             ->where('is_active', true)
-            ->latest()
             ->get();
 
-        $tujuan = VisiMisiItem::where('section', 'tujuan')
+        $tujuan = $periodeAktif->visiMisiItems()
+            ->where('section', 'tujuan')
             ->where('is_active', true)
-            ->latest()
             ->get();
 
-        $sasaran = VisiMisiItem::where('section', 'sasaran')
+        $sasaran = $periodeAktif->visiMisiItems()
+            ->where('section', 'sasaran')
             ->where('is_active', true)
-            ->latest()
             ->get();
-        return view('pages.tentang.visi-misi', compact('visi', 'misi', 'tujuan', 'sasaran'));
+
+        return view('pages.tentang.visi-misi', compact(
+            'visi',
+            'misi',
+            'tujuan',
+            'sasaran'
+        ));
     }
 
     /**

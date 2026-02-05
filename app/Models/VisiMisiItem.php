@@ -12,6 +12,7 @@ class VisiMisiItem extends Model
     protected $table = 'visi_misi_items';
     protected $fillable = [
         'section',
+        'periode_id',
         'title',
         'content',
         'is_active',
@@ -42,4 +43,8 @@ class VisiMisiItem extends Model
         return $query->where('is_active', true);
     }
 
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class, 'periode_id');
+    }
 }

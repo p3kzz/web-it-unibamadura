@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('visi_misi_items', function (Blueprint $table) {
-            $table->dropUnique('visi_misi_items_section_order_unique');
-        $table->dropColumn('order');
+        Schema::create('periode', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->year('start_year');
+            $table->year('end_year');
+            $table->boolean('is_active')->default(false);
+            $table->timestamps();
         });
     }
 
@@ -22,9 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('visi_misi_items', function (Blueprint $table) {
-            $table->integer('order')->nullable();
-        $table->unique(['section', 'order']);
-        });
+        Schema::dropIfExists('periode');
     }
 };

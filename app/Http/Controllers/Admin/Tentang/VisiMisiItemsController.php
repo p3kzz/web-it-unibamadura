@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Tentang\StoreVisiMisiRequest;
 use App\Http\Requests\Admin\Tentang\UpdateVisiMisiRequest;
 use App\Models\VisiMisiItem;
+use App\Models\Periode;
 use Illuminate\Http\Request;
 
 class VisiMisiItemsController extends Controller
@@ -16,12 +17,18 @@ class VisiMisiItemsController extends Controller
     public function index(Request $request)
     {
         $section = $request->get('section', 'visi');
+        $periodeFilter = $request->get('periode_id');
 
-        $items = VisiMisiItem::whereSection($section)
-            ->latest()
-            ->simplePaginate(10);
+        $query = VisiMisiItem::whereSection($section);
 
-        return view('admin.pages.tentang.visi-misi.index', compact('items', 'section'));
+        if ($periodeFilter) {
+            $query->where('periode_id', $periodeFilter);
+        }
+
+        $items = $query->latest()->simplePaginate(10);
+        $periodes = Periode::latest()->get();
+
+        return view('admin.pages.tentang.visi-misi.index', compact('items', 'section', 'periodes', 'periodeFilter'));
     }
 
     /**

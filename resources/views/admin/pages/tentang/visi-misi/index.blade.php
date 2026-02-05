@@ -22,14 +22,31 @@
     @endif
 
     <div class="flex items-center justify-between mb-6">
-        <div class="flex gap-2">
-            @foreach (['visi', 'misi', 'tujuan', 'sasaran'] as $t)
-                <a href="{{ route('admin.tentang.visi-misi.index', ['section' => $t]) }}"
-                    class="px-4 py-2 rounded-lg text-sm font-semibold
-                {{ $section === $t ? 'bg-uniba-blue text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
-                    {{ ucfirst($t) }}
+        <div>
+            <div class="flex gap-2 mb-4">
+                @foreach (['visi', 'misi', 'tujuan', 'sasaran'] as $t)
+                    <a href="{{ route('admin.tentang.visi-misi.index', ['section' => $t, 'periode_id' => $periodeFilter]) }}"
+                        class="px-4 py-2 rounded-lg text-sm font-semibold
+                    {{ $section === $t ? 'bg-uniba-blue text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
+                        {{ ucfirst($t) }}
+                    </a>
+                @endforeach
+            </div>
+
+            {{-- Periode Filter --}}
+            <div class="flex gap-2 flex-wrap">
+                <span class="text-sm font-semibold text-gray-700 self-center">Filter Periode:</span>
+                <a href="{{ route('admin.tentang.visi-misi.index', ['section' => $section]) }}"
+                    class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all {{ !$periodeFilter ? 'bg-uniba-blue text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
+                    Semua
                 </a>
-            @endforeach
+                @foreach ($periodes as $periode)
+                    <a href="{{ route('admin.tentang.visi-misi.index', ['section' => $section, 'periode_id' => $periode->id]) }}"
+                        class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all {{ $periodeFilter == $periode->id ? 'bg-uniba-blue text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
+                        {{ $periode->name }}
+                    </a>
+                @endforeach
+            </div>
         </div>
 
         <button @click="$dispatch('open-create')"

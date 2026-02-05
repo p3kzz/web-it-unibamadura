@@ -39,6 +39,42 @@
             <input type="hidden" name="section" value="{{ $section }}">
 
             <div class="space-y-5">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">
+                        <span class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-uniba-blue" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                            Periode
+                            <span class="text-red-500">*</span>
+                        </span>
+                    </label>
+                    <select name="periode_id"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
+                        required>
+                        <option value="">-- Pilih Periode --</option>
+                        @foreach ($periodes as $periode)
+                            <option value="{{ $periode->id }}"
+                                {{ old('periode_id') == $periode->id ? 'selected' : '' }}>
+                                {{ $periode->name }} ({{ $periode->start_year }} - {{ $periode->end_year }})
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('periode_id')
+                        <p class="mt-1 text-sm text-red-600 flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
+
                 @if (in_array($section, ['misi', 'tujuan', 'sasaran']))
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">

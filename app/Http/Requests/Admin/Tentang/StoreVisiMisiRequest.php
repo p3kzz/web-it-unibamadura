@@ -24,6 +24,7 @@ class StoreVisiMisiRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'periode_id' => 'required|exists:periode,id',
             'section' => [
                 'required',
                 Rule::in(['visi', 'misi', 'tujuan', 'sasaran']),
@@ -31,7 +32,7 @@ class StoreVisiMisiRequest extends FormRequest
 
             'title' => [
                 Rule::requiredIf(
-                    in_array($this->section, ['misi','tujuan', 'sasaran'])
+                    in_array($this->section, ['misi', 'tujuan', 'sasaran'])
                 ),
                 'nullable',
                 'string',

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('visi_misi_items', function (Blueprint $table) {
             $table->id();
             $table->enum('section', ['visi', 'misi', 'tujuan', 'sasaran']);
+            $table->foreignId('periode_id')->nullable()->constrained('periode')->nullOnDelete();
             $table->string('title')->nullable();
             $table->text('content');
             $table->boolean('is_active')->default(true);

@@ -24,6 +24,7 @@ class UpdateVisiMisiRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'periode_id' => 'required|exists:periode,id',
             'section' => [
                 'required',
                 Rule::in(['visi', 'misi', 'tujuan', 'sasaran']),

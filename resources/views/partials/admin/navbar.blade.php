@@ -32,7 +32,7 @@
                     </path>
                 </svg>
             </div>
-            <span class="font-semibold">Periode</span>
+            <span class="font-semibold">Tahun</span>
             <div class="ml-auto w-2 h-2 bg-uniba-yellow rounded-full"></div>
         </a>
     </div>

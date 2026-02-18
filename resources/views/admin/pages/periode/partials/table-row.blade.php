@@ -55,12 +55,12 @@
             </button>
 
             {{-- Delete --}}
-            <form method="POST" action="{{ route('admin.periode.destroy', $item) }}"
-                onsubmit="return confirm('Yakin ingin menghapus periode ini?')">
+            <form method="POST" id="delete-form" action="{{ route('admin.periode.destroy', $item) }}">
                 @csrf
                 @method('DELETE')
 
-                <button type="submit" @disabled($item->is_active)
+                <button type="button" onclick="confirmDelete(() => document.getElementById('delete-form').submit())"
+                    @disabled($item->is_active)
                     class="px-3 py-2 text-xs font-semibold rounded-lg transition-colors duration-200 shadow-sm
                                                 {{ $item->is_active
                                                     ? 'bg-gray-300 text-gray-500 cursor-not-allowed'

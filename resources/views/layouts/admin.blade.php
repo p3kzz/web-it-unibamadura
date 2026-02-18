@@ -10,7 +10,7 @@
 </head>
 
 <body class="bg-gray-50 text-gray-800 antialiased" x-data="{ sidebarOpen: false }">
-
+    <x-sweetalert />
     <div class="flex h-screen overflow-hidden">
 
         <div x-show="sidebarOpen" @click="sidebarOpen = false"
@@ -20,7 +20,6 @@
             class="fixed inset-0 z-20 bg-black bg-opacity-50 lg:hidden">
         </div>
 
-        {{-- Sidebar --}}
         <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
             class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto bg-gradient-to-b from-uniba-blue to-uniba-dark text-white lg:translate-x-0 lg:static lg:inset-0 transition-transform duration-300 ease-in-out shadow-2xl flex flex-col">
 

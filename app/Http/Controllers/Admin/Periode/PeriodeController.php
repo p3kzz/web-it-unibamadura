@@ -32,7 +32,9 @@ class PeriodeController extends Controller
     {
         $periode->create($request->validated());
 
-        return redirect()->route('admin.periode.index')->with('success', 'Periode berhasil ditambahkan.');
+        return redirect()
+            ->back()
+            ->with('success', 'Data berhasil disimpan');
     }
 
     /**

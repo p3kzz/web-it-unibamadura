@@ -1,14 +1,13 @@
 import './bootstrap';
-
+import Swal from 'sweetalert2';
 import Alpine from 'alpinejs';
 
-// Make Alpine available globally
+window.Swal = Swal;
+
 window.Alpine = Alpine;
 
-// Start Alpine
 Alpine.start();
 
-// Scroll Animation Observer
 document.addEventListener('DOMContentLoaded', function() {
     const observerOptions = {
         threshold: 0.1,
@@ -27,3 +26,20 @@ document.addEventListener('DOMContentLoaded', function() {
     animatedElements.forEach(el => observer.observe(el));
 });
 
+// confirm delete
+window.confirmDelete = function (callback) {
+    Swal.fire({
+        title: 'Yakin hapus data?',
+        text: "Data yang dihapus tidak bisa dikembalikan!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc2626',
+        cancelButtonColor: '#6b7280',  
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            callback();
+        }
+    });
+}

@@ -64,7 +64,9 @@ services:
       - laravel
 
 networks:
-  laravewsl -d ubuntu
+  laravel:
+    driver: bridge
+
 
 volumes:
   dbdata:

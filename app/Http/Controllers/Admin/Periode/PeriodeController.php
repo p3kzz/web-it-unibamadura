@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Periode\StorePeriodeRequest;
 use App\Http\Requests\Admin\Periode\UpdatePeriodeRequest;
 use App\Models\Periode;
+use App\Services\Admin\Periode\PeriodeQueryService;
 use App\Services\Admin\Periode\PeriodeService;
 use Illuminate\Http\Request;
 
@@ -14,9 +15,14 @@ class PeriodeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request, PeriodeQueryService $services)
     {
-        $periode = Periode::orderByDesc('start_year')->paginate(10);
+        $periode = $services->handle($request->search);
+
+        if ($request->ajax()) {
+            return view('admin.pages.periode.partials.table', compact('periode'))->render();
+        }
+
         return view('admin.pages.periode.index', compact('periode'));
     }
 

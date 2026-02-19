@@ -85,6 +85,4 @@ class VisiMisiItemsController extends Controller
         $visiMisi->delete();
         return redirect()->back()->with('success', 'Item Visi/Misi berhasil dihapus.');
     }
-
-    
 }

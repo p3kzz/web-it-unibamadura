@@ -23,7 +23,7 @@ class StorePeriodeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $maxYear = now()->year + 10;
+        $maxYear = now()->year + 20;
 
         return [
             'name'       => 'required|string|max:255',

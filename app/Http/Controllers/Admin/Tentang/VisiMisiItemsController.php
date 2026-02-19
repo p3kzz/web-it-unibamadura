@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Tentang\StoreVisiMisiRequest;
 use App\Http\Requests\Admin\Tentang\UpdateVisiMisiRequest;
 use App\Models\VisiMisiItem;
-use App\Models\Periode;
+use App\Services\Admin\Tentang\VisiMisiItemsQueryService;
 use Illuminate\Http\Request;
 
 class VisiMisiItemsController extends Controller
@@ -14,22 +14,28 @@ class VisiMisiItemsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
-    {
-        $section = $request->get('section', 'visi');
-        $periodeFilter = $request->get('periode_id');
+    public function index(Request $request, VisiMisiItemsQueryService $queryService)
+{
+    $section = $request->get('section', 'visi');
+    $periodeFilter = $request->get('periode_id');
+    $search = $request->get('search');
 
-        $query = VisiMisiItem::whereSection($section);
+    $filters = [
+        'section'     => $section,
+        'periode_id'  => $periodeFilter,
+        'search'      => $search,
+    ];
 
-        if ($periodeFilter) {
-            $query->where('periode_id', $periodeFilter);
-        }
+    $items = $queryService->getItems($filters);
+    $periodes = $queryService->getPeriodes();
 
-        $items = $query->latest()->simplePaginate(10);
-        $periodes = Periode::latest()->get();
-
-        return view('admin.pages.tentang.visi-misi.index', compact('items', 'section', 'periodes', 'periodeFilter'));
+    // For AJAX request, return only table partial
+    if ($request->ajax() || $request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+        return view('admin.pages.tentang.visi-misi.partials.table', compact('items', 'section', 'periodeFilter', 'periodes', 'search'));
     }
+
+    return view('admin.pages.tentang.visi-misi.index', compact('items', 'section', 'periodeFilter', 'periodes', 'search'));
+}
 
     /**
      * Show the form for creating a new resource.

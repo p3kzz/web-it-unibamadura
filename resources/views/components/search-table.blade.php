@@ -6,10 +6,6 @@
         <input type="text" x-model="search" placeholder="{{ $placeholder }}"
             class="border border-gray-300 rounded-lg px-4 py-2 text-sm w-64
                 focus:ring-2 focus:ring-uniba-blue focus:outline-none">
-
-        {{-- <div x-show="loading" class="text-sm text-gray-500">
-            Searching...
-        </div> --}}
     </div>
 
     <div x-ref="tableWrapper">

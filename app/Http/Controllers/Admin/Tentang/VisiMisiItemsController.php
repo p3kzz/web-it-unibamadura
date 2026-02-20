@@ -15,27 +15,26 @@ class VisiMisiItemsController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request, VisiMisiItemsQueryService $queryService)
-{
-    $section = $request->get('section', 'visi');
-    $periodeFilter = $request->get('periode_id');
-    $search = $request->get('search');
+    {
+        $section = $request->get('section', 'visi');
+        $periodeFilter = $request->get('periode_id');
+        $search = trim($request->get('search'));
 
-    $filters = [
-        'section'     => $section,
-        'periode_id'  => $periodeFilter,
-        'search'      => $search,
-    ];
+        $filters = [
+            'section'     => $section,
+            'periode_id'  => $periodeFilter,
+            'search'      => $search,
+        ];
 
-    $items = $queryService->getItems($filters);
-    $periodes = $queryService->getPeriodes();
+        $items = $queryService->getItems($filters);
+        $periodes = $queryService->getPeriodes();
 
-    // For AJAX request, return only table partial
-    if ($request->ajax() || $request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
-        return view('admin.pages.tentang.visi-misi.partials.table', compact('items', 'section', 'periodeFilter', 'periodes', 'search'));
+        if ($request->ajax()) {
+            return view('admin.pages.tentang.visi-misi.partials.table', compact('items', 'section', 'periodeFilter', 'periodes', 'search'));
+        }
+
+        return view('admin.pages.tentang.visi-misi.index', compact('items', 'section', 'periodeFilter', 'periodes', 'search'));
     }
-
-    return view('admin.pages.tentang.visi-misi.index', compact('items', 'section', 'periodeFilter', 'periodes', 'search'));
-}
 
     /**
      * Show the form for creating a new resource.

@@ -1,6 +1,4 @@
-{{-- Desktop Table --}}
 <div class="hidden lg:block bg-white rounded-2xl shadow-lg overflow-visible border border-gray-200">
-    {{-- Table Header with Search & Filter --}}
     <div class="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200">
         <div class="flex items-center justify-between gap-4 mb-4">
             <div class="flex items-center gap-3">
@@ -35,103 +33,17 @@
             </div>
         </div>
 
-        {{-- Search & Filter Row --}}
         <div class="flex flex-col md:flex-row gap-3">
-            {{-- Search Box --}}
-            <div class="flex-1">
-                <x-table-search-hybrid placeholder="Cari {{ $section }}..." :currentSearch="$search ?? ''" :preserveParams="[
-                    'section' => $section,
-                    'periode_id' => $periodeFilter,
-                ]" />
-            </div>
+            @include('admin.pages.tentang.visi-misi.partials.search')
 
-            {{-- Periode Filter Dropdown --}}
-            <div x-data="{ open: false }" class="relative min-w-[250px]">
-                <button @click="open = !open" @click.away="open = false"
-                    class="w-full inline-flex items-center justify-between gap-2 px-4 py-2 bg-white border-2 border-gray-300 rounded-lg hover:border-uniba-blue transition-all duration-200 shadow-sm hover:shadow-md">
-                    <div class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
-                            </path>
-                        </svg>
-                        <span class="text-sm font-semibold text-gray-700">
-                            @if ($periodeFilter)
-                                {{ $periodes->firstWhere('id', $periodeFilter)->name ?? 'Filter Periode' }}
-                            @else
-                                Semua Periode
-                            @endif
-                        </span>
-                    </div>
-                    <svg class="w-4 h-4 text-gray-600 transition-transform duration-200"
-                        :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                </button>
-
-                <div x-show="open" x-cloak x-transition:enter="transition ease-out duration-200"
-                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                    x-transition:leave="transition ease-in duration-150"
-                    x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-                    class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-[100] max-h-[400px] overflow-y-auto">
-
-                    <a href="{{ route('admin.tentang.visi-misi.index', array_filter(['section' => $section, 'search' => $search])) }}"
-                        class="flex items-center gap-3 px-4 py-2.5 hover:bg-blue-50 transition-colors duration-150 {{ !$periodeFilter ? 'bg-blue-50' : '' }}">
-                        <div class="flex-shrink-0">
-                            @if (!$periodeFilter)
-                                <div
-                                    class="w-5 h-5 bg-gradient-to-r from-uniba-blue to-blue-700 rounded-full flex items-center justify-center">
-                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                </div>
-                            @else
-                                <div class="w-5 h-5 border-2 border-gray-300 rounded-full"></div>
-                            @endif
-                        </div>
-                        <div class="flex-1">
-                            <p class="text-sm font-semibold text-gray-800">Semua Periode</p>
-                            <p class="text-xs text-gray-500">Tampilkan semua data</p>
-                        </div>
-                    </a>
-
-                    <div class="border-t border-gray-200 my-2"></div>
-
-                    @foreach ($periodes as $periode)
-                        <a href="{{ route('admin.tentang.visi-misi.index', array_filter(['section' => $section, 'periode_id' => $periode->id, 'search' => $search])) }}"
-                            class="flex items-center gap-3 px-4 py-2.5 hover:bg-blue-50 transition-colors duration-150 {{ $periodeFilter == $periode->id ? 'bg-blue-50' : '' }}">
-                            <div class="flex-shrink-0">
-                                @if ($periodeFilter == $periode->id)
-                                    <div
-                                        class="w-5 h-5 bg-gradient-to-r from-uniba-blue to-blue-700 rounded-full flex items-center justify-center">
-                                        <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M5 13l4 4L19 7"></path>
-                                        </svg>
-                                    </div>
-                                @else
-                                    <div class="w-5 h-5 border-2 border-gray-300 rounded-full"></div>
-                                @endif
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-semibold text-gray-800">{{ $periode->name }}</p>
-                                <p class="text-xs text-gray-500">{{ $periode->start_year }} - {{ $periode->end_year }}
-                                </p>
-                            </div>
-                        </a>
-                    @endforeach
-                </div>
-            </div>
+            @include('admin.pages.tentang.visi-misi.partials.periode-filter')
         </div>
     </div>
 
     <div class="overflow-x-auto">
         <table class="w-full">
             <thead>
-                <tr class="bg-gradient-to-r from-uniba-blue to-blue-700 text-white">
+                <tr class="bg-uniba-blue text-white">
                     <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider w-24">
                         <div class="flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -198,58 +110,12 @@
                 @forelse ($items as $index => $item)
                     @include('admin.pages.tentang.visi-misi.partials.table-row')
                 @empty
-                    <tr>
-                        <td colspan="{{ in_array($section, ['misi', 'sasaran', 'tujuan']) ? '6' : '5' }}"
-                            class="px-6 py-12 text-center">
-                            <div class="flex flex-col items-center justify-center">
-                                <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                                    @if ($search)
-                                        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                        </svg>
-                                    @else
-                                        <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4">
-                                            </path>
-                                        </svg>
-                                    @endif
-                                </div>
-                                <p class="text-gray-500 font-medium mb-2">
-                                    @if ($search)
-                                        Tidak ada hasil pencarian
-                                    @else
-                                        Data Belum Tersedia
-                                    @endif
-                                </p>
-                                <p class="text-gray-400 text-sm mb-4">
-                                    @if ($search)
-                                        Tidak ditemukan {{ $section }} dengan kata kunci "<span
-                                            class="font-semibold">{{ $search }}</span>"
-                                    @else
-                                        Belum ada data {{ $section }} yang ditambahkan
-                                    @endif
-                                </p>
-                                <button @click="$dispatch('open-create')"
-                                    class="inline-flex items-center gap-2 px-4 py-2 bg-uniba-blue text-white rounded-lg hover:bg-blue-800 transition-colors duration-200">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 4v16m8-8H4"></path>
-                                    </svg>
-                                    Tambah Data Pertama
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                    @include('admin.pages.tentang.visi-misi.partials.empty-state')
                 @endforelse
             </tbody>
         </table>
     </div>
 
-    {{-- Pagination --}}
     @if ($items->hasPages())
         <div class="bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200">
             <div class="p-4">
@@ -259,5 +125,4 @@
     @endif
 </div>
 
-{{-- Mobile Card View --}}
 @include('admin.pages.tentang.visi-misi.partials.mobile-card')

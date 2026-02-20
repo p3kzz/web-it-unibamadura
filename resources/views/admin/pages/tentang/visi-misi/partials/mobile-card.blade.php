@@ -1,12 +1,10 @@
 <div class="lg:hidden space-y-4">
-    {{-- Mobile Search --}}
     <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-4 space-y-3">
         <x-table-search-hybrid placeholder="Cari {{ $section }}..." :currentSearch="$search ?? ''" :preserveParams="[
             'section' => $section,
             'periode_id' => $periodeFilter,
         ]" />
 
-        {{-- Mobile Filter Periode --}}
         <div x-data="{ open: false }" class="relative">
             <button @click="open = !open" @click.away="open = false"
                 class="w-full inline-flex items-center justify-between gap-2 px-4 py-2.5 bg-white border-2 border-gray-300 rounded-lg hover:border-uniba-blue transition-all duration-200">
@@ -88,11 +86,10 @@
         </div>
     </div>
 
-    {{-- Cards --}}
     @forelse ($items as $index => $item)
         <div x-data="{ expanded: false }"
             class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-200">
-            {{-- Card Header --}}
+
             <div class="bg-gradient-to-r from-gray-50 to-gray-100 px-4 py-3 border-b border-gray-200">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2">
@@ -121,7 +118,6 @@
                 </div>
             </div>
 
-            {{-- Card Content --}}
             <div class="p-4 space-y-3">
                 @if (in_array($section, ['misi', 'sasaran', 'tujuan']))
                     <div>
@@ -205,8 +201,6 @@
                     @endif
                 </div>
             </div>
-
-            {{-- Card Actions --}}
             <div class="bg-gray-50 px-4 py-3 flex items-center gap-2 border-t border-gray-200">
                 <button @click="$dispatch('open-edit', {{ $item->toJson() }})"
                     class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-sm font-semibold rounded-lg shadow hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
@@ -276,7 +270,6 @@
         </div>
     @endforelse
 
-    {{-- Mobile Pagination --}}
     @if ($items->hasPages())
         <div class="bg-white rounded-xl shadow-lg border border-gray-200">
             <div class="p-4">

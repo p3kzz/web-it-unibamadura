@@ -27,19 +27,19 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // confirm delete
-window.confirmDelete = function (callback) {
+window.confirmDelete = function (button) {
     Swal.fire({
         title: 'Yakin hapus data?',
         text: "Data yang dihapus tidak bisa dikembalikan!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#dc2626',
-        cancelButtonColor: '#6b7280',  
+        cancelButtonColor: '#6b7280',
         confirmButtonText: 'Ya, hapus!',
         cancelButtonText: 'Batal'
     }).then((result) => {
         if (result.isConfirmed) {
-            callback();
+            button.closest('form').submit();
         }
     });
 }

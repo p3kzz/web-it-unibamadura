@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pages\Tentang;
 
 use App\Http\Controllers\Controller;
+use App\Models\Histories;
 use Illuminate\Http\Request;
 
 class SejarahController extends Controller
@@ -12,7 +13,11 @@ class SejarahController extends Controller
      */
     public function index()
     {
-        return view('pages.tentang.sejarah');
+        $intro = Histories::intro()->first();
+        $timelines = Histories::timeline()->get();
+        $vision = Histories::vision()->first();
+
+        return view('pages.tentang.sejarah', compact('intro', 'timelines', 'vision'));
     }
 
     /**

@@ -1,0 +1,64 @@
+app(App\Services\Admin\Tentang\Histories\HistoriesService::class)->store([
+'type' => 'timeline',
+'title' => 'Tinker Test',
+'content' => 'Insert dari tinker',
+'extras' => ['X', 'Y'],
+'is_active' => true,
+]);
+app(App\Services\Admin\Tentang\Histories\HistoriesService::class)->store([
+'type' => 'timeline',
+'title' => 'Tinker Test',
+'content' => 'Insert dari tinker',
+'extras' => ['X', 'Y'],
+'is_active' => true,
+'sub_title' => sekarang - nanti,
+]);
+app(App\Services\Admin\Tentang\Histories\HistoriesService::class)->store([
+'type' => 'timeline',
+'title' => 'Tinker Test 1',
+'content' => 'Insert dari tinker lagi',
+'extras' => ['X', 'Y'],
+'is_active' => true,
+'sub_title' => 2021 - Sekarang,
+]);
+app(App\Services\Admin\Tentang\Histories\HistoriesService::class)->store([
+'type' => 'timeline',
+'title' => 'Tinker Test 1',
+'content' => 'Insert dari tinker lagi',
+'extras' => ['X', 'Y'],
+'is_active' => true,
+'sub_title' => 2021-Sekarang,
+]);
+app(App\Services\Admin\Tentang\Histories\HistoriesService::class)->store([
+'type' => 'timeline',
+'title' => 'Tinker Test 1',
+'content' => 'Insert dari tinker lagi',
+'extras' => ['X', 'Y'],
+'is_active' => true,
+'sub_title' => 2021-2022,
+]);
+app(App\Services\Admin\Tentang\Histories\HistoriesService::class)->store([
+'type' => 'timeline',
+'title' => 'Tinker Test 1',
+'content' => 'Insert dari tinker lagi',
+'extras' => ['X', 'Y'],
+'is_active' => true,
+'sub_title' => 2021 - 2026,
+]);
+app(App\Services\Admin\Tentang\Histories\HistoriesService::class)->store([
+'type' => 'timeline',
+'title' => 'Tinker Test 1',
+'content' => 'Insert dari tinker lagi',
+'extras' => ['X', 'Y'],
+'is_active' => true,
+'sub_title' => '2021 - 2026',
+]);
+$history = App\Models\Histories::first();
+app(App\Services\Admin\tentang\Histories\HistoriesService::class)->update($history, [
+'title' => 'Awal Mula Tranformasi Digital Uniba Madura'
+]);
+app(App\Services\Admin\Tentang\Histories\HistoriesService::class)
+    ->swapOrder(4, 5);
+app(App\Services\Admin\Tentang\Histories\HistoriesService::class)
+    ->swapOrder(5, 4);
+exit

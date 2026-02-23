@@ -39,6 +39,7 @@ class StoreVisiMisiRequest extends FormRequest
                 'max:255',
             ],
             'content' => 'required|string|min:5',
+            'is_active'  => 'nullable|boolean',
         ];
     }
 
@@ -50,6 +51,7 @@ class StoreVisiMisiRequest extends FormRequest
             'title.max' => 'Judul terlalu panjang',
             'content.required' => 'Konten tidak boleh kosong',
             'content.min' => 'Konten terlalu pendek',
+            'is_active.boolean'    => 'Status aktif tidak valid',
         ];
     }
 }

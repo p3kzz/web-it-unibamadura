@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\Periode\PeriodeController;
+use App\Http\Controllers\Admin\Tentang\Histories\HistoriesItemsController;
 use App\Http\Controllers\Admin\Tentang\VisiMisiItemsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Pages\Tentang\PrestasiController;
@@ -41,6 +42,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('/dashboard', DashboardAdminController::class);
     Route::resource('/periode', PeriodeController::class)->names('periode');
     Route::resource('/visi-misi', VisiMisiItemsController::class)->names('tentang.visi-misi');
+    Route::resource('/histories', HistoriesItemsController::class)->names('tentang.histories');
 });
 
 require __DIR__ . '/auth.php';

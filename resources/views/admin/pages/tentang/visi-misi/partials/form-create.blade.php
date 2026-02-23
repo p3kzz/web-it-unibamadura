@@ -41,9 +41,8 @@
             <div class="space-y-5">
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">
-
-                            Periode
-                            <span class="text-red-500">*</span>
+                        Periode
+                        <span class="text-red-500">*</span>
                     </label>
                     <select name="periode_id"
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
@@ -72,8 +71,8 @@
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">
 
-                                Judul {{ ucfirst($section) }}
-                                <span class="text-red-500">*</span>
+                            Judul {{ ucfirst($section) }}
+                            <span class="text-red-500">*</span>
                         </label>
                         <input type="text" name="title"
                             class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
@@ -95,8 +94,8 @@
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">
 
-                            Konten {{ ucfirst($section) }}
-                            <span class="text-red-500">*</span>
+                        Konten {{ ucfirst($section) }}
+                        <span class="text-red-500">*</span>
                     </label>
                     <textarea name="content" rows="5"
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none resize-none"

@@ -42,7 +42,7 @@
     <td class="px-6 py-4">
         <div class="flex items-center justify-center gap-2">
 
-            <button @click="$dispatch('open-edit-periode', {{ $item->toJson() }})"
+            <button @click="$dispatch('open-edit-periode', @js($item))"
                 class="px-3 py-2 text-xs font-semibold
                 bg-orange-500 text-white rounded-lg
                 hover:bg-orange-600 transition-colors duration-200

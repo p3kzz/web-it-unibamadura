@@ -18,7 +18,7 @@
                                 </path>
                             </svg>
                         </div>
-                        <span class="text-sm font-semibold text-gray-700">{{ ucfirst($histories) }}</span>
+                        <span class="text-sm font-semibold text-gray-700">{{ ucfirst($section) }}</span>
                     </div>
                     <svg class="w-4 h-4 text-gray-600 transition-transform duration-200" :class="open ? 'rotate-180' : ''"
                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -33,10 +33,10 @@
                     class="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
 
                     @foreach (['intro', 'timeline', 'vision'] as $t)
-                        <a href="{{ route('admin.tentang.histories.index', array_filter(['search' => $histories])) }}"
-                            class="flex items-center gap-3 px-4 py-2.5 hover:bg-blue-50 transition-colors duration-150 {{ $histories === $t ? 'bg-blue-50' : '' }}">
+                        <a href="{{ route('admin.tentang.histories.index', array_filter(['type' => $t, 'search' => $search])) }}"
+                            class="flex items-center gap-3 px-4 py-2.5 hover:bg-blue-50 transition-colors duration-150 {{ $section === $t ? 'bg-blue-50' : '' }}">
                             <div class="flex-shrink-0">
-                                @if ($histories === $t)
+                                @if ($section === $t)
                                     <div class="w-5 h-5 bg-blue-700 rounded-full flex items-center justify-center">
                                         <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
@@ -61,7 +61,7 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
-                <span class="font-semibold">Tambah {{ ucfirst($histories) }}</span>
+                <span class="font-semibold">Tambah {{ ucfirst($section) }}</span>
             </button>
         </div>
     </div>

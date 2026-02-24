@@ -9,12 +9,20 @@ class HistoriesQueryService
     /**
      * Create a new class instance.
      */
-    public function list(?string $type = null)
+    public function getItems(array $filters)
     {
         return Histories::query()
-            ->when($type, fn($q) => $q->where('type', $type))
-            ->orderBy('order')
+            ->where('type', $filters['type'])
+            ->when($filters['search'], function ($q) use ($filters) {
+                $search = $filters['search'];
+
+                $q->where(function ($sub) use ($search) {
+                    $sub->where('title', 'like', "%{$search}%")
+                        ->orWhere('content', 'like', "%{$search}%");
+                });
+            })
             ->latest()
+            ->orderBy('order')
             ->simplePaginate(10)
             ->withQueryString();
     }

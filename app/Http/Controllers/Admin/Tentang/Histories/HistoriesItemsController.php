@@ -18,9 +18,18 @@ class HistoriesItemsController extends Controller
      */
     public function index(Request $request)
     {
-        $histories = $this->query->list($request->type);
+        $section = $request->get('type', 'intro');
+        $search = trim($request->get('search'));
+        $filters = [
+            'type' => $section,
+            'search' => $search,
+        ];
+        $items = $this->query->getItems($filters);
+        if ($request->ajax()) {
+            return view('admin.pages.tentang.sejarah.partials.table', compact('items', 'section', 'search'));
+        }
 
-        return view('admin.pages.tentang.sejarah.index', compact('histories'));
+        return view('admin.pages.tentang.sejarah.index', compact('items', 'section', 'search'));
     }
 
     /**

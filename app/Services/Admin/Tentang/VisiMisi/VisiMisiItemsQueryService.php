@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Admin\Tentang;
+namespace App\Services\Admin\Tentang\VisiMisi;
 
 use App\Models\Periode;
 use App\Models\VisiMisiItem;

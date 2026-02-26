@@ -46,7 +46,6 @@ class UpdateHistoriesRequest extends FormRequest
                 'string',
                 'max:255',
             ],
-            'order' => 'nullable|integer|min:1',
             'is_active' => 'boolean',
         ];
     }

@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\Periode\PeriodeController;
 use App\Http\Controllers\Admin\Tentang\Histories\HistoriesItemsController;
-use App\Http\Controllers\Admin\Tentang\VisiMisiItemsController;
+use App\Http\Controllers\Admin\Tentang\VisiMisi\VisiMisiItemsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Pages\Tentang\PrestasiController;
 use App\Http\Controllers\Pages\Tentang\ProgramKerjaController;
@@ -38,7 +38,7 @@ Route::resource('/program-kerja', ProgramKerjaController::class);
 Route::resource('/prestasi', PrestasiController::class);
 
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->group(function () {
     Route::resource('/dashboard', DashboardAdminController::class);
     Route::resource('/periode', PeriodeController::class)->names('periode');
     Route::resource('/visi-misi', VisiMisiItemsController::class)->names('tentang.visi-misi');

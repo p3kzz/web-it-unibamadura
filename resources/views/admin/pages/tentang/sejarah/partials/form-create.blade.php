@@ -128,14 +128,6 @@
                         </button>
                     </div>
                 @endif
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">
-                        Urutan {{ ucfirst($section) }}
-                        <span class="text-red-500">*</span>
-                    </label>
-                    <input type="number" name="order" min="1"
-                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5">
-                </div>
                 <input type="hidden" name="is_active" value="0">
                 <div class="flex items-center gap-3">
                     <input type="checkbox" name="is_active" value="1"

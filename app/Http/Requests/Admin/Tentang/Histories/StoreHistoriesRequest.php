@@ -46,7 +46,6 @@ class StoreHistoriesRequest extends FormRequest
                 'string',
                 'max:255',
             ],
-            'order' => 'nullable|integer|min:1',
             'is_active' => 'boolean',
         ];
     }
@@ -63,8 +62,6 @@ class StoreHistoriesRequest extends FormRequest
             'extras.array' => 'Extras harus berupa array',
             'extras.*.string' => 'Setiap item extras harus berupa string',
             'extras.*.max' => 'Setiap item extras tidak boleh lebih dari 255 karakter',
-            'order.integer' => 'Urutan harus berupa angka',
-            'order.min' => 'Urutan harus minimal 1',
             'is_active.boolean' => 'Status aktif tidak valid',
         ];
     }

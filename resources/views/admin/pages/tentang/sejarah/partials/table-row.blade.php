@@ -90,14 +90,6 @@
             </div>
         </td>
     @endif
-    <td class="px-6 py-4 whitespace-nowrap">
-        <div class="flex items-center gap-2">
-            <span
-                class="inline-flex items-center justify-center w-8 h-8 bg-blue-100 text-uniba-blue font-bold rounded-lg text-sm group-hover:bg-blue-200 transition-colors duration-150">
-                {{ $item->order }}
-            </span>
-        </div>
-    </td>
     <td class="px-6 py-4 whitespace-nowrap text-center">
         @if ($item->is_active ?? true)
             <span

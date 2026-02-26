@@ -13,11 +13,6 @@ class HistoriesService
     public function store(array $data): Histories
     {
         return DB::transaction(function () use ($data) {
-
-            if (empty($data['order'])) {
-                $data['order'] = Histories::where('type', $data['type'])->max('order') + 1;
-            }
-
             return Histories::create($data);
         });
     }
@@ -39,16 +34,4 @@ class HistoriesService
         });
     }
 
-    public function swapOrder(int $orderA, int $orderB): void
-    {
-        DB::transaction(function () use ($orderA, $orderB) {
-
-            $a = Histories::where('order', $orderA)->firstOrFail();
-            $b = Histories::where('order', $orderB)->firstOrFail();
-
-            $a->update(['order' => 999]);
-            $b->update(['order' => $orderA]);
-            $a->update(['order' => $orderB]);
-        });
-    }
 }

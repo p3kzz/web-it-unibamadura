@@ -22,7 +22,6 @@ class HistoriesQueryService
                 });
             })
             ->latest()
-            ->orderBy('order')
             ->simplePaginate(10)
             ->withQueryString();
     }

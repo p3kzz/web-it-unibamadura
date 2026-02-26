@@ -6,7 +6,6 @@
         sub_title: '',
         content: '',
         extras: [],
-        order: '',
         is_active: false
     }
 }"
@@ -18,7 +17,6 @@
             sub_title: $event.detail.sub_title ?? '',
             content: $event.detail.content,
             extras: Array.isArray($event.detail.extras) ? $event.detail.extras : ($event.detail.extras ? [$event.detail.extras] : ['']),
-            order: $event.detail.order,
             is_active: Boolean($event.detail.is_active)
         }
     "
@@ -154,16 +152,6 @@
                         </button>
                     </div>
                 @endif
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">
-                        Urutan {{ ucfirst($section) }}
-                        <span class="text-red-500">*</span>
-                    </label>
-                    <input type="number" name="order" min="1" x-model="form.order"
-                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none">
-                </div>
-
                 <input type="hidden" name="is_active" value="0">
                 <div class="flex items-center gap-3">
                     <input type="checkbox" name="is_active" value="1" x-model="form.is_active"

@@ -37,7 +37,7 @@ class AuthenticatedSessionController extends Controller
                 ]);
         }
 
-        return redirect('/admin/dashboard');
+        return redirect('/admin_tik/dashboard');
     }
 
     /**

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Tentang;
+namespace App\Http\Controllers\Admin\Tentang\VisiMisi;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Tentang\StoreVisiMisiRequest;
-use App\Http\Requests\Admin\Tentang\UpdateVisiMisiRequest;
+use App\Http\Requests\Admin\Tentang\VisiMisi\StoreVisiMisiRequest;
+use App\Http\Requests\Admin\Tentang\VisiMisi\UpdateVisiMisiRequest;
 use App\Models\VisiMisiItem;
-use App\Services\Admin\Tentang\VisiMisiItemsQueryService;
+use App\Services\Admin\Tentang\VisiMisi\VisiMisiItemsQueryService;
 use Illuminate\Http\Request;
 
 class VisiMisiItemsController extends Controller

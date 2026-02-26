@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin\Tentang;
+namespace App\Http\Requests\Admin\Tentang\VisiMisi;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class UpdateVisiMisiRequest extends FormRequest
+class StoreVisiMisiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -39,7 +39,19 @@ class UpdateVisiMisiRequest extends FormRequest
                 'max:255',
             ],
             'content' => 'required|string|min:5',
-            'is_active' => 'nullable|boolean',
+            'is_active'  => 'nullable|boolean',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'section.required' => 'Tipe wajib dipilih',
+            'section.in' => 'Tipe tidak valid',
+            'title.max' => 'Judul terlalu panjang',
+            'content.required' => 'Konten tidak boleh kosong',
+            'content.min' => 'Konten terlalu pendek',
+            'is_active.boolean'    => 'Status aktif tidak valid',
         ];
     }
 }

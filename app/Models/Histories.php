@@ -15,7 +15,6 @@ class Histories extends Model
         'sub_title',
         'content',
         'extras',
-        'order',
         'is_active',
     ];
 

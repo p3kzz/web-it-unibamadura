@@ -22,7 +22,7 @@
             <span class="font-semibold">Dashboard</span>
             <div class="ml-auto w-2 h-2 bg-uniba-yellow rounded-full"></div>
         </a>
-        <a href="/admin/periode"
+        <a href="/admin_tik/periode"
             class="w-full flex items-center text-sm font-semibold px-2.5 py-3 rounded-xl transform text-blue-100 hover:text-white hover:bg-blue-800 hover:bg-opacity-50 transition-all duration-200">
             <div
                 class="w-8 h-8 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-opacity-30 transition-colors duration-200">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Tentang\Histories;
 
+use App\Rules\Admin\Tentang\VisiMisi\TimeLineYearRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -27,14 +28,24 @@ class StoreHistoriesRequest extends FormRequest
             'type' => 'required|in:intro,timeline,vision',
             'title' => 'required|string|max:255',
             'sub_title' => [
-                Rule::requiredIf(in_array($this->section, ['timeline'])),
+                Rule::requiredIf(in_array($this->type, ['timeline'])),
                 'nullable',
                 'string',
                 'max:255',
+                new TimeLineYearRule(),
             ],
             'content' => 'required|string',
-            'extras' => [Rule::requiredIf(in_array($this->section, ['timeline', 'vision'])), 'nullable|array'],
-            'extras.*' => [Rule::requiredIf(in_array($this->section, ['timeline', 'vision'])), 'string|max:255'],
+            'extras' => [
+                Rule::requiredIf(in_array($this->type, ['timeline', 'vision'])),
+                'nullable',
+                'array',
+            ],
+
+            'extras.*' => [
+                Rule::requiredIf(in_array($this->type, ['timeline', 'vision'])),
+                'string',
+                'max:255',
+            ],
             'order' => 'nullable|integer|min:1',
             'is_active' => 'boolean',
         ];

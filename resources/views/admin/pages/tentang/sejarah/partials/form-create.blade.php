@@ -8,7 +8,7 @@
         x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95"
-        class="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden">
+        class="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
 
         <div class="bg-uniba-blue px-6 py-4 flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -33,9 +33,9 @@
             </button>
         </div>
 
-        <form method="POST" action="{{ route('admin.tentang.histories.store') }}" class="p-6">
+        <form method="POST" action="{{ route('admin.tentang.histories.store') }}" class="p-6 overflow-y-auto flex-1">
             @csrf
-            <input type="hidden" name="section" value="{{ $section }}">
+            <input type="hidden" name="type" value="{{ $section }}">
             <div class="space-y-5">
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">
@@ -57,10 +57,10 @@
                         </p>
                     @enderror
                 </div>
-                @if (in_array($section, ['timeline', 'vision']))
+                @if (in_array($section, ['timeline']))
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">
-                            Timeline {{ ucfirst($section) }}
+                            {{ ucfirst($section) }}
                             <span class="text-red-500">*</span>
                         </label>
                         <input name="sub_title" type="text"
@@ -68,7 +68,7 @@
                             required>
 
                         </input>
-                        @error('periode_id')
+                        @error('sub_title')
                             <p class="mt-1 text-sm text-red-600 flex items-center gap-1">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd"
@@ -83,7 +83,6 @@
 
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">
-
                         Konten {{ ucfirst($section) }}
                         <span class="text-red-500">*</span>
                     </label>
@@ -104,7 +103,39 @@
                         </p>
                     @enderror
                 </div>
+                @if (in_array($section, ['timeline', 'vision']))
+                    <div x-data="{ items: [''] }">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">
+                            {{ $section === 'timeline' ? 'Highlights' : 'Tags / Badges' }}
+                            <span class="text-red-500">*</span>
+                        </label>
 
+                        <template x-for="(item, index) in items" :key="index">
+                            <div class="flex gap-2 mb-2">
+                                <input type="text" name="extras[]"
+                                    class="w-full border-2 border-gray-300 rounded-lg px-3 py-2 focus:border-uniba-blue outline-none"
+                                    placeholder="Masukkan {{ $section === 'timeline' ? 'highlight' : 'tag' }}"
+                                    x-model="items[index]">
+
+                                <button type="button" @click="items.splice(index, 1)"
+                                    class="px-3 bg-red-500 text-white rounded-lg">
+                                    ✕
+                                </button>
+                            </div>
+                        </template>
+                        <button type="button" @click="items.push('')" class="text-sm text-uniba-blue font-semibold">
+                            + Tambah
+                        </button>
+                    </div>
+                @endif
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">
+                        Urutan {{ ucfirst($section) }}
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <input type="number" name="order" min="1"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5">
+                </div>
                 <input type="hidden" name="is_active" value="0">
                 <div class="flex items-center gap-3">
                     <input type="checkbox" name="is_active" value="1"

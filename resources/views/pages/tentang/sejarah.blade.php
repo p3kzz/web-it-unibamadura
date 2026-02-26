@@ -57,12 +57,20 @@
                                 </div>
                             </div>
                             <div>
-                                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                                @foreach ($intro as $item)
+                                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                                        {{ $intro->title }}
+                                    </h2>
+                                    <div class="text-gray-600 leading-relaxed space-y-4">
+                                        {!! nl2br(e($intro->content)) !!}
+                                    </div>
+                                @endforeach
+                                {{-- <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
                                     {{ $intro->title }}
                                 </h2>
                                 <div class="text-gray-600 leading-relaxed space-y-4">
                                     {!! nl2br(e($intro->content)) !!}
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

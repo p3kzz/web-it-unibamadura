@@ -47,7 +47,7 @@ class HistoriesItemsController extends Controller
     {
         $this->service->store($request->validated());
 
-        return back()->with('success', 'Data berhasil ditambahkan');
+        return back()->withErrors('success', 'Data berhasil ditambahkan');
     }
 
     /**

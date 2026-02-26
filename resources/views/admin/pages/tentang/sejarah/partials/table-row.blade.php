@@ -116,7 +116,7 @@
 
     <td class="px-6 py-4">
         <div class="flex items-center justify-center gap-2">
-            <button @click="$dispatch('open-edit', {{ $item->toJson() }})"
+            <button @click="$dispatch('open-edit-histories', {{ $item->toJson() }})"
                 class="inline-flex items-center gap-1 px-3 py-2 bg-orange-500  hover:bg-orange-700 text-white text-xs font-semibold rounded-lg shadow hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
                 title="Edit data">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -129,11 +129,11 @@
             <form method="POST" action="{{ route('admin.tentang.histories.destroy', $item) }}" class="inline">
                 @csrf
                 @method('DELETE')
-                <button type="button" onclick="confirmDelete(this)" @disabled($item->is_active)
+                <button type="button" onclick="confirmDelete(this)"
                     class="px-3 py-2 text-xs font-semibold rounded-lg transition-colors duration-200 shadow-sm
                     {{ $item->is_active
                         ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                        : 'bg-red-500 text-white hover:bg-red-600 hover:shadow-md' }}">
+                        : 'bg-red-500 text-white hover:bg-red-600 hover:shadow-md' }} ">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin - UPT TIK UNIBA Madura</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="shortcut icon" href="{{ asset('images/logo/logo-uniba.png') }}" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('images/logo/logo.webp') }}" type="image/webp">
 </head>
 
 <body

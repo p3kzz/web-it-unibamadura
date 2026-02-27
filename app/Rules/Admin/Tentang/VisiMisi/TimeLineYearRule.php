@@ -35,7 +35,6 @@ class TimeLineYearRule implements ValidationRule
 
         $latest = Histories::query()
             ->whereNotNull('sub_title')
-            ->orderByDesc('order')
             ->first();
 
         if (!$latest) {

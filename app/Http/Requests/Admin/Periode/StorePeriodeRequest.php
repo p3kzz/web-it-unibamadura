@@ -48,4 +48,31 @@ class StorePeriodeRequest extends FormRequest
             'is_active.boolean'    => 'Status aktif tidak valid',
         ];
     }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+
+            $start = (int) $this->start_year;
+            $end   = (int) $this->end_year;
+
+            $overlap = Periode::query()
+                ->where(function ($q) use ($start, $end) {
+                    $q->whereBetween('start_year', [$start, $end])
+                        ->orWhereBetween('end_year', [$start, $end])
+                        ->orWhere(function ($q2) use ($start, $end) {
+                            $q2->where('start_year', '<=', $start)
+                                ->where('end_year', '>=', $end);
+                        });
+                })
+                ->exists();
+
+            if ($overlap) {
+                $validator->errors()->add(
+                    'start_year',
+                    'Rentang tahun bertabrakan dengan periode lain.'
+                );
+            }
+        });
+    }
 }

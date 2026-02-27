@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin\Tentang\Histories;
 
-use App\Rules\Admin\Tentang\VisiMisi\TimeLineYearRule;
+use App\Rules\Admin\Tentang\Histories\TimeLineYearRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -32,7 +32,7 @@ class UpdateHistoriesRequest extends FormRequest
                 'nullable',
                 'string',
                 'max:255',
-                new TimeLineYearRule(),
+                new TimeLineYearRule($this->route('history')?->id),
             ],
             'content' => 'required|string',
             'extras' => [

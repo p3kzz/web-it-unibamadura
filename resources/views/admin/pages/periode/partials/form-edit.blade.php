@@ -30,7 +30,6 @@
         x-transition:leave-end="opacity-0 scale-95"
         class="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden">
 
-        {{-- Header dengan tombol close --}}
         <div class="bg-uniba-blue px-6 py-4 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
@@ -58,7 +57,7 @@
             </button>
         </div>
 
-        <form method="POST" :action="`/admin/periode/${form.id}`" class="p-6">
+        <form method="POST" :action="`/admin_tik/periode/${form.id}`" class="p-6">
             @csrf
             @method('PUT')
 

@@ -9,7 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-50 text-gray-800 antialiased" x-data="{ sidebarOpen: false }">
+<body class="bg-gray-50 text-gray-800 antialiased" x-data="{ sidebarOpen: false, ready: false }" x-init="$nextTick(() => ready = true)">
     <x-sweetalert />
     <div class="flex h-screen overflow-hidden">
 
@@ -20,8 +20,12 @@
             class="fixed inset-0 z-20 bg-black bg-opacity-50 lg:hidden">
         </div>
 
-        <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
-            class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto bg-gradient-to-b from-uniba-blue to-uniba-dark text-white lg:translate-x-0 lg:static lg:inset-0 transition-transform duration-300 ease-in-out shadow-2xl flex flex-col">
+        <aside
+            :class="[
+                sidebarOpen ? 'translate-x-0' : '-translate-x-full',
+                ready ? 'transition-transform duration-300 ease-in-out' : ''
+            ]"
+            class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto bg-gradient-to-b from-uniba-blue to-uniba-dark text-white lg:translate-x-0 lg:static lg:inset-0 shadow-2xl flex flex-col">
 
             <div
                 class="relative h-20 border-b border-blue-800 bg-gradient-to-r from-uniba-dark to-blue-900 overflow-hidden">

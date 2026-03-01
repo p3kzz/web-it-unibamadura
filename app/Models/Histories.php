@@ -30,7 +30,7 @@ class Histories extends Model
 
     public function scopeTimeline($query)
     {
-        return $query->where('type', 'timeline')->where('is_active', true)->orderBy('order');
+        return $query->where('type', 'timeline')->where('is_active', true);
     }
 
     public function scopeVision($query)

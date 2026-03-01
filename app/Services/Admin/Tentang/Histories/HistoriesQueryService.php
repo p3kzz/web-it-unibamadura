@@ -19,6 +19,7 @@ class HistoriesQueryService
                 $q->where(function ($sub) use ($search) {
                     $sub->where('title', 'like', "%{$search}%")
                         ->orWhere('content', 'like', "%{$search}%");
+                    $sub->orWhere('sub_title', 'like', "%{$search}%");
                 });
             })
             ->latest()

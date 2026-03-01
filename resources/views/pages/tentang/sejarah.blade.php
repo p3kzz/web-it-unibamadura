@@ -38,7 +38,6 @@
         </div>
     </section>
 
-    {{-- Introduction Section --}}
     @if ($intro)
         <section class="py-16 bg-gray-50">
             <div class="container mx-auto px-4">
@@ -57,20 +56,12 @@
                                 </div>
                             </div>
                             <div>
-                                @foreach ($intro as $item)
-                                    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                                        {{ $intro->title }}
-                                    </h2>
-                                    <div class="text-gray-600 leading-relaxed space-y-4">
-                                        {!! nl2br(e($intro->content)) !!}
-                                    </div>
-                                @endforeach
-                                {{-- <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+                                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
                                     {{ $intro->title }}
                                 </h2>
                                 <div class="text-gray-600 leading-relaxed space-y-4">
                                     {!! nl2br(e($intro->content)) !!}
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -79,10 +70,8 @@
         </section>
     @endif
 
-    {{-- Timeline Section --}}
     @if ($timelines->count() > 0)
         <section class="py-20 bg-white relative overflow-hidden">
-            {{-- Background Decoration --}}
             <div class="absolute top-0 right-0 w-96 h-96 bg-blue-50 rounded-full filter blur-3xl opacity-50"></div>
             <div class="absolute bottom-0 left-0 w-96 h-96 bg-purple-50 rounded-full filter blur-3xl opacity-50"></div>
 
@@ -158,8 +147,6 @@
                                                 @endif
                                             </div>
                                         </div>
-
-                                        {{-- Center Icon --}}
                                         <div class="flex-shrink-0 relative z-10">
                                             <div
                                                 class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-{{ $color }}-400 to-{{ $color }}-600 rounded-full flex items-center justify-center shadow-xl border-4 border-white transform hover:scale-110 transition-transform duration-300">
@@ -171,13 +158,9 @@
                                             </div>
                                         </div>
 
-                                        {{-- Right Side Empty --}}
                                         <div class="md:w-1/2"></div>
                                     @else
-                                        {{-- Left Side Empty --}}
                                         <div class="md:w-1/2"></div>
-
-                                        {{-- Center Icon --}}
                                         <div class="flex-shrink-0 relative z-10 md:order-2">
                                             <div
                                                 class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-{{ $color }}-400 to-{{ $color }}-600 rounded-full flex items-center justify-center shadow-xl border-4 border-white transform hover:scale-110 transition-transform duration-300">
@@ -189,7 +172,6 @@
                                             </div>
                                         </div>
 
-                                        {{-- Right Side Content --}}
                                         <div class="md:w-1/2 md:order-3">
                                             <div
                                                 class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-6 md:p-8 border-l-4 border-{{ $color }}-500 transform hover:-translate-y-1">
@@ -233,7 +215,6 @@
         </section>
     @endif
 
-    {{-- Future Vision Section --}}
     @if ($vision)
         <section class="py-20 bg-gray-50">
             <div class="container mx-auto px-4">

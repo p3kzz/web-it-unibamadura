@@ -19,12 +19,12 @@ return new class extends Migration
             $table->text('excerpt')->nullable();
             $table->longText('content');
             $table->string('thumbnail')->nullable();
-            $table->enum('status', ['draft', 'published'])->default('draft');
+            $table->enum('status', ['draft', 'published'])->default('draft')->index();
             $table->timestamp('published_at')->nullable();
-            $table->date('event_date')->nullable();
+            $table->date('event_date')->nullable()->index();
             $table->string('location')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->unsignedInteger('views')->default(0);
+            $table->unsignedInteger('views')->default(0)->index();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->timestamps();

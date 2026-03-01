@@ -2,12 +2,11 @@
 
     <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-4 space-y-3">
         <x-table-search-hybrid placeholder="Cari {{ $section }}..." :currentSearch="$search ?? ''" :preserveParams="[
-            'section' => $section,
-            'periode_id' => $periodeFilter,
+            'type' => $section,
         ]" />
 
         <div x-data="{ open: false }" class="relative">
-            <button type="button" @click.stop="open = !open"
+            <button type="button" @click="open = !open" @click.away="open = false"
                 class="w-full inline-flex items-center justify-between gap-2 px-4 py-2.5
                     bg-gray-50 border-2 border-gray-200 rounded-xl
                     hover:border-uniba-blue hover:bg-blue-50
@@ -22,13 +21,9 @@
                         </svg>
                     </div>
                     <div class="text-left">
-                        <p class="text-xs text-gray-400 leading-none mb-0.5">Filter Periode</p>
+                        <p class="text-xs text-gray-400 leading-none mb-0.5">Filter Tipe</p>
                         <p class="text-sm font-semibold text-gray-800 leading-none">
-                            @if ($periodeFilter)
-                                {{ $periodes->firstWhere('id', $periodeFilter)->name ?? 'Semua Periode' }}
-                            @else
-                                Semua Periode
-                            @endif
+                            {{ ucfirst($section) }}
                         </p>
                     </div>
                 </div>
@@ -44,57 +39,28 @@
                 x-transition:leave="transition ease-in duration-150"
                 x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2"
                 class="absolute left-0 right-0 mt-2 bg-white rounded-xl shadow-xl
-                    border border-gray-100 py-2 z-50 max-h-72 overflow-y-auto">
-                <a href="{{ route('admin.tentang.visi-misi.index', array_filter(['section' => $section, 'search' => $search])) }}"
-                    class="flex items-center gap-3 px-4 py-3 hover:bg-blue-50 transition-colors duration-150
-                        {{ !$periodeFilter ? 'bg-blue-50' : '' }}">
-                    <div
-                        class="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center
-                                {{ !$periodeFilter ? 'bg-uniba-blue' : 'bg-gray-100' }}">
-                        <svg class="w-4 h-4 {{ !$periodeFilter ? 'text-white' : 'text-gray-400' }}" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-sm font-semibold {{ !$periodeFilter ? 'text-uniba-blue' : 'text-gray-800' }}">
-                            Semua Periode
-                        </p>
-                        <p class="text-xs text-gray-400">Tampilkan semua data</p>
-                    </div>
-                    @if (!$periodeFilter)
-                        <div class="ml-auto">
-                            <div class="w-2 h-2 bg-uniba-blue rounded-full"></div>
-                        </div>
-                    @endif
-                </a>
-
-                <div class="mx-4 border-t border-gray-100 my-1"></div>
-                @foreach ($periodes as $periode)
-                    <a href="{{ route('admin.tentang.visi-misi.index', array_filter(['section' => $section, 'periode_id' => $periode->id, 'search' => $search])) }}"
+                    border border-gray-100 py-2 z-50">
+                @foreach (['intro', 'timeline', 'vision'] as $type)
+                    <a href="{{ route('admin.tentang.histories.index', array_filter(['type' => $type, 'search' => $search])) }}"
                         class="flex items-center gap-3 px-4 py-3 hover:bg-blue-50 transition-colors duration-150
-                            {{ $periodeFilter == $periode->id ? 'bg-blue-50' : '' }}">
+                            {{ $section == $type ? 'bg-blue-50' : '' }}">
                         <div
                             class="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center
-                                    {{ $periodeFilter == $periode->id ? 'bg-uniba-blue' : 'bg-gray-100' }}">
-                            <svg class="w-4 h-4 {{ $periodeFilter == $periode->id ? 'text-white' : 'text-gray-400' }}"
-                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    {{ $section == $type ? 'bg-uniba-blue' : 'bg-gray-100' }}">
+                            <svg class="w-4 h-4 {{ $section == $type ? 'text-white' : 'text-gray-400' }}" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
                             <p
                                 class="text-sm font-semibold truncate
-                                    {{ $periodeFilter == $periode->id ? 'text-uniba-blue' : 'text-gray-800' }}">
-                                {{ $periode->name }}
-                            </p>
-                            <p class="text-xs text-gray-400">
-                                {{ $periode->start_year }} – {{ $periode->end_year }}
+                                    {{ $section == $type ? 'text-uniba-blue' : 'text-gray-800' }}">
+                                {{ ucfirst($type) }}
                             </p>
                         </div>
-                        @if ($periodeFilter == $periode->id)
+                        @if ($section == $type)
                             <div class="ml-auto flex-shrink-0">
                                 <div class="w-2 h-2 bg-uniba-blue rounded-full"></div>
                             </div>
@@ -120,12 +86,6 @@
                         <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide">
                             {{ ucfirst($section) }}
                         </p>
-                        @if ($item->periode)
-                            <p class="text-xs text-gray-500 leading-none mt-0.5">
-                                {{ $item->periode->name }}
-                                · {{ $item->periode->start_year }}–{{ $item->periode->end_year }}
-                            </p>
-                        @endif
                     </div>
                 </div>
 
@@ -147,24 +107,6 @@
             </div>
 
             <div class="p-4 space-y-3">
-                @if (in_array($section, ['misi', 'sasaran', 'tujuan']) && $item->title)
-                    <div>
-                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Judul</p>
-                        <p class="text-sm font-semibold text-gray-900 leading-relaxed">
-                            <span x-show="!expanded">{{ Str::limit($item->title, 80) }}</span>
-                            <span x-show="expanded" x-cloak>{{ $item->title }}</span>
-                        </p>
-                        @if (strlen($item->title) > 80)
-                            <button @click="expanded = !expanded"
-                                class="text-xs text-uniba-blue font-semibold mt-1 inline-flex items-center gap-1 hover:underline">
-                                <span x-text="expanded ? '↑ Tutup' : '↓ Lihat selengkapnya'"></span>
-                            </button>
-                        @endif
-                    </div>
-
-                    <div class="border-t border-gray-100"></div>
-                @endif
-
                 <div>
                     <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Konten</p>
                     <div class="text-sm text-gray-700 leading-relaxed">
@@ -181,7 +123,7 @@
             </div>
 
             <div class="grid grid-cols-2 gap-2 px-4 pb-4">
-                <button @click="$dispatch('open-edit', {{ $item->toJson() }})"
+                <button @click="$dispatch('open-edit-histories', {{ $item->toJson() }})"
                     class="inline-flex items-center justify-center gap-2 px-4 py-2.5
                         bg-orange-500 hover:bg-orange-600 active:bg-orange-700
                         text-white text-sm font-semibold rounded-xl
@@ -193,7 +135,7 @@
                     Edit
                 </button>
 
-                <form method="POST" action="{{ route('admin.tentang.visi-misi.destroy', $item) }}"
+                <form method="POST" action="{{ route('admin.tentang.histories.destroy', $item) }}"
                     onsubmit="return confirm('Yakin ingin menghapus data ini?\n\nData yang dihapus tidak dapat dikembalikan!')">
                     @csrf
                     @method('DELETE')
@@ -244,7 +186,7 @@
                 @endif
             </p>
 
-            <button @click="$dispatch('open-create')"
+            <button @click="$dispatch('open-create-histories')"
                 class="inline-flex items-center gap-2 px-5 py-2.5
                     bg-uniba-blue hover:bg-blue-800 active:bg-blue-900
                     text-white text-sm font-semibold rounded-xl

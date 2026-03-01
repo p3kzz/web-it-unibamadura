@@ -62,3 +62,85 @@ app(App\Services\Admin\Tentang\Histories\HistoriesService::class)
 app(App\Services\Admin\Tentang\Histories\HistoriesService::class)
     ->swapOrder(5, 4);
 exit
+use App\Services\Admin\Content\ContentService;
+use App\Models\Content;
+$service = app(ContentService::class);
+$data = [
+'title' => 'test tinker',
+'type' => 'news',
+'excerpt' => 'test pertama',
+'content' => 'test konten',
+'status' => 'published',
+'meta_title' => null,
+'meta_description' => null,
+'user_id' => 1,
+];
+exit
+use App\Services\Admin\Content\ContentService;
+use App\Models\Content;
+$service = app(ContentService::class);
+$data = [
+'title' => 'test tinker',
+'type' => 'news',
+'excerpt' => 'test pertama',
+'content' => 'test konten',
+'status' => 'published',
+'meta_title' => null,
+'meta_description' => null,
+'user_id' => 1,
+]; $content = $service->store($data);
+$data = [
+'title' => 'test tinker',
+'type' => 'news',
+'excerpt' => 'test pertama',
+'content' => 'test konten',
+'status' => 'published',
+'meta_title' => null,
+'meta_description' => null,
+'user_id' => 1,
+]; $content = $service->store($data);
+$data = [
+'title' => 'test tinker',
+'type' => 'news',
+'excerpt' => 'test pertama',
+'content' => 'test konten',
+'status' => 'published',
+'meta_title' => null,
+'meta_description' => null,
+'user_id' => 1,
+]; $content = $service->store($data);
+>>> app(ContentService::class)->store([
+    'title' => 'test tinker',
+    'type' => 'news',
+    'excerpt' => 'test pertama',
+    'content' => 'test konten',
+    'status' => 'published',
+    'user_id' => 1,  // <-- Tambahkan ini
+    ...
+])
+>>> app(ContentService::class)->store([
+    'title' => 'test tinker',
+    'type' => 'news',
+    'excerpt' => 'test pertama',
+    'content' => 'test konten',
+    'status' => 'published',
+    'user_id' => 1, 
+])
+>>> app(ContentService::class)->store([
+    'title' => 'test tinker',
+    'type' => 'news',
+    'excerpt' => 'test pertama',
+    'content' => 'test konten',
+    'status' => 'published',
+    'user_id' => 1, 
+]);
+$data = [
+'title' => 'test tinker',
+'type' => 'news',
+'excerpt' => 'test pertama',
+'content' => 'test konten',
+'status' => 'published',
+'meta_title' => null,
+'meta_description' => null,
+'user_id' => 1,
+]; $content = $service->store($data);

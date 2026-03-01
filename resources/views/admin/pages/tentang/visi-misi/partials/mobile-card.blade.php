@@ -7,7 +7,7 @@
         ]" />
 
         <div x-data="{ open: false }" class="relative">
-            <button type="button" @click.stop="open = !open"
+            <button type="button" @click="open = !open" @click.away="open = false"
                 class="w-full inline-flex items-center justify-between gap-2 px-4 py-2.5
                     bg-gray-50 border-2 border-gray-200 rounded-xl
                     hover:border-uniba-blue hover:bg-blue-50
@@ -161,10 +161,8 @@
                             </button>
                         @endif
                     </div>
-
                     <div class="border-t border-gray-100"></div>
                 @endif
-
                 <div>
                     <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Konten</p>
                     <div class="text-sm text-gray-700 leading-relaxed">
@@ -227,7 +225,6 @@
                     </svg>
                 @endif
             </div>
-
             <p class="text-gray-700 font-semibold mb-1">
                 @if ($search)
                     Tidak ada hasil pencarian

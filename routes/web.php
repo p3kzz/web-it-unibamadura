@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Content\ContentItemsController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\Periode\PeriodeController;
 use App\Http\Controllers\Admin\Tentang\Histories\HistoriesItemsController;
@@ -43,6 +44,7 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     Route::resource('/periode', PeriodeController::class)->names('periode');
     Route::resource('/visi-misi', VisiMisiItemsController::class)->names('tentang.visi-misi');
     Route::resource('/histories', HistoriesItemsController::class)->names('tentang.histories');
+    Route::resource('/content', ContentItemsController::class)->names('content');
 });
 
 require __DIR__ . '/auth.php';

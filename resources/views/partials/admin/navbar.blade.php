@@ -9,7 +9,7 @@
             Menu Utama
         </p>
 
-        <a href="/dashboard"
+        <a href="/admin_tik/dashboard"
             class="group flex items-center px-4 py-3 bg-gradient-to-r from-blue-800 to-blue-700 text-white rounded-xl mb-2 shadow-lg transform hover:scale-105 transition-all duration-200">
             <div
                 class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-opacity-30 transition-colors duration-200">

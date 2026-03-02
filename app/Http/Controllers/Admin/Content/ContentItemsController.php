@@ -14,9 +14,20 @@ class ContentItemsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $section = $request->get('type', 'news');
+        $search = trim($request->get('search'));
+        $filters = [
+            'type' => $section,
+            'search' => $search,
+        ];
+        $items = $this->query->getItems($filters);
+        if ($request->ajax()) {
+            return view('admin.pages.content.partials.table', compact('items', 'section', 'search'));
+        }
+
+        return view('admin.pages.content.index', compact('items', 'section', 'search'));
     }
 
     /**

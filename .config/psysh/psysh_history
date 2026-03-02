@@ -144,3 +144,46 @@ $data = [
 'meta_description' => null,
 'user_id' => 1,
 ]; $content = $service->store($data);
+use App\Services\Admin\Content\ContentService;
+use App\Models\Content;
+$service = app(ContentService::class);
+$data = [
+'title' => 'test tinker',
+'type' => 'news',
+'excerpt' => 'test pertama',
+'content' => 'test konten',
+'status' => 'published',
+'meta_title' => null,
+'meta_description' => null,
+'user_id' => null,
+]; $content = $service->store($data);
+$data = [
+'title' => 'test tinker',
+'type' => 'news',
+'excerpt' => 'test pertama',
+'content' => 'test konten',
+'status' => 'published',
+'meta_title' => null,
+'meta_description' => null,
+'user_id' => 1,
+]; $content = $service->store($data);
+exit
+use App\Services\Admin\Content\ContentService;
+use App\Models\Content;
+$service = app(ContentService::class);
+$content = Content::latest()->first();
+$updated = $service->update($content, [
+    'title' => 'Judul Baru Sekali',
+    'type' => $content->type,
+    'excerpt' => $content->excerpt,
+    'content' => $content->content,
+    'status' => $content->status,
+]);
+$updated = $service->update($content, [
+    'title' => $content->title,
+    'type' => $content->type,
+    'excerpt' => $content->excerpt,
+    'content' => $content->content,
+    'status' => 'draft',
+]);
+exit

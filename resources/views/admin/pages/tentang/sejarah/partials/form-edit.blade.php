@@ -53,7 +53,7 @@
             </button>
         </div>
 
-        <form :action="`{{ route('admin.tentang.histories.destroy', ':id') }}`.replace(':id', form.id)" method="POST"
+        <form :action="`{{ route('admin.tentang.histories.update', ':id') }}`.replace(':id', form.id)" method="POST"
             class="p-6 overflow-y-auto flex-1">
             @csrf
             @method('PUT')

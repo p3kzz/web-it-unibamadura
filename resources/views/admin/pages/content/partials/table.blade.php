@@ -24,7 +24,7 @@
                             d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
                             clip-rule="evenodd"></path>
                     </svg>
-                    Terakhir diupdate: {{ now()->format('d M Y') }}
+                    Terakhir diupdate: {{ optional($items->max('updated_at'))->format('d M Y') }}
                 </span>
             </div>
         </div>
@@ -49,10 +49,9 @@
                                 ['label' => 'Content', 'key' => 'content'],
                             ],
                             'announcement' => [['label' => 'Content', 'key' => 'content']],
-                            'agendas' => [
-                                ['label' => 'Tanggal Agenda', 'key' => 'agenda_date'],
-                                ['label' => 'Location', 'key' => 'location'],
+                            'agenda' => [
                                 ['label' => 'Event Date', 'key' => 'event_date'],
+                                ['label' => 'Location', 'key' => 'location'],
                             ],
                         ];
 
@@ -68,7 +67,7 @@
                             <div class="flex items-center gap-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="{{ in_array($col['key'], ['agenda_date', 'location', 'event_date', 'published']) ? $dateIcon : 'M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12' }}">
+                                        d="{{ in_array($col['key'], ['location', 'event_date']) ? $dateIcon : 'M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12' }}">
                                     </path>
                                 </svg>
                                 {{ $col['label'] }}

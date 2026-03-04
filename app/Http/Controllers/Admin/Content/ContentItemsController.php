@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Content;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Content\StoreContentRequest;
 use App\Models\Content;
 use App\Services\Admin\Content\ContentQueryService;
 use App\Services\Admin\Content\ContentService;
@@ -41,9 +42,9 @@ class ContentItemsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreContentRequest $request)
     {
-        $this->service->store($request->validate());
+        $this->service->store($request->validated());
         return back()->withErrors('success', 'Data berhasil ditambahkan');
     }
 

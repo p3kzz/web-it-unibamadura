@@ -1,3 +1,3 @@
 <div class="flex-1">
-    <x-table-search-hybrid placeholder="Cari {{ $section }}..." :currentSearch="$search ?? ''" :preserveParams="['type' => $section]" />
+    <x-table-search-hybrid placeholder="Cari {{ $section }}..." :currentSearch="$search ?? ''" :preserveParams="['type' => $section, 'status' => $statusFilter ?? null]" />
 </div>

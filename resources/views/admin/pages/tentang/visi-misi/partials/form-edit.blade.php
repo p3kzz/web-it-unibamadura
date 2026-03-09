@@ -51,7 +51,7 @@
             </button>
         </div>
 
-        <form :action="`{{ route('admin.tentang.visi-misi.index') }}/${form.id}`" method="POST" class="p-6">
+        <form :action="`/admin_tik/visi-misi/${form.id}`" method="POST" class="p-6">
             @csrf
             @method('PUT')
 

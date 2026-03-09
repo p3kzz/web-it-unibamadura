@@ -31,6 +31,7 @@
 
         <div class="flex flex-col md:flex-row gap-3">
             @include('admin.pages.content.partials.search')
+            @include('admin.pages.content.partials.status-filter')
         </div>
     </div>
 

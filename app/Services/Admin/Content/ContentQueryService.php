@@ -13,6 +13,9 @@ class ContentQueryService
     {
         return Content::query()
             ->where('type', $filters['type'])
+            ->when($filters['status'], function ($q) use ($filters) {
+                $q->where('status', $filters['status']);
+            })
             ->when($filters['search'], function ($q) use ($filters) {
                 $search = $filters['search'];
 

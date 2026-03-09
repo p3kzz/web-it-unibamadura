@@ -32,7 +32,7 @@
                     x-transition:leave-end="opacity-0 scale-95"
                     class="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
 
-                    @foreach (['news', 'announcement', 'agendas'] as $t)
+                    @foreach (['news', 'announcement', 'agenda'] as $t)
                         <a href="{{ route('admin.content.index', array_filter(['type' => $t, 'search' => $search])) }}"
                             class="flex items-center gap-3 px-4 py-2.5 hover:bg-blue-50 transition-colors duration-150 {{ $section === $t ? 'bg-blue-50' : '' }}">
                             <div class="flex-shrink-0">

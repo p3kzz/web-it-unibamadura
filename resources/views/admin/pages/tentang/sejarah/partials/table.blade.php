@@ -36,7 +36,7 @@
         <div class="flex flex-col md:flex-row gap-3">
             @include('admin.pages.tentang.sejarah.partials.search')
 
-            {{-- @include('admin.pages.tentang.sejarah.partials.periode-filter') --}}
+            @include('admin.pages.tentang.sejarah.partials.status-filter')
         </div>
     </div>
 

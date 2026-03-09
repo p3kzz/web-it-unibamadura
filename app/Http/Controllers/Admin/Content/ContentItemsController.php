@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Content;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Content\StoreContentRequest;
+use App\Http\Requests\Admin\Content\UpdateContentRequest;
 use App\Models\Content;
 use App\Services\Admin\Content\ContentQueryService;
 use App\Services\Admin\Content\ContentService;
@@ -19,16 +20,20 @@ class ContentItemsController extends Controller
     {
         $section = $request->get('type', 'news');
         $search = trim($request->get('search'));
+        $statusFilter = $request->get('status');
+
         $filters = [
             'type' => $section,
             'search' => $search,
+            'status' => $statusFilter,
         ];
+
         $items = $this->query->getItems($filters);
         if ($request->ajax()) {
-            return view('admin.pages.content.partials.table', compact('items', 'section', 'search'));
+            return view('admin.pages.content.partials.table', compact('items', 'section', 'search', 'statusFilter'));
         }
 
-        return view('admin.pages.content.index', compact('items', 'section', 'search'));
+        return view('admin.pages.content.index', compact('items', 'section', 'search', 'statusFilter'));
     }
 
     /**
@@ -67,10 +72,10 @@ class ContentItemsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Content $content)
+    public function update(UpdateContentRequest $request, Content $content)
     {
-        $this->service->update($content, $request->validate());
-        return back()->withErrors('success', 'Data berhasil diperbarui');
+        $this->service->update($content, $request->validated());
+        return back()->with('success', 'Data berhasil diperbarui');
     }
 
     /**

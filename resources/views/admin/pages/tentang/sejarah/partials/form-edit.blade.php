@@ -53,8 +53,7 @@
             </button>
         </div>
 
-        <form :action="`{{ route('admin.tentang.histories.update', ':id') }}`.replace(':id', form.id)" method="POST"
-            class="p-6 overflow-y-auto flex-1">
+        <form :action="`/admin_tik/histories/${form.id}`" method="POST" class="p-6 overflow-y-auto flex-1">
             @csrf
             @method('PUT')
             <input type="hidden" name="type" value="{{ $section }}">

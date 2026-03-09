@@ -30,7 +30,7 @@ class UpdateContentRequest extends FormRequest
             'content' => 'required|string',
             'thumbnail' => 'nullable|image|mimes:jpg,png,webp|max:2048',
             'status' => 'required', Rule::in(['draft', 'published']),
-            'published_at' => [Rule::requiredIf($this->status === 'published'), 'nullable', 'date'],
+            'published_at' => 'nullable|date',
             'event_date' => [Rule::requiredIf($this->type === 'agenda'), 'nullable', 'date'],
             'location' => [Rule::requiredIf($this->type === 'agenda'), 'nullable', 'string', 'max:255'],
             'meta_title' => 'nullable|string|max:255',

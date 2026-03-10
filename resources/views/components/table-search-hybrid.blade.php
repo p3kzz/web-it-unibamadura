@@ -1,7 +1,7 @@
 @props([
     'placeholder' => 'Cari data...',
     'currentSearch' => '',
-    'preserveParams' => [], // Parameters yang ingin dipertahankan (section, periode_id, dll)
+    'preserveParams' => [],
 ])
 
 <div class="relative" x-data="{
@@ -39,7 +39,6 @@
 
         const url = window.location.pathname + '?' + params.toString();
 
-        // Fetch via AJAX
         fetch(url, {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
@@ -101,7 +100,6 @@
         </div>
     </div>
 
-    {{-- Search Info --}}
     <div x-show="search.length > 0" x-cloak class="mt-1.5 text-xs text-gray-600">
         <span class="inline-flex items-center gap-1">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

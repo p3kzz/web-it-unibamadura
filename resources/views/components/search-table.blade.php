@@ -11,7 +11,6 @@
     <div x-ref="tableWrapper">
         {{ $slot }}
     </div>
-
 </div>
 
 <script>

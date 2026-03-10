@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\Tentang\Histories\UpdateHistoriesRequest;
 use App\Models\Histories;
 use App\Services\Admin\Tentang\Histories\HistoriesQueryService;
 use App\Services\Admin\Tentang\Histories\HistoriesService;
+use App\Support\RequestHelper;
 use Illuminate\Http\Request;
 
 class HistoriesItemsController extends Controller
@@ -20,16 +21,18 @@ class HistoriesItemsController extends Controller
     {
         $section = $request->get('type', 'intro');
         $search = trim($request->get('search'));
+        $statusFilter = RequestHelper::int('is_active');
         $filters = [
             'type' => $section,
             'search' => $search,
+            'is_active' => $statusFilter,
         ];
         $items = $this->query->getItems($filters);
         if ($request->ajax()) {
-            return view('admin.pages.tentang.sejarah.partials.table', compact('items', 'section', 'search'));
+            return view('admin.pages.tentang.sejarah.partials.table', compact('items', 'section', 'search', 'statusFilter'));
         }
 
-        return view('admin.pages.tentang.sejarah.index', compact('items', 'section', 'search'));
+        return view('admin.pages.tentang.sejarah.index', compact('items', 'section', 'search', 'statusFilter'));
     }
 
     /**

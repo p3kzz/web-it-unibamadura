@@ -54,25 +54,24 @@
                     @enderror
                 </div>
 
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Thumbnail</label>
-                    <div class="flex items-start gap-4">
-                        <template x-if="thumbnailPreview">
-                            <img :src="thumbnailPreview"
-                                class="w-20 h-20 rounded-lg object-cover border-2 border-gray-200">
-                        </template>
-                        <div class="flex-1">
-                            <input type="file" name="thumbnail" accept="image/*" @change="fileChosen"
-                                class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-uniba-blue hover:file:bg-blue-100 transition-all">
-                            <p class="mt-1 text-xs text-gray-500">Format: JPG, PNG, WebP (Max: 2MB)</p>
-                        </div>
-                    </div>
-                    @error('thumbnail')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
                 @if ($section === 'news')
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Thumbnail</label>
+                        <div class="flex items-start gap-4">
+                            <template x-if="thumbnailPreview">
+                                <img :src="thumbnailPreview"
+                                    class="w-20 h-20 rounded-lg object-cover border-2 border-gray-200">
+                            </template>
+                            <div class="flex-1">
+                                <input type="file" name="thumbnail" accept="image/*" @change="fileChosen"
+                                    class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-uniba-blue hover:file:bg-blue-100 transition-all">
+                                <p class="mt-1 text-xs text-gray-500">Format: JPG, PNG, WebP (Max: 2MB)</p>
+                            </div>
+                        </div>
+                        @error('thumbnail')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Ringkasan <span
                                 class="text-red-500">*</span></label>
@@ -84,20 +83,23 @@
                         @enderror
                     </div>
                 @endif
+                @if (in_array($section, ['news', 'announcement']))
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Konten <span
+                                class="text-red-500">*</span></label>
+                        <textarea name="content" rows="4"
+                            class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue/20 outline-none"
+                            placeholder="Tulis isi lengkap di sini..." required>{{ old('content') }}</textarea>
+                        @error('content')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                @endif
 
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Konten <span
-                            class="text-red-500">*</span></label>
-                    <textarea name="content" rows="4"
-                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue/20 outline-none"
-                        placeholder="Tulis isi lengkap di sini..." required>{{ old('content') }}</textarea>
-                    @error('content')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
+
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    @if (in_array($section, ['agenda', 'announcement']))
+                    @if (in_array($section, ['agenda']))
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Tanggal Event <span
                                     class="text-red-500">*</span></label>
@@ -108,9 +110,6 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
-                    @endif
-
-                    @if ($section === 'agenda')
                         <div>
                             <label class="block text-sm font-bold text-gray-700 mb-2">Lokasi <span
                                     class="text-red-500">*</span></label>

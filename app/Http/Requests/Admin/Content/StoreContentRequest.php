@@ -24,19 +24,41 @@ class StoreContentRequest extends FormRequest
     public function rules(): array
     {
         return [
+
             'title' => 'required|string|max:255',
-            'type' => 'required',
-            Rule::in(['news', 'announcement', 'agenda']),
+
+            'type' => ['required', Rule::in(['news', 'announcement', 'agenda'])],
+
             'excerpt' => 'nullable|string|max:500',
-            'content' => 'required|string',
+
+            'content' => [
+                Rule::requiredIf(in_array($this->type, ['news', 'announcement'])),
+                'nullable',
+                'string'
+            ],
+
             'thumbnail' => 'nullable|image|mimes:jpg,png,webp|max:2048',
-            'status' => 'required',
-            Rule::in(['draft', 'published']),
+
+            'status' => ['required', Rule::in(['draft', 'published'])],
+
             'published_at' => 'nullable|date',
-            'event_date' => [Rule::requiredIf($this->type === 'agenda'), 'nullable', 'date'],
-            'location' => [Rule::requiredIf($this->type === 'agenda'), 'nullable', 'string', 'max:255'],
+
+            'event_date' => [
+                Rule::requiredIf($this->type === 'agenda'),
+                'nullable',
+                'date'
+            ],
+
+            'location' => [
+                Rule::requiredIf($this->type === 'agenda'),
+                'nullable',
+                'string',
+                'max:255'
+            ],
+
             'meta_title' => 'nullable|string|max:255',
-            'meta_descrition' => 'nullable|string|max:255',
+
+            'meta_description' => 'nullable|string|max:255',
 
         ];
     }
@@ -47,7 +69,6 @@ class StoreContentRequest extends FormRequest
             'title.required' => 'Judul wajib diisi.',
             'slug.required' => 'Slug wajib diisi.',
             'type.required' => 'Tipe wajib dipilih.',
-            'content.required' => 'Konten wajib diisi.',
             'thumbnail.image' => 'Thumbnail harus berupa gambar.',
             'thumbnail.mimes' => 'Thumbnail harus berupa gambar dengan format jpg, png atau wbep.',
             'thumbnail.max' => 'Ukuran thumbnail maksimal 2MB.',

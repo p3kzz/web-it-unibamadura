@@ -16,18 +16,22 @@ class ContentService
     public function store(array $data): Content
     {
         return DB::transaction(function () use ($data) {
-            if (isset($data['thumbnail'])) {
+
+            if (!empty($data['thumbnail'])) {
                 $data['thumbnail'] = $data['thumbnail']
                     ->store('berita', 'public');
             }
 
+            $data['content'] = $data['content'] ?? '';
+
             $data['slug'] = $this->generateUniqueSlug($data['title']);
-            if ($data['status'] === 'published') {
-                $data['published_at'] = $data['published_at'] ?? now();
-            } else {
-                $data['published_at'] = null;
-            }
+
+            $data['published_at'] = $data['status'] === 'published'
+                ? ($data['published_at'] ?? now())
+                : null;
+
             $data['user_id'] = $data['user_id'] ?? Auth::id();
+
             return Content::create($data);
         });
     }

@@ -1,5 +1,5 @@
 <tr x-data="{ expanded: false }" class="hover:bg-blue-50 transition-colors duration-150 group">
-    {{-- Kolom No --}}
+
     <td class="px-6 py-4 whitespace-nowrap">
         <div class="flex items-center gap-2">
             <span
@@ -9,33 +9,44 @@
         </div>
     </td>
 
-    {{-- Kolom Title --}}
     <td class="px-6 py-4">
         <div class="flex items-center space-x-3">
-            @if ($item->thumbnail)
-                <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}"
-                    class="w-16 h-16 rounded-lg object-cover flex-shrink-0">
-            @else
-                <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                </div>
+            @if ($section === 'news')
+                @if ($item->thumbnail)
+                    <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}"
+                        class="w-16 h-16 rounded-lg object-cover flex-shrink-0">
+                @else
+                    <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16" />
+                        </svg>
+                    </div>
+                @endif
             @endif
+
             <div class="flex-1 min-w-0">
                 <p class="font-semibold text-gray-900 break-words">
-                    <span x-show="!expanded">{{ Str::limit($item->title, 80) }}</span>
-                    <span x-show="expanded" x-cloak>{{ $item->title }}</span>
+                    <span x-show="!expanded">
+                        {{ Str::limit($item->title, 80) }}
+                    </span>
+
+                    <span x-show="expanded" x-cloak>
+                        {{ $item->title }}
+                    </span>
                 </p>
+
                 @if (strlen($item->title) > 80)
                     <button @click="expanded = !expanded"
                         class="text-xs text-uniba-blue hover:text-blue-800 font-medium mt-1 inline-flex items-center gap-1">
+
                         <span x-text="expanded ? 'Tutup' : 'Lihat selengkapnya'"></span>
+
                         <svg class="w-3 h-3 transition-transform duration-200" :class="expanded ? 'rotate-90' : ''"
                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                            </path>
+
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+
                         </svg>
                     </button>
                 @endif
@@ -43,14 +54,21 @@
         </div>
     </td>
 
-    {{-- Kolom Dinamis Berdasarkan Section --}}
     @if ($section === 'news')
         <td class="px-6 py-4 text-sm text-gray-700">
-            <span class="line-clamp-2">{{ $item->excerpt ?? '-' }}</span>
+            <span class="line-clamp-2">
+                {{ $item->excerpt ?? '-' }}
+            </span>
         </td>
+
         <td class="px-6 py-4 text-sm text-gray-700">
-            <span x-show="!expanded" class="line-clamp-2">{{ Str::limit(strip_tags($item->content), 100) }}</span>
-            <span x-show="expanded" x-cloak class="block">{{ Str::limit(strip_tags($item->content), 300) }}</span>
+            <span x-show="!expanded" class="line-clamp-2">
+                {{ Str::limit(strip_tags($item->content), 100) }}
+            </span>
+
+            <span x-show="expanded" x-cloak class="block">
+                {{ Str::limit(strip_tags($item->content), 300) }}
+            </span>
         </td>
     @elseif ($section === 'announcement')
         <td class="px-6 py-4 text-sm text-gray-700">
@@ -59,38 +77,39 @@
             </div>
         </td>
     @elseif ($section === 'agenda')
-        {{-- Pastikan 'agenda' bukan 'agendas' --}}
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
             {{ $item->event_date ? \Carbon\Carbon::parse($item->event_date)->format('d M Y') : '-' }}
         </td>
+
         <td class="px-6 py-4 text-sm text-gray-700">
             {{ Str::limit($item->location ?? '-', 50) }}
         </td>
     @endif
 
-    {{-- Kolom Published At --}}
     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
         {{ $item->published_at ? \Carbon\Carbon::parse($item->published_at)->format('d M Y H:i') : '-' }}
     </td>
 
-    {{-- Kolom Status --}}
     <td class="px-6 py-4 whitespace-nowrap text-center">
         @if ($item->status === 'published')
             <span
                 class="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+
                 <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+
                 Dipublikasikan
             </span>
         @else
             <span
                 class="inline-flex items-center gap-1 px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded-full">
+
                 <span class="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
+
                 Draft
             </span>
         @endif
     </td>
 
-    {{-- Kolom Aksi --}}
     <td class="px-6 py-4">
         <div class="flex items-center justify-center gap-2">
             <button @click="$dispatch('open-edit-content', {{ $item->toJson() }})"
@@ -106,8 +125,12 @@
             <form method="POST" action="{{ route('admin.content.destroy', $item) }}" class="inline">
                 @csrf
                 @method('DELETE')
+
                 <button type="button" onclick="confirmDelete(this)"
-                    class="inline-flex items-center gap-1 px-3 py-2 {{ $item->status === 'published' ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-red-500 text-white hover:bg-red-600' }} text-xs font-semibold rounded-lg transition-colors duration-200 shadow-sm"
+                    class="inline-flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg transition-colors duration-200 shadow-sm
+                    {{ $item->status === 'published'
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        : 'bg-red-500 text-white hover:bg-red-600' }}"
                     {{ $item->status === 'published' ? 'disabled' : '' }}>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -117,6 +140,8 @@
                     Hapus
                 </button>
             </form>
+
         </div>
     </td>
+
 </tr>

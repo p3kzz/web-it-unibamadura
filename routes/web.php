@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Content\ContentItemsController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\Periode\PeriodeController;
+use App\Http\Controllers\Admin\StrukturOrganisasi\StrukturOrganisasiItemsController;
 use App\Http\Controllers\Admin\Tentang\Histories\HistoriesItemsController;
 use App\Http\Controllers\Admin\Tentang\VisiMisi\VisiMisiItemsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -45,6 +46,7 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     Route::resource('/visi-misi', VisiMisiItemsController::class)->names('tentang.visi-misi');
     Route::resource('/histories', HistoriesItemsController::class)->names('tentang.histories');
     Route::resource('/content', ContentItemsController::class)->names('content');
+    Route::resource('/struktur-organisasi-item', StrukturOrganisasiItemsController::class)->names('tentang.struktur-organisasi');
 });
 
 require __DIR__ . '/auth.php';

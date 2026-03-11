@@ -143,8 +143,6 @@
                                 Sekarang</span>
                         </label>
                     </div>
-                    <p class="mt-2 text-xs text-gray-500 italic">* Jika memilih "Publikasikan", konten akan langsung
-                        muncul di website.</p>
                     @error('status')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror

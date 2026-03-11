@@ -4,11 +4,9 @@
 
 @section('content')
 
-    {{-- Hero Section --}}
     <section class="relative bg-gradient-to-br from-uniba-blue via-blue-700 to-uniba-dark py-20 overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
-        {{-- Animated Background Elements --}}
         <div
             class="absolute top-20 right-10 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow">
         </div>
@@ -30,7 +28,6 @@
             </div>
         </div>
 
-        {{-- Decorative Wave --}}
         <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
             <svg class="relative block w-full h-12" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -41,285 +38,292 @@
         </div>
     </section>
 
-    {{-- Organizational Chart Section --}}
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
 
-            {{-- Kepala UPT --}}
-            <div class="max-w-md mx-auto mb-12 scroll-animate">
-                <div
-                    class="bg-gradient-to-br from-uniba-blue to-blue-700 rounded-2xl shadow-2xl p-8 text-center relative overflow-hidden group hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-2">
-                    {{-- Background Pattern --}}
-                    <div
-                        class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
-                    </div>
-
-                    <div class="relative z-10">
-                        {{-- Avatar --}}
-                        <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-white p-1 shadow-xl">
-                            <div
-                                class="w-full h-full rounded-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                                <svg class="w-16 h-16 text-uniba-blue" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg>
-                            </div>
-                        </div>
-
-                        {{-- Badge --}}
-                        <span
-                            class="inline-block bg-uniba-yellow text-uniba-blue text-xs font-bold px-4 py-1 rounded-full mb-3">
-                            KEPALA UPT
-                        </span>
-
-                        {{-- Name & Title --}}
-                        <h3 class="text-2xl font-bold text-white mb-2">
-                            [Nama Kepala UPT]
-                        </h3>
-                        <p class="text-blue-100 text-sm mb-4">
-                            NIP: [Nomor Induk Pegawai]
-                        </p>
-
-                        {{-- Description --}}
-                        <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-4 mt-4">
-                            <p class="text-blue-50 text-sm leading-relaxed">
-                                Memimpin dan mengkoordinasikan seluruh kegiatan UPT TIK dalam memberikan layanan teknologi
-                                informasi
-                            </p>
-                        </div>
-                    </div>
+            <div class="text-center mb-14 scroll-animate">
+                <p class="text-xs font-bold text-uniba-blue uppercase tracking-widest mb-2">Bagan Resmi</p>
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">Bagan Struktur Organisasi</h2>
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="h-px w-16 bg-gray-300"></div>
+                    <div class="w-8 h-1.5 bg-uniba-yellow rounded-full"></div>
+                    <div class="h-px w-16 bg-gray-300"></div>
                 </div>
-
-                {{-- Connector Line --}}
-                <div class="flex justify-center">
-                    <div class="w-1 h-12 bg-gradient-to-b from-blue-600 to-transparent"></div>
-                </div>
-            </div>
-
-            {{-- Divisi/Bagian --}}
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                @php
-                    $divisions = [
-                        [
-                            'title' => 'Koordinator Infrastruktur & Jaringan',
-                            'name' => '[Nama Koordinator]',
-                            'nip' => '[NIP]',
-                            'description' => 'Mengelola infrastruktur server, jaringan, dan keamanan sistem',
-                            'responsibilities' => [
-                                'Pengelolaan Server & Data Center',
-                                'Maintenance Jaringan Kampus',
-                                'Keamanan & Backup Data',
-                                'Monitoring Infrastruktur',
-                            ],
-                            'icon' =>
-                                'M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01',
-                            'color' => 'blue',
-                        ],
-                        [
-                            'title' => 'Koordinator Sistem Informasi',
-                            'name' => '[Nama Koordinator]',
-                            'nip' => '[NIP]',
-                            'description' => 'Mengembangkan dan mengelola sistem informasi akademik dan administrasi',
-                            'responsibilities' => [
-                                'Pengembangan SIAKAD',
-                                'Integrasi Sistem',
-                                'Database Management',
-                                'Aplikasi Mobile & Web',
-                            ],
-                            'icon' =>
-                                'M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z',
-                            'color' => 'green',
-                        ],
-                        [
-                            'title' => 'Koordinator Layanan & Support',
-                            'name' => '[Nama Koordinator]',
-                            'nip' => '[NIP]',
-                            'description' => 'Memberikan layanan helpdesk dan dukungan teknis kepada pengguna',
-                            'responsibilities' => [
-                                'Helpdesk & Ticketing',
-                                'User Support',
-                                'Pelatihan Pengguna',
-                                'Dokumentasi & SOP',
-                            ],
-                            'icon' =>
-                                'M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z',
-                            'color' => 'purple',
-                        ],
-                        [
-                            'title' => 'Koordinator Multimedia & Konten',
-                            'name' => '[Nama Koordinator]',
-                            'nip' => '[NIP]',
-                            'description' => 'Mengelola konten digital, website, dan media kampus',
-                            'responsibilities' => [
-                                'Website Management',
-                                'Social Media',
-                                'Desain Grafis',
-                                'Video Production',
-                            ],
-                            'icon' =>
-                                'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z',
-                            'color' => 'blue',
-                        ],
-                        [
-                            'title' => 'Koordinator Data & Pelaporan',
-                            'name' => '[Nama Koordinator]',
-                            'nip' => '[NIP]',
-                            'description' => 'Mengelola data institusi dan sistem pelaporan',
-                            'responsibilities' => [
-                                'UNIBA Satu Data',
-                                'Business Intelligence',
-                                'Pelaporan PDDikti',
-                                'Data Analytics',
-                            ],
-                            'icon' =>
-                                'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
-                            'color' => 'red',
-                        ],
-                        [
-                            'title' => 'Koordinator Keamanan Informasi',
-                            'name' => '[Nama Koordinator]',
-                            'nip' => '[NIP]',
-                            'description' => 'Menjaga keamanan sistem dan data institusi',
-                            'responsibilities' => [
-                                'Cybersecurity',
-                                'Audit Keamanan',
-                                'Policy & Compliance',
-                                'Incident Response',
-                            ],
-                            'icon' =>
-                                'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z',
-                            'color' => 'indigo',
-                        ],
-                    ];
-                @endphp
-
-                @foreach ($divisions as $index => $division)
-                    <div class="scroll-animate stagger-{{ ($index % 4) + 1 }}">
-                        <div
-                            class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group transform hover:-translate-y-2 h-full flex flex-col">
-                            {{-- Header with gradient --}}
-                            <div
-                                class="bg-gradient-to-r from-{{ $division['color'] }}-500 to-{{ $division['color'] }}-600 p-6 relative overflow-hidden">
-                                <div
-                                    class="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16">
-                                </div>
-                                <div class="relative z-10">
-                                    {{-- Icon --}}
-                                    <div
-                                        class="w-14 h-14 bg-white bg-opacity-20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="{{ $division['icon'] }}"></path>
-                                        </svg>
-                                    </div>
-
-                                    {{-- Title --}}
-                                    <h3 class="text-lg font-bold text-white mb-1">
-                                        {{ $division['title'] }}
-                                    </h3>
-                                </div>
-                            </div>
-
-                            {{-- Content --}}
-                            <div class="p-6 flex-1 flex flex-col">
-                                {{-- Avatar Placeholder --}}
-                                <div class="flex items-center gap-3 mb-4">
-                                    <div
-                                        class="w-12 h-12 rounded-full bg-{{ $division['color'] }}-100 flex items-center justify-center flex-shrink-0">
-                                        <svg class="w-6 h-6 text-{{ $division['color'] }}-600" fill="none"
-                                            stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                            </path>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <p class="font-bold text-gray-900">{{ $division['name'] }}</p>
-                                        <p class="text-xs text-gray-500">{{ $division['nip'] }}</p>
-                                    </div>
-                                </div>
-
-                                {{-- Description --}}
-                                <p class="text-gray-600 text-sm mb-4 leading-relaxed">
-                                    {{ $division['description'] }}
-                                </p>
-
-                                {{-- Responsibilities --}}
-                                <div class="mt-auto">
-                                    <p class="text-xs font-semibold text-gray-500 uppercase mb-2">Tanggung Jawab:</p>
-                                    <ul class="space-y-2">
-                                        @foreach ($division['responsibilities'] as $responsibility)
-                                            <li class="flex items-start gap-2 text-sm">
-                                                <svg class="w-4 h-4 text-{{ $division['color'] }}-500 flex-shrink-0 mt-0.5"
-                                                    fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd"
-                                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                <span class="text-gray-700">{{ $responsibility }}</span>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-
-                            {{-- Footer Badge --}}
-                            <div class="px-6 pb-6">
-                                <div class="bg-{{ $division['color'] }}-50 rounded-lg px-3 py-2 text-center">
-                                    <span
-                                        class="text-xs font-semibold text-{{ $division['color'] }}-700">Koordinator</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-    {{-- Staff Section --}}
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12 scroll-animate">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Tim Staf UPT TIK</h2>
-                <div class="w-20 h-1 bg-uniba-yellow mx-auto mb-4"></div>
-                <p class="text-gray-600 max-w-2xl mx-auto">
-                    Tenaga profesional yang mendukung operasional layanan TIK
+                <p class="text-gray-500 max-w-lg mx-auto text-sm leading-relaxed">
+                    Bagan resmi hierarki dan alur koordinasi organisasi UPT TIK UNIBA Madura
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-                @php
-                    $staff = [
-                        ['name' => '[Nama Staff]', 'position' => 'System Administrator', 'color' => 'blue'],
-                        ['name' => '[Nama Staff]', 'position' => 'Network Engineer', 'color' => 'green'],
-                        ['name' => '[Nama Staff]', 'position' => 'Web Developer', 'color' => 'purple'],
-                        ['name' => '[Nama Staff]', 'position' => 'Database Administrator', 'color' => 'orange'],
-                        ['name' => '[Nama Staff]', 'position' => 'Help Desk Support', 'color' => 'red'],
-                        ['name' => '[Nama Staff]', 'position' => 'UI/UX Designer', 'color' => 'pink'],
-                        ['name' => '[Nama Staff]', 'position' => 'Content Creator', 'color' => 'indigo'],
-                        ['name' => '[Nama Staff]', 'position' => 'Data Analyst', 'color' => 'teal'],
-                    ];
-                @endphp
+            {{-- Gambar Bagan --}}
+            <div class="max-w-5xl mx-auto scroll-animate">
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
 
-                @foreach ($staff as $index => $person)
-                    <div class="scroll-animate stagger-{{ ($index % 4) + 1 }}">
-                        <div
-                            class="bg-white border border-gray-200 rounded-xl p-6 text-center hover:shadow-xl hover:border-{{ $person['color'] }}-500 transition-all duration-300 group transform hover:-translate-y-2">
-                            {{-- Avatar --}}
+                    {{-- Image container --}}
+                    <div class="relative group">
+                        <img src="{{ asset('images/struktur-organisasi/bagan.png') }}"
+                            alt="Bagan Struktur Organisasi UPT TIK UNIBA Madura" class="w-full h-auto object-contain"
+                            onerror="this.parentElement.classList.add('img-error')" id="bagan-img">
+                        <div id="bagan-fallback"
+                            class="hidden w-full py-24 flex-col items-center justify-center text-center bg-gradient-to-br from-gray-50 to-blue-50">
                             <div
-                                class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-{{ $person['color'] }}-400 to-{{ $person['color'] }}-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                class="w-20 h-20 bg-uniba-blue bg-opacity-10 rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                                <svg class="w-10 h-10 text-uniba-blue opacity-50" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
                             </div>
+                            <p class="text-gray-400 font-semibold mb-1">Gambar bagan belum tersedia</p>
+                            <p class="text-gray-400 text-sm">Upload gambar ke <code
+                                    class="bg-gray-100 px-2 py-0.5 rounded text-xs">public/images/struktur-organisasi/bagan.png</code>
+                            </p>
+                        </div>
 
-                            {{-- Info --}}
-                            <h4 class="font-bold text-gray-900 mb-1">{{ $person['name'] }}</h4>
-                            <p class="text-sm text-{{ $person['color'] }}-600 font-medium">{{ $person['position'] }}</p>
+                        <a href="{{ asset('images/struktur-organisasi/bagan.png') }}" target="_blank"
+                            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                            <div
+                                class="bg-white bg-opacity-90 backdrop-blur-sm rounded-xl px-4 py-2 flex items-center gap-2 shadow-lg">
+                                <svg class="w-4 h-4 text-uniba-blue" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                                <span class="text-sm font-semibold text-gray-700">Lihat ukuran penuh</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
+                        <div class="flex items-center gap-2 text-xs text-gray-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Bagan Struktur Organisasi UPT TIK UNIBA Madura — Dokumen Resmi
+                        </div>
+                        <a href="{{ asset('images/struktur-organisasi/bagan.png') }}" download
+                            class="inline-flex items-center gap-1.5 text-xs font-semibold text-uniba-blue hover:text-blue-800 transition-colors">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            Unduh
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+
+            <div class="text-center mb-14 scroll-animate">
+                <p class="text-xs font-bold text-uniba-blue uppercase tracking-widest mb-2">Unit Kerja</p>
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4">Direktorat & Divisi</h2>
+                <div class="flex items-center justify-center gap-3 mb-4">
+                    <div class="h-px w-16 bg-gray-300"></div>
+                    <div class="w-8 h-1.5 bg-uniba-yellow rounded-full"></div>
+                    <div class="h-px w-16 bg-gray-300"></div>
+                </div>
+                <p class="text-gray-500 max-w-lg mx-auto text-sm leading-relaxed">
+                    Setiap direktorat memiliki peran strategis dalam mendukung ekosistem digital UNIBA Madura
+                </p>
+            </div>
+
+            @php
+                $directorates = [
+                    [
+                        'no' => '01',
+                        'title' => 'Infrastruktur & Jaringan',
+                        'coordinator' => '[Nama Koordinator]',
+                        'nip' => 'NIP. [Nomor Induk Pegawai]',
+                        'description' =>
+                            'Bertanggung jawab atas pengelolaan seluruh infrastruktur teknologi kampus, mencakup server, data center, jaringan lokal maupun internet, serta memastikan ketersediaan dan keandalan layanan jaringan bagi seluruh civitas akademika.',
+                        'tasks' => [
+                            'Pengelolaan Server & Data Center',
+                            'Maintenance Jaringan Kampus',
+                            'Keamanan & Backup Data',
+                            'Monitoring Infrastruktur 24/7',
+                        ],
+                        'accent' => 'blue',
+                    ],
+                    [
+                        'no' => '02',
+                        'title' => 'Sistem Informasi',
+                        'coordinator' => '[Nama Koordinator]',
+                        'nip' => 'NIP. [Nomor Induk Pegawai]',
+                        'description' =>
+                            'Mengembangkan, memelihara, dan mengintegrasikan seluruh sistem informasi akademik dan administrasi universitas guna mendukung efisiensi operasional dan pengambilan keputusan berbasis data.',
+                        'tasks' => [
+                            'Pengembangan SIAKAD',
+                            'Integrasi Antar Sistem',
+                            'Database Management',
+                            'Aplikasi Mobile & Web',
+                        ],
+                        'accent' => 'emerald',
+                    ],
+                    [
+                        'no' => '03',
+                        'title' => 'Layanan & Support',
+                        'coordinator' => '[Nama Koordinator]',
+                        'nip' => 'NIP. [Nomor Induk Pegawai]',
+                        'description' =>
+                            'Menjadi garda terdepan dalam memberikan bantuan teknis dan layanan helpdesk kepada seluruh pengguna sistem TIK, memastikan setiap permasalahan teknis terselesaikan secara cepat dan profesional.',
+                        'tasks' => ['Helpdesk & Ticketing', 'User Support', 'Pelatihan Pengguna', 'Dokumentasi & SOP'],
+                        'accent' => 'violet',
+                    ],
+                    [
+                        'no' => '04',
+                        'title' => 'Multimedia & Konten',
+                        'coordinator' => '[Nama Koordinator]',
+                        'nip' => 'NIP. [Nomor Induk Pegawai]',
+                        'description' =>
+                            'Mengelola identitas digital kampus melalui produksi konten berkualitas, pengelolaan website resmi, dan strategi media sosial yang membangun reputasi positif UNIBA Madura di ranah digital.',
+                        'tasks' => [
+                            'Website Management',
+                            'Strategi Media Sosial',
+                            'Desain Grafis & Branding',
+                            'Video & Foto Produksi',
+                        ],
+                        'accent' => 'amber',
+                    ],
+                    [
+                        'no' => '05',
+                        'title' => 'Data & Pelaporan',
+                        'coordinator' => '[Nama Koordinator]',
+                        'nip' => 'NIP. [Nomor Induk Pegawai]',
+                        'description' =>
+                            'Mengelola ekosistem data institusi secara terpadu, mulai dari pengumpulan, validasi, hingga analisis data untuk mendukung pelaporan PDDikti, akreditasi, dan pengambilan keputusan strategis universitas.',
+                        'tasks' => [
+                            'UNIBA Satu Data',
+                            'Business Intelligence',
+                            'Pelaporan PDDikti',
+                            'Data Analytics & Visualisasi',
+                        ],
+                        'accent' => 'rose',
+                    ],
+                    [
+                        'no' => '06',
+                        'title' => 'Keamanan Informasi',
+                        'coordinator' => '[Nama Koordinator]',
+                        'nip' => 'NIP. [Nomor Induk Pegawai]',
+                        'description' =>
+                            'Menjaga integritas, kerahasiaan, dan ketersediaan seluruh aset informasi kampus melalui penerapan kebijakan keamanan siber, audit berkala, dan respons cepat terhadap insiden keamanan digital.',
+                        'tasks' => [
+                            'Cybersecurity & Penetration Testing',
+                            'Audit Keamanan Sistem',
+                            'Policy & Compliance',
+                            'Incident Response',
+                        ],
+                        'accent' => 'indigo',
+                    ],
+                ];
+
+                $accentMap = [
+                    'blue' => [
+                        'bg' => 'bg-blue-600',
+                        'light' => 'bg-blue-50',
+                        'text' => 'text-blue-600',
+                        'border' => 'border-blue-200',
+                        'dot' => 'bg-blue-500',
+                    ],
+                    'emerald' => [
+                        'bg' => 'bg-emerald-600',
+                        'light' => 'bg-emerald-50',
+                        'text' => 'text-emerald-600',
+                        'border' => 'border-emerald-200',
+                        'dot' => 'bg-emerald-500',
+                    ],
+                    'violet' => [
+                        'bg' => 'bg-violet-600',
+                        'light' => 'bg-violet-50',
+                        'text' => 'text-violet-600',
+                        'border' => 'border-violet-200',
+                        'dot' => 'bg-violet-500',
+                    ],
+                    'amber' => [
+                        'bg' => 'bg-amber-500',
+                        'light' => 'bg-amber-50',
+                        'text' => 'text-amber-600',
+                        'border' => 'border-amber-200',
+                        'dot' => 'bg-amber-500',
+                    ],
+                    'rose' => [
+                        'bg' => 'bg-rose-600',
+                        'light' => 'bg-rose-50',
+                        'text' => 'text-rose-600',
+                        'border' => 'border-rose-200',
+                        'dot' => 'bg-rose-500',
+                    ],
+                    'indigo' => [
+                        'bg' => 'bg-indigo-600',
+                        'light' => 'bg-indigo-50',
+                        'text' => 'text-indigo-600',
+                        'border' => 'border-indigo-200',
+                        'dot' => 'bg-indigo-500',
+                    ],
+                ];
+            @endphp
+
+            <div class="max-w-6xl mx-auto space-y-6">
+                @foreach ($directorates as $index => $dir)
+                    @php $a = $accentMap[$dir['accent']]; @endphp
+                    <div
+                        class="scroll-animate group bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+
+                        <div class="flex flex-col md:flex-row">
+
+                            <div
+                                class="{{ $a['bg'] }} flex-shrink-0 w-full md:w-2 min-h-2 md:min-h-0 h-1.5 md:h-auto rounded-t-2xl md:rounded-t-none md:rounded-l-2xl">
+                            </div>
+                            <div class="flex flex-col md:flex-row flex-1 p-6 md:p-8 gap-6 md:gap-10">
+                                <div class="flex-shrink-0 flex md:flex-col items-center md:items-start gap-4 md:gap-0">
+                                    <span
+                                        class="text-5xl md:text-7xl font-black leading-none {{ $a['text'] }} opacity-15 group-hover:opacity-25 transition-opacity select-none">
+                                        {{ $dir['no'] }}
+                                    </span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+                                        <div>
+                                            <p class="text-xs font-bold {{ $a['text'] }} uppercase tracking-widest mb-1">
+                                                Direktorat</p>
+                                            <h3 class="text-xl md:text-2xl font-black text-gray-900 leading-tight">
+                                                {{ $dir['title'] }}
+                                            </h3>
+                                        </div>
+
+                                        <div
+                                            class="{{ $a['light'] }} {{ $a['border'] }} border rounded-xl px-4 py-3 flex-shrink-0 text-center sm:text-right">
+                                            <p
+                                                class="text-xs {{ $a['text'] }} font-bold uppercase tracking-wide mb-0.5">
+                                                Koordinator</p>
+                                            <p class="font-bold text-gray-900 text-sm">{{ $dir['coordinator'] }}</p>
+                                            <p class="text-xs text-gray-400 mt-0.5">{{ $dir['nip'] }}</p>
+                                        </div>
+                                    </div>
+
+                                    <p class="text-gray-600 text-sm leading-relaxed mb-5">
+                                        {{ $dir['description'] }}
+                                    </p>
+
+                                    <div>
+                                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Ruang
+                                            Lingkup Tugas</p>
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                            @foreach ($dir['tasks'] as $task)
+                                                <div class="flex items-center gap-2.5">
+                                                    <div
+                                                        class="w-1.5 h-1.5 rounded-full {{ $a['dot'] }} flex-shrink-0">
+                                                    </div>
+                                                    <span class="text-sm text-gray-700">{{ $task }}</span>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 @endforeach
@@ -327,66 +331,44 @@
         </div>
     </section>
 
-    {{-- Organization Chart Visualization --}}
-    <section class="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
+    <section class="py-16 bg-gradient-to-br from-uniba-blue to-uniba-dark">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-12 scroll-animate">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Bagan Organisasi</h2>
-                <div class="w-20 h-1 bg-uniba-yellow mx-auto mb-4"></div>
-                <p class="text-gray-600">Struktur hierarki organisasi UPT TIK</p>
-            </div>
-
-            <div class="max-w-5xl mx-auto scroll-animate">
-                <div class="bg-white rounded-2xl shadow-xl p-8 overflow-x-auto">
-                    <div class="min-w-max">
-                        {{-- Simple Org Chart Representation --}}
-                        <div class="flex flex-col items-center">
-                            {{-- Level 1: Kepala --}}
-                            <div
-                                class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-lg font-bold shadow-lg mb-4">
-                                KEPALA UPT TIK
-                            </div>
-
-                            {{-- Connector --}}
-                            <div class="w-1 h-12 bg-blue-300"></div>
-
-                            {{-- Level 2: Koordinator --}}
-                            <div class="flex gap-4 flex-wrap justify-center">
-                                <div class="bg-blue-100 text-blue-800 px-6 py-3 rounded-lg font-semibold text-sm shadow">
-                                    Infrastruktur
-                                </div>
-                                <div class="bg-green-100 text-green-800 px-6 py-3 rounded-lg font-semibold text-sm shadow">
-                                    Sistem Informasi
-                                </div>
-                                <div
-                                    class="bg-purple-100 text-purple-800 px-6 py-3 rounded-lg font-semibold text-sm shadow">
-                                    Layanan
-                                </div>
-                                <div
-                                    class="bg-orange-100 text-orange-800 px-6 py-3 rounded-lg font-semibold text-sm shadow">
-                                    Multimedia
-                                </div>
-                                <div class="bg-red-100 text-red-800 px-6 py-3 rounded-lg font-semibold text-sm shadow">
-                                    Data
-                                </div>
-                                <div
-                                    class="bg-indigo-100 text-indigo-800 px-6 py-3 rounded-lg font-semibold text-sm shadow">
-                                    Keamanan
-                                </div>
-                            </div>
-
-                            {{-- Connector --}}
-                            <div class="w-1 h-12 bg-gray-300 mt-4"></div>
-
-                            {{-- Level 3: Staff --}}
-                            <div class="bg-gray-100 text-gray-700 px-8 py-3 rounded-lg font-medium shadow text-center">
-                                STAF PENDUKUNG
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="max-w-3xl mx-auto text-center scroll-animate">
+                <h2 class="text-2xl md:text-3xl font-black text-white mb-3">
+                    Ada Pertanyaan Seputar Organisasi?
+                </h2>
+                <p class="text-blue-200 mb-8 text-sm leading-relaxed">
+                    Hubungi kami untuk informasi lebih lanjut mengenai struktur dan layanan UPT TIK UNIBA Madura
+                </p>
+                <a href="#"
+                    class="inline-flex items-center gap-2 bg-uniba-yellow text-uniba-blue font-bold px-8 py-3.5 rounded-xl hover:bg-yellow-300 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Hubungi Kami
+                </a>
             </div>
         </div>
     </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const img = document.getElementById('bagan-img');
+            const fallback = document.getElementById('bagan-fallback');
+
+            if (img) {
+                img.addEventListener('error', function() {
+                    img.classList.add('hidden');
+                    fallback.classList.remove('hidden');
+                    fallback.classList.add('flex');
+                });
+
+                if (!img.complete || img.naturalWidth === 0) {
+                    img.dispatchEvent(new Event('error'));
+                }
+            }
+        });
+    </script>
 
 @endsection

@@ -81,8 +81,9 @@ class ContentItemsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Content $content)
     {
-        //
+        $this->service->delete($content);
+        return back()->with('success', 'Data berhasil dihapus');
     }
 }

@@ -36,13 +36,13 @@
     </div>
 
     <div class="overflow-x-auto">
-        <table class="w-full table-fixed">
+        <table class="w-full text-left border-collapse">
             <thead>
                 <tr class="bg-uniba-blue text-white">
                     @php
                         $columns = [
                             'base' => [
-                                ['label' => 'No', 'key' => 'no', 'width' => 'w-24'],
+                                ['label' => 'No', 'key' => 'no', 'width' => 'w-16'],
                                 ['label' => 'Title', 'key' => 'title'],
                             ],
                             'news' => [
@@ -51,20 +51,18 @@
                             ],
                             'announcement' => [['label' => 'Content', 'key' => 'content']],
                             'agenda' => [
-                                ['label' => 'Event Date', 'key' => 'event_date'],
+                                ['label' => 'Event Date', 'key' => 'event_date', 'width' => 'w-32'],
                                 ['label' => 'Location', 'key' => 'location'],
                             ],
                         ];
 
                         $dateIcon =
                             'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z';
-
                         $displayColumns = array_merge($columns['base'], $columns[$section] ?? []);
                     @endphp
 
                     @foreach ($displayColumns as $col)
-                        <th
-                            class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider {{ isset($col['width']) ? $col['width'] : '' }}">
+                        <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider w-24">
                             <div class="flex items-center gap-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -76,7 +74,7 @@
                         </th>
                     @endforeach
 
-                    <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">
+                    <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider w-24">
                         <div class="flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -87,8 +85,8 @@
                         </div>
                     </th>
 
-                    <th class="px-6 py-4 text-center text-xs font-bold uppercase tracking-wider w-24">
-                        <div class="flex items-center justify-center gap-2">
+                    <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider w-24">
+                        <div class="flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -96,7 +94,8 @@
                             Status
                         </div>
                     </th>
-                    <th class="px-6 py-4 text-center text-xs font-bold uppercase tracking-wider w-32">
+
+                    <th class="px-4 py-4 text-center text-sm font-bold uppercase tracking-wider w-48">
                         <div class="flex items-center justify-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

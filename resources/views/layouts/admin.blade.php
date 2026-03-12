@@ -7,6 +7,10 @@
     <title>@yield('title', 'Admin Dashboard') - UPT TIK UNIBA</title>
     <link rel="shortcut icon" href="{{ asset('images/logo/logo.webp') }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"></script>
 </head>
 
 <body class="bg-gray-50 text-gray-800 antialiased" x-data="{ sidebarOpen: false, ready: false }" x-init="$nextTick(() => ready = true)">
@@ -69,7 +73,7 @@
             </main>
         </div>
     </div>
-
+    @stack('scripts')
 </body>
 
 </html>

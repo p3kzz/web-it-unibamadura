@@ -119,3 +119,31 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
 }
+
+.note-editor .note-editable ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+}
+
+.note-editor .note-editable ol {
+    list-style-type: decimal;
+    margin-left: 1.5rem;
+}
+
+.note-editor .note-editable li {
+    margin-bottom: 4px;
+}
+.note-editor .note-editable {
+    min-height: 200px;
+    line-height: 1.6;
+}
+
+.prose ul {
+list-style: disc;
+padding-left: 20px;
+}
+
+.prose ol {
+list-style: decimal;
+padding-left: 20px;
+}

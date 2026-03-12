@@ -36,7 +36,7 @@
     </div>
 
     <div class="overflow-x-auto">
-        <table class="w-full">
+        <table class="w-full table-fixed">
             <thead>
                 <tr class="bg-uniba-blue text-white">
                     @php

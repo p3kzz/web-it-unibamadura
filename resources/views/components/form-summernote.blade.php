@@ -38,7 +38,28 @@ window.initSummernote = function(id, content = '') {
             ['table', ['table']],
             ['insert', ['link', 'picture']],
             ['view', ['codeview']]
-        ]
+        ],
+        callbacks: {
+            onImageUpload: function(files) {
+                const formData = new FormData()
+                formData.append('file', files[0])
+                formData.append('_token', '{{ csrf_token() }}')
+
+                $.ajax({
+                    url: '{{ route("admin.editor.upload-image") }}',
+                    method: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        $el.summernote('insertImage', response.url)
+                    },
+                    error: function() {
+                        alert('Gagal mengunggah gambar. Pastikan ukuran file tidak melebihi 2MB dan format yang didukung: JPG, JPEG, PNG, WebP.')
+                    }
+                })
+            }
+        }
     })
 
     if (content) {

@@ -3,13 +3,15 @@
     class="xl:hidden bg-white border-t h-[calc(100vh-80px)] overflow-y-auto pb-20 shadow-inner">
 
     <div class="px-4 py-4 space-y-1">
-        <a href="#" class="block px-3 py-3 font-bold text-uniba-blue bg-blue-50 rounded">Beranda</a>
+        <a href="{{ route('home') }}" class="block px-3 py-3 font-bold text-uniba-blue bg-blue-50 rounded">Beranda</a>
 
         {{-- Tentang Kami --}}
         <div x-data="{ open: false }" class="border-b border-gray-100">
-            <button @click="open = !open" class="w-full flex justify-between items-center px-3 py-3 text-gray-600 hover:text-uniba-blue transition-colors">
+            <button @click="open = !open"
+                class="w-full flex justify-between items-center px-3 py-3 text-gray-600 hover:text-uniba-blue transition-colors">
                 <span class="font-medium">Tentang Kami</span>
-                <svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform duration-200" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
             </button>
@@ -23,9 +25,11 @@
 
         {{-- Layanan --}}
         <div x-data="{ open: false }" class="border-b border-gray-100">
-            <button @click="open = !open" class="w-full flex justify-between items-center px-3 py-3 text-gray-600 hover:text-uniba-blue transition-colors">
+            <button @click="open = !open"
+                class="w-full flex justify-between items-center px-3 py-3 text-gray-600 hover:text-uniba-blue transition-colors">
                 <span class="font-medium">Layanan</span>
-                <svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform duration-200" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
             </button>
@@ -39,9 +43,11 @@
 
         {{-- Penjaminan Mutu --}}
         <div x-data="{ open: false }" class="border-b border-gray-100">
-            <button @click="open = !open" class="w-full flex justify-between items-center px-3 py-3 text-gray-600 hover:text-uniba-blue transition-colors">
+            <button @click="open = !open"
+                class="w-full flex justify-between items-center px-3 py-3 text-gray-600 hover:text-uniba-blue transition-colors">
                 <span class="font-medium">Penjaminan Mutu</span>
-                <svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform duration-200" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
             </button>
@@ -53,9 +59,11 @@
 
         {{-- Kebijakan --}}
         <div x-data="{ open: false }" class="border-b border-gray-100">
-            <button @click="open = !open" class="w-full flex justify-between items-center px-3 py-3 text-gray-600 hover:text-uniba-blue transition-colors">
+            <button @click="open = !open"
+                class="w-full flex justify-between items-center px-3 py-3 text-gray-600 hover:text-uniba-blue transition-colors">
                 <span class="font-medium">Kebijakan</span>
-                <svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform duration-200" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
             </button>
@@ -66,9 +74,29 @@
             </div>
         </div>
 
+        <div x-data="{ open: false }" class="border-b border-gray-100">
+            <button @click="open = !open"
+                class="w-full flex justify-between items-center px-3 py-3 text-gray-600 hover:text-uniba-blue transition-colors">
+                <span class="font-medium">Content</span>
+                <svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform duration-200" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+            <div x-show="open" class="bg-gray-50 pl-6 pr-2 py-2 space-y-2 rounded-md mb-2">
+                <a href="{{ route('content.index', ['type' => 'news']) }}"
+                    class="block text-sm text-gray-600 py-1">Berita</a>
+                <a href="{{ route('content.index', ['type' => 'announcement']) }}"
+                    class="block text-sm text-gray-600 py-1">Pengumuman</a>
+                <a href="{{ route('content.index', ['type' => 'agenda']) }}"
+                    class="block text-sm text-gray-600 py-1">Agenda</a>
+            </div>
+        </div>
+
         <a href="#" class="block px-3 py-3 text-gray-600 border-b border-gray-100">Download</a>
         <a href="#" class="block px-3 py-3 text-gray-600 border-b border-gray-100">Fasilitas</a>
 
-        <a href="#" class="block px-3 py-3 text-white bg-uniba-blue rounded mt-4 text-center font-bold">Kontak Kami</a>
+        <a href="#" class="block px-3 py-3 text-white bg-uniba-blue rounded mt-4 text-center font-bold">Kontak
+            Kami</a>
     </div>
 </div>

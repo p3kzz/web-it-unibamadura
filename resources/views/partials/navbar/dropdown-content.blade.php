@@ -9,9 +9,11 @@
     </button>
     <div
         class="absolute right-0 top-full w-72 bg-white border-t-4 border-uniba-yellow shadow-lg py-2 rounded-b-lg invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300">
-        <a href="#" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Berita</a>
-        <a href="#"
+        <a href="{{ route('content.index', ['type' => 'news']) }}"
+            class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Berita</a>
+        <a href="{{ route('content.index', ['type' => 'announcement']) }}"
             class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Pengumuman</a>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Agenda</a>
+        <a href="{{ route('content.index', ['type' => 'agenda']) }}"
+            class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Agenda</a>
     </div>
 </div>

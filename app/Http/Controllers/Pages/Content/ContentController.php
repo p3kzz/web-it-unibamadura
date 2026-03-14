@@ -3,16 +3,28 @@
 namespace App\Http\Controllers\Pages\Content;
 
 use App\Http\Controllers\Controller;
+use App\Services\Pages\Content\ContentPageQueryService;
 use Illuminate\Http\Request;
 
 class ContentController extends Controller
 {
+    public function __construct(private readonly ContentPageQueryService $contentQuery) {}
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request, string $type)
     {
-        return view('pages.content.berita-items');
+        $search = trim((string) $request->get('search'));
+
+        $items = $this->contentQuery->getPaginatedByType($type, [
+            'search' => $search,
+            'per_page' => 9,
+        ]);
+
+        $pageMeta = $this->contentQuery->getTypeMeta($type);
+
+        return view('pages.content.index', compact('items', 'type', 'search', 'pageMeta'));
     }
 
     /**
@@ -34,9 +46,14 @@ class ContentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $type, string $slug)
     {
-        //
+        $content = $this->contentQuery->findPublishedByTypeAndSlug($type, $slug);
+        $content->increment('views');
+        $pageMeta = $this->contentQuery->getTypeMeta($type);
+        $relatedItems = $this->contentQuery->getRelated($content);
+
+        return view('pages.content.show', compact('content', 'pageMeta', 'relatedItems'));
     }
 
     /**

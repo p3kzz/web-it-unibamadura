@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Tentang\Histories\HistoriesItemsController;
 use App\Http\Controllers\Admin\Tentang\VisiMisi\VisiMisiItemsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Pages\HomeController;
+use App\Http\Controllers\Pages\Content\ContentController;
 use App\Http\Controllers\Pages\Tentang\PrestasiController;
 use App\Http\Controllers\Pages\Tentang\ProgramKerjaController;
 use App\Http\Controllers\Pages\Tentang\SdmController;
@@ -18,6 +19,15 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::prefix('content')->name('content.')->group(function () {
+    Route::get('/{type}', [ContentController::class, 'index'])
+        ->whereIn('type', ['news', 'announcement', 'agenda'])
+        ->name('index');
+
+    Route::get('/{type}/{slug}', [ContentController::class, 'show'])
+        ->whereIn('type', ['news', 'announcement', 'agenda'])
+        ->name('show');
+});
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

@@ -2,7 +2,7 @@
     <div class="container mx-auto px-4">
         <div class="flex flex-col lg:flex-row gap-12">
             {{-- Berita & Pengumuman --}}
-            <div class="lg:w-2/3 scroll-animate" x-data="{ activeTab: 'berita' }">
+            <div class="lg:w-2/3 scroll-animate" x-data="{ activeTab: 'berita', archiveLinks: { berita: '{{ route('content.index', ['type' => 'news']) }}', pengumuman: '{{ route('content.index', ['type' => 'announcement']) }}' } }">
                 <div class="flex justify-between items-center mb-6">
                     <div class="flex space-x-2 bg-white p-1 rounded-lg border shadow-sm">
                         <button @click="activeTab = 'berita'"
@@ -18,7 +18,7 @@
                             <span>Pengumuman</span>
                         </button>
                     </div>
-                    <a href="#"
+                    <a :href="archiveLinks[activeTab]"
                         class="text-uniba-blue text-sm font-semibold hover:underline transform hover:translate-x-1 transition-transform">
                         Arsip &rarr;
                     </a>

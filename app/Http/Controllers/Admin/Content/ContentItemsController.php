@@ -8,7 +8,10 @@ use App\Http\Requests\Admin\Content\UpdateContentRequest;
 use App\Models\Content;
 use App\Services\Admin\Content\ContentQueryService;
 use App\Services\Admin\Content\ContentService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ContentItemsController extends Controller
 {
@@ -85,5 +88,23 @@ class ContentItemsController extends Controller
     {
         $this->service->delete($content);
         return back()->with('success', 'Data berhasil dihapus');
+    }
+
+    /**
+     * Handle image upload from Summernote editor.
+     */
+    public function uploadEditorImage(Request $request): JsonResponse
+    {
+        $request->validate([
+            'file' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
+
+        $file = $request->file('file');
+        $filename = Str::uuid() . '.' . $file->extension();
+        $path = $file->storeAs('content/editor', $filename, 'public');
+
+        return response()->json([
+            'url' => Storage::disk('public')->url($path),
+        ]);
     }
 }

@@ -23,13 +23,18 @@ window.initSummernote = function(id, content = '') {
 
     if (!$el.length) return
 
+    // destroy jika sudah pernah init
     if ($el.next('.note-editor').length) {
         $el.summernote('destroy')
     }
 
     $el.summernote({
+
         height: {{ $height }},
         placeholder: "{{ $placeholder }}",
+        dialogsInBody: true,
+        disableDragAndDrop: true,
+
         toolbar: [
             ['style', ['style']],
             ['font', ['bold', 'underline', 'clear']],
@@ -38,12 +43,63 @@ window.initSummernote = function(id, content = '') {
             ['table', ['table']],
             ['insert', ['link', 'picture']],
             ['view', ['codeview']]
-        ]
+        ],
+
+        callbacks: {
+
+            onImageUpload: function(files) {
+
+                for (let i = 0; i < files.length; i++) {
+                    uploadImage(files[i], $el)
+                }
+
+            }
+
+        }
+
     })
 
     if (content) {
         $el.summernote('code', content)
     }
+
+}
+
+
+// function upload image
+function uploadImage(file, $editor) {
+
+    const formData = new FormData()
+
+    formData.append('file', file)
+    formData.append('_token', '{{ csrf_token() }}')
+
+    $.ajax({
+
+        url: '{{ route("admin.editor.upload-image") }}',
+        method: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+
+        success: function(response) {
+
+            if (response.url) {
+                $editor.summernote('insertImage', response.url)
+            }
+
+        },
+
+        error: function() {
+
+            alert(
+                'Gagal mengunggah gambar.\n\nPastikan ukuran file tidak melebihi 2MB dan format yang didukung: JPG, JPEG, PNG, WebP.'
+            )
+
+        }
+
+    })
+
 }
 
 </script>

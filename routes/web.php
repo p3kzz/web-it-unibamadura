@@ -46,6 +46,7 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     Route::resource('/visi-misi', VisiMisiItemsController::class)->names('tentang.visi-misi');
     Route::resource('/histories', HistoriesItemsController::class)->names('tentang.histories');
     Route::resource('/content', ContentItemsController::class)->names('content');
+    Route::patch('/content/{content}/restore', [ContentItemsController::class, 'restore'])->name('content.restore');
     Route::post('/editor/upload-image', [ContentItemsController::class, 'uploadEditorImage'])->name('editor.upload-image');
     Route::resource('/struktur-organisasi-item', StrukturOrganisasiItemsController::class)->names('tentang.struktur-organisasi');
 });

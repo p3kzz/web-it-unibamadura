@@ -11,9 +11,12 @@ class ContentQueryService
      */
     public function getItems(array $filters)
     {
-        return Content::query()
+        $query = Content::query()
             ->where('type', $filters['type'])
-            ->when($filters['status'], function ($q) use ($filters) {
+            ->when(($filters['status'] ?? null) === 'trashed', function ($q) {
+                $q->onlyTrashed();
+            })
+            ->when(in_array($filters['status'] ?? null, ['published', 'draft'], true), function ($q) use ($filters) {
                 $q->where('status', $filters['status']);
             })
             ->when($filters['search'], function ($q) use ($filters) {
@@ -24,7 +27,9 @@ class ContentQueryService
                         ->orWhere('excerpt', 'like', "%{$search}%");
                     $sub->orWhere('content', 'like', "%{$search}%");
                 });
-            })
+            });
+
+        return $query
             ->latest()
             ->simplePaginate(10)
             ->withQueryString();

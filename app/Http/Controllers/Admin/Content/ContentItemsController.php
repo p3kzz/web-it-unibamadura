@@ -53,7 +53,7 @@ class ContentItemsController extends Controller
     public function store(StoreContentRequest $request)
     {
         $this->service->store($request->validated());
-        return back()->withErrors('success', 'Data berhasil ditambahkan');
+        return back()->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -87,7 +87,16 @@ class ContentItemsController extends Controller
     public function destroy(Content $content)
     {
         $this->service->delete($content);
-        return back()->with('success', 'Data berhasil dihapus');
+        return back()->with('success', 'Data berhasil dipindahkan ke sampah');
+    }
+
+    public function restore(string $content)
+    {
+        $item = Content::withTrashed()->where('slug', $content)->firstOrFail();
+
+        $this->service->restore($item);
+
+        return back()->with('success', 'Data berhasil dipulihkan');
     }
 
     public function uploadEditorImage(Request $request): JsonResponse

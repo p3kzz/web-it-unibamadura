@@ -72,11 +72,14 @@ class ContentService
 
     public function delete(Content $content): void
     {
-        if ($content->thumbnail && Storage::disk('public')->exists($content->thumbnail)) {
-            Storage::disk('public')->delete($content->thumbnail);
-        }
-
         $content->delete();
+    }
+
+    public function restore(Content $content): Content
+    {
+        $content->restore();
+
+        return $content->refresh();
     }
 
     public function incrementViews(Content $content): void
@@ -101,6 +104,4 @@ class ContentService
 
         return $slug;
     }
-
-
 }

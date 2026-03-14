@@ -50,7 +50,7 @@ class Content extends Model
 
     public function scopeAnnouncements($query)
     {
-        return $query->where('type', 'announcements');
+        return $query->where('type', 'announcement');
     }
 
     public function scopeAgendas($query)

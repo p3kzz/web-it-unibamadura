@@ -12,44 +12,22 @@
 @endphp
 
 @section('content')
-    <section class="relative bg-gradient-to-br from-uniba-blue via-blue-700 to-uniba-dark py-20 overflow-hidden">
+    <section class="relative bg-gradient-to-br from-uniba-blue via-blue-700 to-uniba-dark pt-8 pb-24 overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
         <div class="container mx-auto px-4 relative z-10">
-            <div class="max-w-4xl">
-                <a href="{{ route('content.index', ['type' => $content->type]) }}"
-                    class="inline-flex items-center gap-2 text-blue-100 hover:text-white transition-colors mb-6">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                    Kembali ke {{ strtolower($pageMeta['label']) }}
-                </a>
 
-                <div class="flex flex-wrap items-center gap-3 mb-4">
-                    <span
-                        class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 text-blue-100 text-xs font-bold uppercase tracking-wider">
-                        {{ $pageMeta['label'] }}
-                    </span>
-                    @if ($content->published_at)
-                        <span class="text-sm text-blue-100">
-                            {{ $content->published_at->translatedFormat('d F Y') }}
-                        </span>
-                    @endif
-                    @if ($content->type === 'agenda' && $content->event_date)
-                        <span class="text-sm text-blue-100">
-                            Agenda: {{ $content->event_date->translatedFormat('d F Y') }}
-                        </span>
-                    @endif
-                    <span class="inline-flex items-center gap-1.5 text-sm text-blue-200">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                            </path>
-                        </svg>
-                        {{ number_format($content->views) }} kali dilihat
-                    </span>
-                </div>
+            <a href="{{ route('content.index', ['type' => $content->type]) }}"
+                class="inline-flex items-center text-blue-100 hover:text-white transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Kembali ke {{ strtolower($pageMeta['label']) }}
+            </a>
+            <div class="text-center mx-auto max-w-3xl">
+                <span
+                    class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 text-blue-100 text-xs font-bold uppercase tracking-wider mb-2">
+                    {{ $pageMeta['label'] }}
+                </span>
 
                 <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">{{ $content->title }}</h1>
                 @if ($content->excerpt)
@@ -72,14 +50,13 @@
         <div class="container mx-auto px-4">
             <div class="grid lg:grid-cols-[minmax(0,1fr)_320px] gap-10 items-start">
 
-                {{-- ── Main Article ── --}}
                 <article class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
-                    @if ($content->thumbnail)
+                    {{-- @if ($content->thumbnail)
                         <img src="{{ $content->thumbnail_url }}" alt="{{ $content->title }}"
                             class="w-full max-h-[28rem] object-cover">
-                    @endif
+                    @endif --}}
 
-                    <div class="p-6 md:p-10">
+                    <div class="p-6 md:p-10 flex flex-col h-full">
                         @if ($content->type === 'agenda')
                             <div class="grid sm:grid-cols-2 gap-4 mb-8">
                                 <div class="bg-emerald-50 border border-emerald-100 rounded-2xl p-4">
@@ -99,12 +76,11 @@
                         @endif
 
                         <div
-                            class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-uniba-blue prose-strong:text-gray-900 prose-li:text-gray-700">
+                            class="prose prose-lg  max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-uniba-blue prose-strong:text-gray-900 prose-li:text-gray-700">
                             {!! $content->content !!}
                         </div>
 
-                        {{-- ── Share Bar (inside article) ── --}}
-                        <div class="mt-10 pt-8 border-t border-gray-100" x-data="{ copied: false }">
+                        <div class="mt-auto pt-8 border-t border-gray-100" x-data="{ copied: false }">
                             <p class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-4">Bagikan artikel ini
                             </p>
                             <div class="flex flex-wrap gap-3">
@@ -158,10 +134,8 @@
                     </div>
                 </article>
 
-                {{-- ── Sidebar ── --}}
                 <aside class="space-y-6 lg:sticky lg:top-6">
 
-                    {{-- Info Panel --}}
                     <div class="bg-white rounded-3xl border border-gray-200 shadow-sm p-6">
                         <h2 class="text-lg font-bold text-gray-900 mb-4">Informasi</h2>
                         <div class="space-y-4 text-sm text-gray-600">
@@ -210,7 +184,6 @@
                         </div>
                     </div>
 
-                    {{-- Related Content --}}
                     <div class="bg-white rounded-3xl border border-gray-200 shadow-sm p-6">
                         <h2 class="text-lg font-bold text-gray-900 mb-4">Konten Terkait</h2>
                         <div class="space-y-4">

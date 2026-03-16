@@ -147,3 +147,15 @@ padding-left: 20px;
 list-style: decimal;
 padding-left: 20px;
 }
+
+.prose img.note-float-left {
+    float: left;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.prose img.note-float-right {
+    float: right;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+}

@@ -106,7 +106,7 @@
     </div>
 
     @forelse ($items as $index => $item)
-        <div x-data="{ expanded: false }"
+        <div
             class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden
                 hover:shadow-lg transition-all duration-200">
             <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gray-50">
@@ -120,12 +120,6 @@
                         <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide">
                             {{ ucfirst($section) }}
                         </p>
-                        @if ($item->periode)
-                            <p class="text-xs text-gray-500 leading-none mt-0.5">
-                                {{ $item->periode->name }}
-                                · {{ $item->periode->start_year }}–{{ $item->periode->end_year }}
-                            </p>
-                        @endif
                     </div>
                 </div>
 
@@ -150,35 +144,35 @@
                 @if (in_array($section, ['misi', 'sasaran', 'tujuan']) && $item->title)
                     <div>
                         <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Judul</p>
-                        <p class="text-sm font-semibold text-gray-900 leading-relaxed">
-                            <span x-show="!expanded">{{ Str::limit($item->title, 80) }}</span>
-                            <span x-show="expanded" x-cloak>{{ $item->title }}</span>
+                        <p class="text-sm font-semibold text-gray-900 leading-relaxed line-clamp-2">
+                            {{ $item->title }}
                         </p>
-                        @if (strlen($item->title) > 80)
-                            <button @click="expanded = !expanded"
-                                class="text-xs text-uniba-blue font-semibold mt-1 inline-flex items-center gap-1 hover:underline">
-                                <span x-text="expanded ? '↑ Tutup' : '↓ Lihat selengkapnya'"></span>
-                            </button>
-                        @endif
                     </div>
                     <div class="border-t border-gray-100"></div>
                 @endif
                 <div>
                     <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Konten</p>
-                    <div class="text-sm text-gray-700 leading-relaxed">
-                        <span x-show="!expanded">{{ Str::limit($item->content, 150) }}</span>
-                        <span x-show="expanded" x-cloak>{{ $item->content }}</span>
-                    </div>
-                    @if (strlen($item->content) > 150)
-                        <button @click="expanded = !expanded"
-                            class="text-xs text-uniba-blue font-semibold mt-1 inline-flex items-center gap-1 hover:underline">
-                            <span x-text="expanded ? '↑ Tutup' : '↓ Lihat selengkapnya'"></span>
-                        </button>
-                    @endif
+                    <p class="text-sm text-gray-700 leading-relaxed line-clamp-2">
+                        {{ Str::limit($item->content, 100) }}
+                    </p>
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-2 px-4 pb-4">
+            <div class="grid grid-cols-3 gap-2 px-4 pb-4">
+                <button @click="$dispatch('open-show-visi-misi', {{ $item->toJson() }})"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2.5
+                        bg-uniba-blue hover:bg-blue-700 active:bg-blue-800
+                        text-white text-sm font-semibold rounded-xl
+                        shadow-sm hover:shadow-md transition-all duration-200">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    Detail
+                </button>
+
                 <button @click="$dispatch('open-edit', {{ $item->toJson() }})"
                     class="inline-flex items-center justify-center gap-2 px-4 py-2.5
                         bg-orange-500 hover:bg-orange-600 active:bg-orange-700

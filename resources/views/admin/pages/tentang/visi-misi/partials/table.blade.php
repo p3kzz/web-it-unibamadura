@@ -35,16 +35,25 @@
 
         <div class="flex flex-col md:flex-row gap-3">
             @include('admin.pages.tentang.visi-misi.partials.search')
-
             @include('admin.pages.tentang.visi-misi.partials.periode-filter')
         </div>
     </div>
 
     <div class="overflow-x-auto">
-        <table class="w-full table-fixed">
+        <table class="w-full text-left border-collapse">
+            <colgroup>
+                <col style="width: 70px;"> {{-- No --}}
+                @if (in_array($section, ['misi', 'sasaran', 'tujuan']))
+                    <col style="width: 200px;"> {{-- Judul --}}
+                @endif
+                <col style="width: 180px;"> {{-- Periode --}}
+                <col> {{-- Konten (flexible) --}}
+                <col style="width: 120px;"> {{-- Status --}}
+                <col style="width: 160px;"> {{-- Aksi --}}
+            </colgroup>
             <thead>
                 <tr class="bg-uniba-blue text-white">
-                    <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider w-24">
+                    <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">
                         <div class="flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -85,7 +94,7 @@
                             Konten
                         </div>
                     </th>
-                    <th class="px-6 py-4 text-center text-xs font-bold uppercase tracking-wider w-24">
+                    <th class="px-6 py-4 text-center text-xs font-bold uppercase tracking-wider">
                         <div class="flex items-center justify-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -94,7 +103,7 @@
                             Status
                         </div>
                     </th>
-                    <th class="px-6 py-4 text-center text-xs font-bold uppercase tracking-wider w-32">
+                    <th class="px-6 py-4 text-center text-xs font-bold uppercase tracking-wider">
                         <div class="flex items-center justify-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

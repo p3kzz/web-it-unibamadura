@@ -74,4 +74,6 @@
 
     @include('admin.pages.tentang.visi-misi.partials.form-edit')
 
+    @include('admin.pages.tentang.visi-misi.partials.form-show')
+
 @endsection

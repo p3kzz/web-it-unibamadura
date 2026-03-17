@@ -73,4 +73,6 @@
     @include('admin.pages.content.partials.form-create')
 
     @include('admin.pages.content.partials.form-edit')
+
+    @include('admin.pages.content.partials.form-show')
 @endsection

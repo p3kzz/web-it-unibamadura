@@ -74,4 +74,6 @@
 
     @include('admin.pages.tentang.sejarah.partials.form-edit')
 
+    @include('admin.pages.tentang.sejarah.partials.form-show')
+
 @endsection

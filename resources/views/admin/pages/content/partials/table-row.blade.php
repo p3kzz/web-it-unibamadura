@@ -24,76 +24,30 @@
                 @endif
             @endif
 
-            <div class="flex-1 min-w-0" x-data="{ titleExpanded: false, isTitleOverflowing: false }">
-                <div x-ref="titleBox" class="font-semibold text-gray-900 break-words transition-all duration-300"
-                    :class="titleExpanded ? '' : 'line-clamp-2 overflow-hidden'" x-init="$nextTick(() => { isTitleOverflowing = $refs.titleBox.scrollHeight > $refs.titleBox.clientHeight })">
+            <div class="flex-1 min-w-0">
+                <p class="font-semibold text-gray-900 break-words line-clamp-2">
                     {{ $item->title }}
-                </div>
-
-                <button x-show="isTitleOverflowing" x-cloak @click="titleExpanded = !titleExpanded"
-                    class="text-xs text-uniba-blue hover:text-blue-800 font-medium mt-1 inline-flex items-center gap-1 focus:outline-none">
-                    <span x-text="titleExpanded ? 'Tutup' : 'Lihat selengkapnya'"></span>
-                    <svg class="w-3 h-3 transition-transform duration-200" :class="titleExpanded ? 'rotate-90' : ''"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
+                </p>
             </div>
         </div>
     </td>
 
     @if ($section === 'news')
-        <td class="px-4 py-4 text-sm text-gray-700" x-data="{ expercptExpanded: false, isexpercptOverflowing: false }">
+        <td class="px-4 py-4 text-sm text-gray-700">
             <div class="break-words max-w-sm xl:max-w-md">
-                <div x-ref="expercptBox" class="prose prose-sm max-w-none transition-all duration-300"
-                    :class="expercptExpanded ? '' : 'line-clamp-3 overflow-hidden'" x-init="$nextTick(() => { isexpercptOverflowing = $refs.expercptBox.scrollHeight > $refs.expercptBox.clientHeight })">
-                    {!! $item->excerpt !!}
-                </div>
-
-                <button x-show="isexpercptOverflowing" x-cloak @click="expercptExpanded = !expercptExpanded"
-                    class="text-xs text-uniba-blue hover:text-blue-800 font-medium whitespace-nowrap mt-2 inline-flex items-center gap-1 focus:outline-none">
-                    <span x-text="expercptExpanded ? 'Tutup' : 'Lihat selengkapnya'"></span>
-                    <svg class="w-3 h-3 transition-transform duration-200" :class="expercptExpanded ? 'rotate-90' : ''"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
+                <p class="line-clamp-2">{{ Str::limit(strip_tags($item->excerpt), 100) }}</p>
             </div>
         </td>
 
-        <td class="px-4 py-4 text-sm text-gray-700" x-data="{ contentExpanded: false, isContentOverflowing: false }">
+        <td class="px-4 py-4 text-sm text-gray-700">
             <div class="break-words max-w-sm xl:max-w-md">
-                <div x-ref="contentBox" class="prose prose-sm max-w-none transition-all duration-300"
-                    :class="contentExpanded ? '' : 'line-clamp-3 overflow-hidden'" x-init="$nextTick(() => { isContentOverflowing = $refs.contentBox.scrollHeight > $refs.contentBox.clientHeight })">
-                    {!! $item->content !!}
-                </div>
-
-                <button x-show="isContentOverflowing" x-cloak @click="contentExpanded = !contentExpanded"
-                    class="text-xs text-uniba-blue hover:text-blue-800 font-medium whitespace-nowrap mt-2 inline-flex items-center gap-1 focus:outline-none">
-                    <span x-text="contentExpanded ? 'Tutup' : 'Lihat selengkapnya'"></span>
-                    <svg class="w-3 h-3 transition-transform duration-200" :class="contentExpanded ? 'rotate-90' : ''"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
+                <p class="line-clamp-2">{{ Str::limit(strip_tags($item->content), 100) }}</p>
             </div>
         </td>
     @elseif ($section === 'announcement')
-        <td class="px-4 py-4 text-sm text-gray-700" x-data="{ contentExpanded: false, isContentOverflowing: false }">
+        <td class="px-4 py-4 text-sm text-gray-700">
             <div class="break-words max-w-sm xl:max-w-md">
-                <div x-ref="contentBox" class="prose prose-sm max-w-none transition-all duration-300"
-                    :class="contentExpanded ? '' : 'line-clamp-3 overflow-hidden'" x-init="$nextTick(() => { isContentOverflowing = $refs.contentBox.scrollHeight > $refs.contentBox.clientHeight })">
-                    {!! $item->content !!}
-                </div>
-
-                <button x-show="isContentOverflowing" x-cloak @click="contentExpanded = !contentExpanded"
-                    class="text-xs text-uniba-blue hover:text-blue-800 font-medium mt-2 inline-flex items-center gap-1 focus:outline-none">
-                    <span x-text="contentExpanded ? 'Tutup' : 'Lihat selengkapnya'"></span>
-                    <svg class="w-3 h-3 transition-transform duration-200" :class="contentExpanded ? 'rotate-90' : ''"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
+                <p class="line-clamp-2">{{ Str::limit(strip_tags($item->content), 100) }}</p>
             </div>
         </td>
     @elseif ($section === 'agenda')
@@ -143,6 +97,17 @@
                     </button>
                 </form>
             @else
+                <button @click="$dispatch('open-show-content', {{ $item->toJson() }})" type="button"
+                    title="Lihat detail {{ $section }}"
+                    class="inline-flex items-center gap-1 px-3 py-2 bg-uniba-blue hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                </button>
+
                 <button @click="$dispatch('open-edit-content', {{ $item->toJson() }})" type="button"
                     title="Edit {{ $section }}"
                     class="inline-flex items-center gap-1 px-3 py-2 bg-orange-500 hover:bg-orange-600 text-white text-xs font-semibold rounded-lg shadow hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">

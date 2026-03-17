@@ -1,9 +1,11 @@
 <div x-data="{
     open: false,
     item: {},
-}" x-on:open-show-content.window="
+}"
+    x-on:open-show-content.window="
         item = $event.detail;
         open = true;
+        console.log('Show histories modal opened:', item);
     "
     x-show="open" x-cloak @click.self="open = false"
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">

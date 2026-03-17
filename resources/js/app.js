@@ -44,21 +44,3 @@ window.confirmDelete = function (button) {
     });
 }
 
-function initSummernote(content = '') {
-
-    $('#editor-content').summernote('destroy')
-
-    $('#editor-content').summernote({
-        height: 250,
-        placeholder: 'Tulis konten di sini...',
-        toolbar: [
-            ['style', ['style']],
-            ['font', ['bold', 'italic', 'underline', 'clear']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['insert', ['link', 'picture']],
-            ['view', ['fullscreen', 'codeview']]
-        ]
-    })
-
-    $('#editor-content').summernote('code', content)
-}

@@ -31,10 +31,7 @@ class UpdateContentRequest extends FormRequest
             'type' => ['required', Rule::in(['news', 'announcement', 'agenda'])],
             'excerpt' => 'nullable|string|max:500',
             'content' => 'required|string',
-            'thumbnail' => 'nullable',
-            'image',
-            'mimes:jpg,png,webp',
-            'max:2048',
+            'thumbnail' => 'nullable|image|mimes:jpg,png,webp|max:2048',
             'status' => ['required', Rule::in(['draft', 'published'])],
             'published_at' => 'nullable|date',
             'event_date' => [

@@ -1,6 +1,20 @@
 <div x-data="{
     open: false,
-    item: {},
+    item: {
+        id: '',
+        slug: '',
+        type: '',
+        title: '',
+        thumbnail: '',
+        excerpt: '',
+        content: '',
+        event_date: '',
+        location: '',
+        status: 'draft',
+        published_at: '',
+        meta_title: '',
+        meta_description: ''
+    },
     thumbnailPreview: null,
 
     fileChosen(event) {
@@ -12,22 +26,43 @@
     },
 
     initEdit(data) {
-        this.item = data;
+        // Reset preview gambar
         this.thumbnailPreview = null;
+
+        // Mapping data satu per satu untuk memastikan reaktivitas Alpine
+        this.item.id = data.id || '';
+        this.item.slug = data.slug || '';
+        this.item.type = data.type || '';
+        this.item.title = data.title || '';
+        this.item.thumbnail = data.thumbnail || '';
+        this.item.excerpt = data.excerpt || '';
+        this.item.content = data.content || '';
+        this.item.location = data.location || '';
+        this.item.status = data.status || 'draft';
+        this.item.published_at = data.published_at || '';
+        this.item.meta_title = data.meta_title || '';
+        this.item.meta_description = data.meta_description || '';
+
+        // Format tanggal mutlak harus YYYY-MM-DD untuk input type='date'
+        if (data.event_date) {
+            // Mengambil 10 karakter pertama (asumsi format dari backend 'YYYY-MM-DD HH:MM:SS')
+            this.item.event_date = String(data.event_date).substring(0, 10);
+        } else {
+            this.item.event_date = '';
+        }
+
         this.open = true;
     }
 }"
     x-on:open-edit-content.window="
-initEdit($event.detail);
+        initEdit($event.detail);
 
-$nextTick(() => {
-
-    setTimeout(() => {
-        initSummernote('editor-edit-content', $event.detail.content)
-    },100)
-
-});
-"
+        $nextTick(() => {
+            setTimeout(() => {
+                initSummernote('editor-edit-content', $event.detail.content)
+            }, 100)
+        });
+    "
     x-show="open" x-cloak @click.self="open = false"
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
 
@@ -59,7 +94,7 @@ $nextTick(() => {
             </button>
         </div>
 
-        <form method="POST" :action="`/admin_tik/content/${item.slug}`" enctype="multipart/form-data"
+        <form method="POST" :action="`/admin_tik/content/${item.slug || item.id}`" enctype="multipart/form-data"
             class="flex-1 overflow-y-auto">
             @csrf
             @method('PUT')
@@ -74,7 +109,7 @@ $nextTick(() => {
                         required>
                 </div>
 
-                <div>
+                <div x-show="['news', 'announcement'].includes(item.type)">
                     <label class="block text-sm font-bold text-gray-700 mb-2">Thumbnail</label>
                     <div class="flex items-center gap-4 p-3 border-2 border-dashed border-gray-200 rounded-xl">
                         <div class="relative w-20 h-20 flex-shrink-0">
@@ -111,14 +146,13 @@ $nextTick(() => {
                     <label class="block text-sm font-bold text-gray-700 mb-2">Konten <span
                             class="text-red-500">*</span></label>
                     <textarea id="editor-edit-content" name="content"
-                        class="summernote w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue outline-none"
-                        required></textarea>
+                        class="summernote w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue outline-none"></textarea>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div x-show="item.type === 'agenda'">
                         <label class="block text-sm font-bold text-gray-700 mb-2">Tanggal Event</label>
-                        <input type="date" name="event_date" x-model="item.event_date"
+                        <input type="date" name="event_date" x-model="item.event_date" x-bind:value="item.event_date"
                             class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue outline-none">
                     </div>
 
@@ -133,19 +167,20 @@ $nextTick(() => {
                     <label class="block text-sm font-bold text-gray-700 mb-3">Status Publikasi</label>
                     <div class="flex gap-4 p-3 bg-gray-50 rounded-xl w-fit border border-gray-100">
                         <label class="flex items-center gap-2 cursor-pointer group">
-                            <input type="radio" name="status" value="draft" :checked="item.status === 'draft'"
+                            <input type="radio" name="status" value="draft" x-model="item.status"
                                 class="w-4 h-4 text-uniba-blue">
                             <span class="text-sm font-semibold text-gray-600">Draft</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer group">
-                            <input type="radio" name="status" value="published"
-                                :checked="item.status === 'published'" class="w-4 h-4 text-uniba-blue">
+                            <input type="radio" name="status" value="published" x-model="item.status"
+                                class="w-4 h-4 text-uniba-blue">
                             <span class="text-sm font-semibold text-gray-600">Terbitkan</span>
                         </label>
                     </div>
                     <p class="mt-2 text-[10px] text-gray-400 font-medium uppercase tracking-wider"
                         x-show="item.published_at">
-                        Pertama kali terbit: <span x-text="new Date(item.published_at).toLocaleString('id-ID')"></span>
+                        Pertama kali terbit: <span
+                            x-text="item.published_at ? new Date(item.published_at).toLocaleString('id-ID') : ''"></span>
                     </p>
                 </div>
 

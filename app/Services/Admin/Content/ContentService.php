@@ -19,7 +19,7 @@ class ContentService
 
             if (!empty($data['thumbnail'])) {
                 $data['thumbnail'] = $data['thumbnail']
-                    ->store('berita', 'public');
+                    ->store('content/thumbnails', 'public');
             }
 
 
@@ -45,7 +45,7 @@ class ContentService
                 }
 
                 $data['thumbnail'] = $data['thumbnail']
-                    ->store('content', 'public');
+                    ->store('content/thumbnails', 'public');
             }
 
             if (isset($data['title']) && $data['title'] !== $content->title) {
@@ -94,12 +94,14 @@ class ContentService
         $count = 1;
 
         while (
-            Content::where('slug', $slug)
+            Content::withTrashed() // ✅ Include soft deleted
+            ->where('slug', $slug)
             ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
             ->exists()
         ) {
             $slug = $originalSlug . '-' . $count++;
         }
+
 
         return $slug;
     }

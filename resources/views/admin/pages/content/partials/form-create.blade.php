@@ -10,14 +10,15 @@
     }
 }"
     x-on:open-create-content.window="
-open = true;
-$nextTick(() => {
-    if (!window.summernoteInitialized) {
-        initSummernote('editor-content')
-        window.summernoteInitialized = true
-    }
-});
-"
+        open = true;
+        this.thumbnailPreview = null; // Reset preview saat form dibuka baru
+        $nextTick(() => {
+            if (!window.summernoteInitialized) {
+                initSummernote('editor-content')
+                window.summernoteInitialized = true
+            }
+        });
+    "
     x-show="open" x-cloak @click.self="open = false"
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
 
@@ -67,8 +68,8 @@ $nextTick(() => {
                 @if (in_array($section, ['news', 'announcement']))
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Thumbnail</label>
-                        <div class="flex items-start gap-4">
-                            <div class="w-20 h-20 flex-shrink-0">
+                        <div class="flex items-center gap-4 p-3 border-2 border-dashed border-gray-200 rounded-xl">
+                            <div class="relative w-20 h-20 flex-shrink-0">
                                 <template x-if="thumbnailPreview">
                                     <img :src="thumbnailPreview"
                                         class="w-20 h-20 rounded-lg object-cover border-2 border-gray-200">
@@ -78,26 +79,35 @@ $nextTick(() => {
                                     <div
                                         class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
                                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16" />
                                         </svg>
                                     </div>
                                 </template>
                             </div>
-                            @error('thumbnail')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+
+                            <div class="flex-1">
+                                <input type="file" name="thumbnail" accept="image/*" @change="fileChosen"
+                                    class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-50 file:text-uniba-blue hover:file:bg-blue-100 transition-all">
+                            </div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Ringkasan <span
-                                    class="text-red-500">*</span></label>
-                            <textarea name="excerpt" rows="2"
-                                class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue/20 outline-none resize-none"
-                                placeholder="Ringkasan singkat untuk tampilan depan..." required>{{ old('excerpt') }}</textarea>
-                            @error('excerpt')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                        @error('thumbnail')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Ringkasan <span
+                                class="text-red-500">*</span></label>
+                        <textarea name="excerpt" rows="2"
+                            class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue/20 outline-none resize-none"
+                            placeholder="Ringkasan singkat untuk tampilan depan..." required>{{ old('excerpt') }}</textarea>
+                        @error('excerpt')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
                 @endif
+
                 @if (in_array($section, ['news', 'announcement', 'agenda']))
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Konten <span
@@ -108,6 +118,7 @@ $nextTick(() => {
                         @enderror
                     </div>
                 @endif
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     @if (in_array($section, ['agenda']))
                         <div>

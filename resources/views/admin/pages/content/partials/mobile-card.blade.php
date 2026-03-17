@@ -68,7 +68,7 @@
             </div>
 
             <div class="p-4 space-y-3">
-                @if ($section === 'news' && $item->thumbnail)
+                @if (in_array($section, ['news', 'announcement', 'agenda']) && $item->thumbnail)
                     <div class="flex gap-3">
                         <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}"
                             class="w-20 h-20 rounded-xl object-cover flex-shrink-0 border border-gray-100">
@@ -126,6 +126,13 @@
                                 {{ Str::limit($item->location ?? '-', 30) }}
                             </p>
                         </div>
+                    </div>
+                    <div class="border-t border-gray-100"></div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Konten</p>
+                        <p class="text-sm text-gray-700 leading-relaxed line-clamp-2">
+                            {{ Str::limit(strip_tags($item->content), 100) }}
+                        </p>
                     </div>
                 @endif
             </div>

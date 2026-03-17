@@ -57,13 +57,11 @@
                     @foreach ($items as $item)
                         <article
                             class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group">
-                            @if ($type !== 'agenda')
-                                <a href="{{ route('content.show', ['type' => $type, 'slug' => $item->slug]) }}"
-                                    class="block h-52 overflow-hidden bg-gray-100">
-                                    <img src="{{ $item->thumbnail_url }}" alt="{{ $item->title }}"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                </a>
-                            @endif
+                            <a href="{{ route('content.show', ['type' => $type, 'slug' => $item->slug]) }}"
+                                class="block h-52 overflow-hidden bg-gray-100">
+                                <img src="{{ $item->thumbnail_url }}" alt="{{ $item->title }}"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            </a>
 
                             <div class="p-6">
                                 <div class="flex items-center gap-3 text-xs text-gray-500 mb-3">
@@ -106,6 +104,9 @@
                                             <span>{{ $item->location ?: 'Lokasi akan diumumkan' }}</span>
                                         </div>
                                     </div>
+                                    <p class="text-gray-600 leading-relaxed line-clamp-2 mb-4">
+                                        {{ \Illuminate\Support\Str::limit(strip_tags($item->content), 140) }}
+                                    </p>
                                 @else
                                     <p class="text-gray-600 leading-relaxed line-clamp-3 mb-4">
                                         {{ $item->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($item->content), 160) }}

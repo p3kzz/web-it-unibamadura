@@ -28,12 +28,13 @@ $nextTick(() => {
 
 });
 "
-    x-show="open" x-cloak @click.self="open = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    x-show="open" x-cloak @click.self="open = false"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
 
-    <div x-show="open" x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95" @keydown.escape="open = false"
+    <div x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+        @keydown.escape="open = false"
         class="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
 
         <div class="bg-uniba-blue px-6 py-4 flex items-center justify-between">
@@ -81,8 +82,8 @@ $nextTick(() => {
                                 <img :src="thumbnailPreview"
                                     class="w-20 h-20 rounded-lg object-cover border border-uniba-blue">
                             </template>
-                            <template x-if="!thumbnailPreview && item.thumbnail">
-                                <img :src="`{{ asset('storage/') }}/${item.thumbnail}`"
+                            <template x-if="item.thumbnail">
+                                <img :src="`{{ asset('storage') }}/${item.thumbnail}`"
                                     class="w-20 h-20 rounded-lg object-cover">
                             </template>
                             <template x-if="!thumbnailPreview && !item.thumbnail">
@@ -115,7 +116,7 @@ $nextTick(() => {
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div x-show="['agenda', 'announcement'].includes(item.type)">
+                    <div x-show="item.type === 'agenda'">
                         <label class="block text-sm font-bold text-gray-700 mb-2">Tanggal Event</label>
                         <input type="date" name="event_date" x-model="item.event_date"
                             class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue outline-none">

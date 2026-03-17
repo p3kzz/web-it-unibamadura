@@ -15,7 +15,7 @@
     <div class="space-y-4">
         @forelse ($agendaItems as $item)
             <a href="{{ route('content.show', ['type' => 'agenda', 'slug' => $item->slug]) }}"
-                class="flex gap-4 items-start group">
+                class="flex gap-4 items-start group bg-white border border-gray-200 rounded-xl p-3 hover:border-uniba-blue transition-all duration-300">
                 <div
                     class="bg-white border border-gray-200 rounded-lg p-2 text-center w-16 shadow-sm group-hover:border-uniba-blue transition-all duration-300 group-hover:shadow-md transform group-hover:scale-110">
                     <span
@@ -23,7 +23,10 @@
                     <span
                         class="block text-xl font-bold text-uniba-blue">{{ optional($item->event_date)->format('d') }}</span>
                 </div>
-                <div class="min-w-0">
+                <div class="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
+                    <img src="{{ $item->thumbnail_url }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
+                </div>
+                <div class="min-w-0 flex-1">
                     <h4
                         class="font-bold text-gray-800 text-sm group-hover:text-uniba-blue transition-colors line-clamp-2">
                         {{ $item->title }}
@@ -36,6 +39,9 @@
                         </svg>
                         {{ $item->location ?: 'Lokasi akan diumumkan' }}
                     </span>
+                    <p class="text-xs text-gray-600 mt-1 line-clamp-2">
+                        {{ Str::limit(strip_tags($item->content), 90) }}
+                    </p>
                 </div>
             </a>
         @empty

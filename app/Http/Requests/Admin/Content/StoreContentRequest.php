@@ -26,38 +26,30 @@ class StoreContentRequest extends FormRequest
         return [
 
             'title' => 'required|string|max:255',
-
             'type' => ['required', Rule::in(['news', 'announcement', 'agenda'])],
-
             'excerpt' => 'nullable|string|max:500',
-
-            'content' => [
-                Rule::requiredIf(in_array($this->type, ['news', 'announcement'])),
+            'content' => 'required|string',
+            'thumbnail' => [
+                Rule::requiredIf(in_array($this->input('type'), ['news', 'announcement'])),
                 'nullable',
-                'string'
+                'image',
+                'mimes:jpg,png,webp',
+                'max:2048',
             ],
-
-            'thumbnail' => 'nullable|image|mimes:jpg,png,webp|max:2048',
-
             'status' => ['required', Rule::in(['draft', 'published'])],
-
             'published_at' => 'nullable|date',
-
             'event_date' => [
-                Rule::requiredIf($this->type === 'agenda'),
+                Rule::requiredIf($this->input('type') === 'agenda'),
                 'nullable',
                 'date'
             ],
-
             'location' => [
-                Rule::requiredIf($this->type === 'agenda'),
+                Rule::requiredIf($this->input('type') === 'agenda'),
                 'nullable',
                 'string',
                 'max:255'
             ],
-
             'meta_title' => 'nullable|string|max:255',
-
             'meta_description' => 'nullable|string|max:255',
 
         ];
@@ -67,15 +59,15 @@ class StoreContentRequest extends FormRequest
     {
         return [
             'title.required' => 'Judul wajib diisi.',
-            'slug.required' => 'Slug wajib diisi.',
             'type.required' => 'Tipe wajib dipilih.',
+            'content.required' => 'Konten wajib diisi.',
+            'thumbnail.required' => 'Thumbnail wajib diisi untuk pengumuman dan agenda.',
             'thumbnail.image' => 'Thumbnail harus berupa gambar.',
-            'thumbnail.mimes' => 'Thumbnail harus berupa gambar dengan format jpg, png atau wbep.',
+            'thumbnail.mimes' => 'Thumbnail harus berupa gambar dengan format jpg, png atau webp.',
             'thumbnail.max' => 'Ukuran thumbnail maksimal 2MB.',
             'status.required' => 'Status wajib dipilih.',
             'event_date.required' => 'Tanggal agenda wajib diisi.',
             'location.required' => 'Lokasi agenda wajib diisi.',
-            'published_at.requred' => 'Tanggal publikasi wajib diisi ketika status dipilih sebagai published.',
         ];
     }
 }

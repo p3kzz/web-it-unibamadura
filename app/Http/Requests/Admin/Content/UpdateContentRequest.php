@@ -23,41 +23,32 @@ class UpdateContentRequest extends FormRequest
      */
     public function rules(): array
     {
+        $currentContent = $this->route('content');
+
         return [
 
             'title' => 'required|string|max:255',
-
             'type' => ['required', Rule::in(['news', 'announcement', 'agenda'])],
-
             'excerpt' => 'nullable|string|max:500',
-
-            'content' => [
-                Rule::requiredIf(in_array($this->type, ['news', 'announcement'])),
-                'nullable',
-                'string'
-            ],
-
-            'thumbnail' => 'nullable|image|mimes:jpg,png,webp|max:2048',
-
+            'content' => 'required|string',
+            'thumbnail' => 'nullable',
+            'image',
+            'mimes:jpg,png,webp',
+            'max:2048',
             'status' => ['required', Rule::in(['draft', 'published'])],
-
             'published_at' => 'nullable|date',
-
             'event_date' => [
-                Rule::requiredIf($this->type === 'agenda'),
+                Rule::requiredIf($this->input('type') === 'agenda'),
                 'nullable',
                 'date'
             ],
-
             'location' => [
-                Rule::requiredIf($this->type === 'agenda'),
+                Rule::requiredIf($this->input('type') === 'agenda'),
                 'nullable',
                 'string',
                 'max:255'
             ],
-
             'meta_title' => 'nullable|string|max:255',
-
             'meta_description' => 'nullable|string|max:255',
 
         ];

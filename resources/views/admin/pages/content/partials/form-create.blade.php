@@ -12,17 +12,19 @@
     x-on:open-create-content.window="
 open = true;
 $nextTick(() => {
-    setTimeout(() => {
+    if (!window.summernoteInitialized) {
         initSummernote('editor-content')
-    }, 100)
+        window.summernoteInitialized = true
+    }
 });
 "
-    x-show="open" x-cloak @click.self="open = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    x-show="open" x-cloak @click.self="open = false"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
 
-    <div x-show="open" x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95" @keydown.escape="open = false"
+    <div x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+        @keydown.escape="open = false"
         class="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
 
         <div class="bg-uniba-blue px-6 py-4 flex items-center justify-between">
@@ -62,36 +64,41 @@ $nextTick(() => {
                     @enderror
                 </div>
 
-                @if ($section === 'news')
+                @if (in_array($section, ['news', 'announcement']))
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Thumbnail</label>
                         <div class="flex items-start gap-4">
-                            <template x-if="thumbnailPreview">
-                                <img :src="thumbnailPreview"
-                                    class="w-20 h-20 rounded-lg object-cover border-2 border-gray-200">
-                            </template>
-                            <div class="flex-1">
-                                <input type="file" name="thumbnail" accept="image/*" @change="fileChosen"
-                                    class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-uniba-blue hover:file:bg-blue-100 transition-all">
-                                <p class="mt-1 text-xs text-gray-500">Format: JPG, PNG, WebP (Max: 2MB)</p>
+                            <div class="w-20 h-20 flex-shrink-0">
+                                <template x-if="thumbnailPreview">
+                                    <img :src="thumbnailPreview"
+                                        class="w-20 h-20 rounded-lg object-cover border-2 border-gray-200">
+                                </template>
+
+                                <template x-if="!thumbnailPreview">
+                                    <div
+                                        class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16" />
+                                        </svg>
+                                    </div>
+                                </template>
                             </div>
+                            @error('thumbnail')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
                         </div>
-                        @error('thumbnail')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Ringkasan <span
-                                class="text-red-500">*</span></label>
-                        <textarea name="excerpt" rows="2"
-                            class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue/20 outline-none resize-none"
-                            placeholder="Ringkasan singkat untuk tampilan depan..." required>{{ old('excerpt') }}</textarea>
-                        @error('excerpt')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Ringkasan <span
+                                    class="text-red-500">*</span></label>
+                            <textarea name="excerpt" rows="2"
+                                class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue/20 outline-none resize-none"
+                                placeholder="Ringkasan singkat untuk tampilan depan..." required>{{ old('excerpt') }}</textarea>
+                            @error('excerpt')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
                 @endif
-                @if (in_array($section, ['news', 'announcement']))
+                @if (in_array($section, ['news', 'announcement', 'agenda']))
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Konten <span
                                 class="text-red-500">*</span></label>

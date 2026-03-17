@@ -1,17 +1,17 @@
 <div x-data="{
     open: false,
     item: {},
-}"
-    x-on:open-show-content.window="
+}" x-on:open-show-content.window="
         item = $event.detail;
         open = true;
     "
-    x-show="open" x-cloak @click.self="open = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    x-show="open" x-cloak @click.self="open = false"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
 
-    <div x-show="open" x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95" @keydown.escape="open = false"
+    <div x-show="open" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+        @keydown.escape="open = false"
         class="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
 
         <div class="bg-uniba-blue px-6 py-4 flex items-center justify-between">
@@ -39,7 +39,7 @@
 
         <div class="flex-1 overflow-y-auto p-6 space-y-5">
 
-            <template x-if="item.type === 'news' && item.thumbnail">
+            <template x-if="['news', 'announcement'].includes(item.type) && item.thumbnail">
                 <div>
                     <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Thumbnail</p>
                     <img :src="`{{ asset('storage/') }}/${item.thumbnail}`" :alt="item.title"
@@ -63,7 +63,9 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Tanggal Event</p>
-                        <p class="text-gray-700 font-medium" x-text="item.event_date ? new Date(item.event_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : '-'"></p>
+                        <p class="text-gray-700 font-medium"
+                            x-text="item.event_date ? new Date(item.event_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : '-'">
+                        </p>
                     </div>
                     <div>
                         <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Lokasi</p>
@@ -72,7 +74,7 @@
                 </div>
             </template>
 
-            <template x-if="['news', 'announcement'].includes(item.type)">
+            <template x-if="['news', 'announcement', 'agenda'].includes(item.type)">
                 <div>
                     <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Konten</p>
                     <div class="prose prose-sm max-w-none text-gray-700 leading-relaxed border border-gray-100 rounded-xl p-4 bg-gray-50"
@@ -84,13 +86,15 @@
                 <div>
                     <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Status</p>
                     <template x-if="item.status === 'published'">
-                        <span class="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+                        <span
+                            class="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
                             <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
                             Dipublikasikan
                         </span>
                     </template>
                     <template x-if="item.status === 'draft'">
-                        <span class="inline-flex items-center gap-1 px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded-full">
+                        <span
+                            class="inline-flex items-center gap-1 px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded-full">
                             <span class="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
                             Draft
                         </span>
@@ -98,7 +102,9 @@
                 </div>
                 <div>
                     <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Diterbitkan</p>
-                    <p class="text-gray-700 text-sm" x-text="item.published_at ? new Date(item.published_at).toLocaleString('id-ID') : 'Belum diterbitkan'"></p>
+                    <p class="text-gray-700 text-sm"
+                        x-text="item.published_at ? new Date(item.published_at).toLocaleString('id-ID') : 'Belum diterbitkan'">
+                    </p>
                 </div>
             </div>
 

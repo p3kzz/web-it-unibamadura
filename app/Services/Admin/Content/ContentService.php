@@ -22,7 +22,6 @@ class ContentService
                     ->store('berita', 'public');
             }
 
-            $data['content'] = $data['content'] ?? '';
 
             $data['slug'] = $this->generateUniqueSlug($data['title']);
 

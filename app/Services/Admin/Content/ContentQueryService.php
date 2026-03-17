@@ -24,8 +24,8 @@ class ContentQueryService
 
                 $q->where(function ($sub) use ($search) {
                     $sub->where('title', 'like', "%{$search}%")
-                        ->orWhere('excerpt', 'like', "%{$search}%");
-                    $sub->orWhere('content', 'like', "%{$search}%");
+                        ->orWhere('excerpt', 'like', "%{$search}%")
+                        ->orWhere('content', 'like', "%{$search}%");
                 });
             });
 

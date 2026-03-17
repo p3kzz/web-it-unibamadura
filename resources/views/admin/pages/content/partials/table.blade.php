@@ -53,6 +53,7 @@
                             'agenda' => [
                                 ['label' => 'Event Date', 'key' => 'event_date', 'width' => 'w-32'],
                                 ['label' => 'Location', 'key' => 'location'],
+                                ['label' => 'Content', 'key' => 'content'],
                             ],
                         ];
 

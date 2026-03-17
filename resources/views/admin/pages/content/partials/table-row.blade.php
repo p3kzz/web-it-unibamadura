@@ -10,7 +10,7 @@
 
     <td class="px-4 py-4">
         <div class="flex items-center space-x-3">
-            @if ($section === 'news')
+            @if (in_array($section, ['news', 'announcement']))
                 @if ($item->thumbnail)
                     <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="Thumbnail"
                         class="w-16 h-16 rounded-lg object-cover flex-shrink-0">
@@ -56,6 +56,11 @@
         </td>
         <td class="px-4 py-4 text-sm text-gray-700">
             {{ Str::limit($item->location ?? '-', 50) }}
+        </td>
+        <td class="px-4 py-4 text-sm text-gray-700">
+            <div class="break-words max-w-sm xl:max-w-md">
+                <p class="line-clamp-2">{{ Str::limit(strip_tags($item->content), 100) }}</p>
+            </div>
         </td>
     @endif
 

@@ -11,7 +11,7 @@
 }"
     x-on:open-create-content.window="
         open = true;
-        this.thumbnailPreview = null; // Reset preview saat form dibuka baru
+        this.thumbnailPreview = null; 
         $nextTick(() => {
             if (!window.summernoteInitialized) {
                 initSummernote('editor-content')
@@ -128,6 +128,16 @@
                                 class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue outline-none"
                                 required>
                             @error('event_date')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Jam Event <span
+                                    class="text-red-500">*</span></label>
+                            <input type="time" name="event_time" value="{{ old('event_time') }}"
+                                class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue outline-none"
+                                required>
+                            @error('event_time')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>

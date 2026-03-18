@@ -20,6 +20,7 @@ class Content extends Model
         'status',
         'published_at',
         'event_date',
+        'event_time',
         'location',
         'user_id',
         'views',
@@ -30,6 +31,7 @@ class Content extends Model
     protected $casts = [
         'published_at' => 'datetime',
         'event_date' => 'date',
+        'event_time' => 'datetime:H:i',
         'views' => 'integer',
     ];
 

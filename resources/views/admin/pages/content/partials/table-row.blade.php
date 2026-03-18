@@ -54,6 +54,9 @@
         <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
             {{ $item->event_date ? \Carbon\Carbon::parse($item->event_date)->format('d M Y') : '-' }}
         </td>
+        <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
+            {{ $item->event_time ? \Carbon\Carbon::parse($item->event_time)->format('H:i') : '-' }} WIB
+        </td>
         <td class="px-4 py-4 text-sm text-gray-700">
             {{ Str::limit($item->location ?? '-', 50) }}
         </td>

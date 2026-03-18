@@ -9,6 +9,7 @@
         excerpt: '',
         content: '',
         event_date: '',
+        event_time: '',
         location: '',
         status: 'draft',
         published_at: '',
@@ -38,6 +39,7 @@
         this.item.excerpt = data.excerpt || '';
         this.item.content = data.content || '';
         this.item.location = data.location || '';
+        this.item.event_time = data.event_time ? String(data.event_time).substring(0, 5) : '';
         this.item.status = data.status || 'draft';
         this.item.published_at = data.published_at || '';
         this.item.meta_title = data.meta_title || '';
@@ -153,6 +155,12 @@
                     <div x-show="item.type === 'agenda'">
                         <label class="block text-sm font-bold text-gray-700 mb-2">Tanggal Event</label>
                         <input type="date" name="event_date" x-model="item.event_date" x-bind:value="item.event_date"
+                            class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue outline-none">
+                    </div>
+
+                    <div x-show="item.type === 'agenda'">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Jam Event</label>
+                        <input type="time" name="event_time" x-model="item.event_time"
                             class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue outline-none">
                     </div>
 

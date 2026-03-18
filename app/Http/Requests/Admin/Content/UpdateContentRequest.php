@@ -37,7 +37,13 @@ class UpdateContentRequest extends FormRequest
             'event_date' => [
                 Rule::requiredIf($this->input('type') === 'agenda'),
                 'nullable',
-                'date'
+                'date',
+                'after_or_equal:today'
+            ],
+            'event_time' => [
+                Rule::requiredIf($this->input('type') === 'agenda'),
+                'nullable',
+                'date_format:H:i'
             ],
             'location' => [
                 Rule::requiredIf($this->input('type') === 'agenda'),

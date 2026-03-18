@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('status', ['draft', 'published'])->default('draft')->index();
             $table->timestamp('published_at')->nullable();
             $table->date('event_date')->nullable()->index();
+            $table->time('event_time')->nullable()->index();
             $table->string('location')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->unsignedInteger('views')->default(0)->index();

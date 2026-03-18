@@ -52,6 +52,7 @@
                             'announcement' => [['label' => 'Content', 'key' => 'content']],
                             'agenda' => [
                                 ['label' => 'Event Date', 'key' => 'event_date', 'width' => 'w-32'],
+                                ['label' => 'Event Time', 'key' => 'event_time', 'width' => 'w-24'],
                                 ['label' => 'Location', 'key' => 'location'],
                                 ['label' => 'Content', 'key' => 'content'],
                             ],

@@ -41,7 +41,13 @@ class StoreContentRequest extends FormRequest
             'event_date' => [
                 Rule::requiredIf($this->input('type') === 'agenda'),
                 'nullable',
-                'date'
+                'date',
+                'after_or_equal:today'
+            ],
+            'event_time' => [
+                Rule::requiredIf($this->input('type') === 'agenda'),
+                'nullable',
+                'date_format:H:i'
             ],
             'location' => [
                 Rule::requiredIf($this->input('type') === 'agenda'),
@@ -67,6 +73,9 @@ class StoreContentRequest extends FormRequest
             'thumbnail.max' => 'Ukuran thumbnail maksimal 2MB.',
             'status.required' => 'Status wajib dipilih.',
             'event_date.required' => 'Tanggal agenda wajib diisi.',
+            'event_date.after_or_equal' => 'Tanggal agenda tidak boleh sebelum hari ini.',
+            'event_time.required' => 'Jam agenda wajib diisi.',
+            'event_time.date_format' => 'Format jam tidak valid (gunakan format HH:MM).',
             'location.required' => 'Lokasi agenda wajib diisi.',
         ];
     }

@@ -121,11 +121,18 @@
                             </p>
                         </div>
                         <div>
-                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Lokasi</p>
-                            <p class="text-sm font-medium text-gray-800 truncate">
-                                {{ Str::limit($item->location ?? '-', 30) }}
+                            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Jam</p>
+                            <p class="text-sm font-medium text-gray-800">
+                                {{ $item->event_time ? \Carbon\Carbon::parse($item->event_time)->format('H:i') : '-' }}
+                                WIB
                             </p>
                         </div>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Lokasi</p>
+                        <p class="text-sm font-medium text-gray-800 truncate">
+                            {{ Str::limit($item->location ?? '-', 30) }}
+                        </p>
                     </div>
                     <div class="border-t border-gray-100"></div>
                     <div>

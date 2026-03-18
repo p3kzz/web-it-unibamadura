@@ -23,9 +23,6 @@
                     <span
                         class="block text-xl font-bold text-uniba-blue">{{ optional($item->event_date)->format('d') }}</span>
                 </div>
-                <div class="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
-                    <img src="{{ $item->thumbnail_url }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
-                </div>
                 <div class="min-w-0 flex-1">
                     <h4
                         class="font-bold text-gray-800 text-sm group-hover:text-uniba-blue transition-colors line-clamp-2">

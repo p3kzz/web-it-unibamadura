@@ -51,12 +51,16 @@
             <div class="grid lg:grid-cols-[minmax(0,1fr)_320px] gap-10 items-start">
 
                 <article class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
-                    @if ($content->thumbnail)
+                    {{-- @if ($content->thumbnail)
                         <img src="{{ $content->thumbnail_url }}" alt="{{ $content->title }}"
                             class="w-full max-h-[28rem] object-cover">
-                    @endif
+                    @endif --}}
 
                     <div class="p-6 md:p-10 flex flex-col h-full">
+                        <div
+                            class="prose prose-lg  max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-uniba-blue prose-strong:text-gray-900 prose-li:text-gray-700">
+                            {!! $content->content !!}
+                        </div>
                         @if ($content->type === 'agenda')
                             <div class="grid sm:grid-cols-2 gap-4 mb-8">
                                 <div class="bg-emerald-50 border border-emerald-100 rounded-2xl p-4">
@@ -74,11 +78,6 @@
                                 </div>
                             </div>
                         @endif
-
-                        <div
-                            class="prose prose-lg  max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-uniba-blue prose-strong:text-gray-900 prose-li:text-gray-700">
-                            {!! $content->content !!}
-                        </div>
 
                         <div class="mt-auto pt-8 border-t border-gray-100" x-data="{ copied: false }">
                             <p class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-4">Bagikan artikel ini

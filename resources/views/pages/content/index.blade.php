@@ -57,11 +57,13 @@
                     @foreach ($items as $item)
                         <article
                             class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group">
-                            <a href="{{ route('content.show', ['type' => $type, 'slug' => $item->slug]) }}"
-                                class="block h-52 overflow-hidden bg-gray-100">
-                                <img src="{{ $item->thumbnail_url }}" alt="{{ $item->title }}"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            </a>
+                            @if (in_array($item, ['news', 'announcemenet']))
+                                <a href="{{ route('content.show', ['type' => $type, 'slug' => $item->slug]) }}"
+                                    class="block h-52 overflow-hidden bg-gray-100">
+                                    <img src="{{ $item->thumbnail_url }}" alt="{{ $item->title }}"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                </a>
+                            @endif
 
                             <div class="p-6">
                                 <div class="flex items-center gap-3 text-xs text-gray-500 mb-3">

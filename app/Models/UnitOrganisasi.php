@@ -1,0 +1,102 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class UnitOrganisasi extends Model
+{
+    use HasFactory;
+
+    protected $table = 'unit_organisasi';
+
+    protected $fillable = [
+        'struktur_organisasi_id',
+        'name',
+        'parent_id',
+        'type',
+        'tasks',
+        'functions',
+        'order',
+    ];
+
+    protected $casts = [
+        'functions' => 'array',
+        'order' => 'integer',
+    ];
+
+    /**
+     * Get the struktur organisasi that owns the unit.
+     */
+    public function strukturOrganisasi(): BelongsTo
+    {
+        return $this->belongsTo(StrukturOrganisasi::class, 'struktur_organisasi_id');
+    }
+
+    /**
+     * Get the parent unit.
+     */
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(UnitOrganisasi::class, 'parent_id');
+    }
+
+    /**
+     * Get the child units (subdirectorates).
+     */
+    public function children(): HasMany
+    {
+        return $this->hasMany(UnitOrganisasi::class, 'parent_id')->orderBy('order');
+    }
+
+    /**
+     * Get the subdirectorates (alias for children).
+     */
+    public function subdirectorates(): HasMany
+    {
+        return $this->children()->where('type', 'subdirectorate');
+    }
+
+    /**
+     * Scope for directorates only.
+     */
+    public function scopeDirectorates($query)
+    {
+        return $query->where('type', 'directorate');
+    }
+
+    /**
+     * Scope for subdirectorates only.
+     */
+    public function scopeSubdirectorates($query)
+    {
+        return $query->where('type', 'subdirectorate');
+    }
+
+    /**
+     * Scope to order by the order column.
+     */
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('order');
+    }
+
+    /**
+     * Check if unit is a directorate.
+     */
+    public function isDirectorate(): bool
+    {
+        return $this->type === 'directorate';
+    }
+
+    /**
+     * Check if unit is a subdirectorate.
+     */
+    public function isSubdirectorate(): bool
+    {
+        return $this->type === 'subdirectorate';
+    }
+}

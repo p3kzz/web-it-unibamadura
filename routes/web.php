@@ -3,8 +3,9 @@
 use App\Http\Controllers\Admin\Content\ContentItemsController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\Periode\PeriodeController;
-use App\Http\Controllers\Admin\StrukturOrganisasi\StrukturOrganisasiItemsController;
 use App\Http\Controllers\Admin\Tentang\Histories\HistoriesItemsController;
+use App\Http\Controllers\Admin\Tentang\StrukturOrganisasi\StrukturOrganisasiItemsController;
+use App\Http\Controllers\Admin\Tentang\UnitOrganisasi\UnitOrganisasiController;
 use App\Http\Controllers\Admin\Tentang\VisiMisi\VisiMisiItemsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Pages\HomeController;
@@ -58,6 +59,14 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     Route::patch('/content/{content}/restore', [ContentItemsController::class, 'restore'])->name('content.restore');
     Route::post('/editor/upload-image', [ContentItemsController::class, 'uploadEditorImage'])->name('editor.upload-image');
     Route::resource('/struktur-organisasi-item', StrukturOrganisasiItemsController::class)->names('tentang.struktur-organisasi');
+
+    // Unit Organisasi routes (nested under struktur)
+    Route::get('/struktur-organisasi/{struktur}/unit', [UnitOrganisasiController::class, 'index'])->name('tentang.unit-organisasi.index');
+    Route::post('/unit-organisasi', [UnitOrganisasiController::class, 'store'])->name('tentang.unit-organisasi.store');
+    Route::get('/unit-organisasi/{unit}', [UnitOrganisasiController::class, 'show'])->name('tentang.unit-organisasi.show');
+    Route::put('/unit-organisasi/{unit}', [UnitOrganisasiController::class, 'update'])->name('tentang.unit-organisasi.update');
+    Route::delete('/unit-organisasi/{unit}', [UnitOrganisasiController::class, 'destroy'])->name('tentang.unit-organisasi.destroy');
+    Route::post('/unit-organisasi/update-order', [UnitOrganisasiController::class, 'updateOrder'])->name('tentang.unit-organisasi.update-order');
 });
 
 require __DIR__ . '/auth.php';

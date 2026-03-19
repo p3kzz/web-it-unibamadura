@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Tentang\StrukturOrganisasi;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateStrukturRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateStrukturRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check() && Auth::user()->isAdmin();
     }
 
     /**
@@ -22,7 +23,23 @@ class UpdateStrukturRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'periode_id' => 'required|exists:periode,id',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'is_active' => 'nullable|boolean',
+        ];
+    }
+
+    /**
+     * Get the custom messages for validation errors.
+     */
+    public function messages(): array
+    {
+        return [
+            'periode_id.required' => 'Periode wajib dipilih.',
+            'periode_id.exists' => 'Periode yang dipilih tidak valid.',
+            'image.image' => 'File harus berupa gambar.',
+            'image.mimes' => 'Format gambar harus jpg, jpeg, png, atau webp.',
+            'image.max' => 'Ukuran gambar maksimal 5MB.',
         ];
     }
 }

@@ -16,7 +16,13 @@ class Periode extends Model
         'is_active',
     ];
 
-    public function VisiMisiItems() {
+    public function VisiMisiItems()
+    {
         return $this->hasMany(VisiMisiItem::class);
+    }
+
+    public function strukturOrganisasi()
+    {
+        return $this->hasMany(StrukturOrganisasi::class);
     }
 }

@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('struktur_organisasi', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('periode_id')->constrained('periode')->cascadeOnDelete();
+            $table->string('image');
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }

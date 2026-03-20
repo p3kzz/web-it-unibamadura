@@ -11,7 +11,7 @@
 }"
     x-on:open-create-content.window="
         open = true;
-        this.thumbnailPreview = null; 
+        this.thumbnailPreview = null;
         $nextTick(() => {
             if (!window.summernoteInitialized) {
                 initSummernote('editor-content')
@@ -49,7 +49,7 @@
         </div>
 
         <form method="POST" action="{{ route('admin.content.store') }}" enctype="multipart/form-data"
-            class="flex-1 overflow-y-auto">
+            class="flex-1 overflow-y-auto" x-data="{ loading: false }" @submit="loading = true">
             @csrf
             <input type="hidden" name="type" value="{{ $section }}">
 
@@ -196,19 +196,40 @@
                 <span class="text-xs text-gray-500"><span class="text-red-500">*</span> Wajib diisi</span>
                 <div class="flex gap-3">
                     <button type="button" @click="open = false"
-                        class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all">
+                        class="px-5 py-2.5 bg-white border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all ">
                         Batal
                     </button>
-                    <button type="submit"
-                        class="px-5 py-2.5 bg-uniba-blue text-white font-semibold rounded-xl shadow-md shadow-blue-200 hover:bg-blue-700 transform hover:-translate-y-0.5 transition-all flex items-center gap-2">
+                    <button type="submit" :disabled="loading"
+                        class="px-5 py-2.5 bg-uniba-blue text-white font-semibold rounded-xl shadow-md shadow-blue-200 hover:bg-blue-700 transform hover:-translate-y-0.5 transition-all flex items-center gap-2 disabled:opacity-50">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
                             </path>
                         </svg>
                         Simpan Data
+                        <span x-show="!loading">Simpan</span>
+                        <span x-show="loading">Menyimpan...</span>
+
                     </button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+    fileChosen(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Ukuran file maksimal 5MB');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            this.imagePreview = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+</script>

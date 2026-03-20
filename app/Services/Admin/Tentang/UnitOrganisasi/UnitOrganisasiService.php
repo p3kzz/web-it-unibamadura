@@ -13,14 +13,27 @@ class UnitOrganisasiService
     public function store(array $data): UnitOrganisasi
     {
         return DB::transaction(function () use ($data) {
+
+            if (!empty($data['parent_id'])) {
+                $parent = UnitOrganisasi::find($data['parent_id']);
+
+                if ($parent->struktur_organisasi_id !== $data['struktur_organisasi_id']) {
+                    throw new \Exception('Parent tidak valid.');
+                }
+            }
+
+            $order = $data['order'] ?? $this->getNextOrder(
+                $data['struktur_organisasi_id'],
+                $data['parent_id'] ?? null
+            );
+
             return UnitOrganisasi::create([
                 'struktur_organisasi_id' => $data['struktur_organisasi_id'],
                 'name' => $data['name'],
                 'parent_id' => $data['parent_id'] ?? null,
                 'type' => $data['type'],
-                'tasks' => $data['tasks'] ?? null,
-                'functions' => $data['functions'] ?? null,
-                'order' => $data['order'] ?? 0,
+                'description' => $data['description'] ?? null,
+                'order' => $order,
             ]);
         });
     }
@@ -31,36 +44,79 @@ class UnitOrganisasiService
     public function update(UnitOrganisasi $unit, array $data): UnitOrganisasi
     {
         return DB::transaction(function () use ($unit, $data) {
+
+            if (array_key_exists('parent_id', $data)) {
+                $this->validateParent($unit, $data['parent_id']);
+            }
+
+            $newParentId = $data['parent_id'] ?? $unit->parent_id;
+
+            $order = $data['order'] ?? $unit->order;
+
+            if ($newParentId != $unit->parent_id) {
+                $order = $this->getNextOrder(
+                    $unit->struktur_organisasi_id,
+                    $newParentId
+                );
+            }
+
             $unit->update([
                 'name' => $data['name'] ?? $unit->name,
-                'parent_id' => array_key_exists('parent_id', $data) ? $data['parent_id'] : $unit->parent_id,
+                'parent_id' => $newParentId,
                 'type' => $data['type'] ?? $unit->type,
-                'tasks' => $data['tasks'] ?? $unit->tasks,
-                'functions' => array_key_exists('functions', $data) ? $data['functions'] : $unit->functions,
-                'order' => $data['order'] ?? $unit->order,
+                'description' => $data['description'] ?? $unit->description,
+                'order' => $order,
             ]);
 
             return $unit->refresh();
         });
     }
-
     /**
      * Delete a unit organisasi.
      */
     public function delete(UnitOrganisasi $unit): void
     {
-        $unit->delete();
+        DB::transaction(function () use ($unit) {
+
+            if ($unit->children()->exists()) {
+                throw new \Exception('Unit memiliki child, tidak bisa dihapus.');
+            }
+
+            $unit->delete();
+        });
     }
 
-    /**
-     * Update order of units.
-     */
-    public function updateOrder(array $orderedIds): void
+    private function validateParent(UnitOrganisasi $unit, ?int $parentId): void
     {
-        DB::transaction(function () use ($orderedIds) {
-            foreach ($orderedIds as $index => $id) {
-                UnitOrganisasi::where('id', $id)->update(['order' => $index]);
+        if (!$parentId) return;
+
+        if ($unit->id === $parentId) {
+            throw new \Exception('Unit tidak boleh menjadi parent dirinya sendiri.');
+        }
+
+        $parent = UnitOrganisasi::find($parentId);
+
+        if (!$parent) {
+            throw new \Exception('Parent tidak ditemukan.');
+        }
+
+        if ($parent->struktur_organisasi_id !== $unit->struktur_organisasi_id) {
+            throw new \Exception('Parent harus dalam struktur yang sama.');
+        }
+
+        $current = $parent;
+        while ($current) {
+            if ($current->id === $unit->id) {
+                throw new \Exception('Terjadi circular reference.');
             }
-        });
+            $current = $current->parent;
+        }
+    }
+
+    private function getNextOrder(int $strukturId, ?int $parentId): int
+    {
+        return UnitOrganisasi::where('struktur_organisasi_id', $strukturId)
+            ->where('parent_id', $parentId)
+            ->max('order') + 1;
     }
 }

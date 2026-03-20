@@ -20,18 +20,22 @@ class StoreStrukturRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'is_active' => $this->boolean('is_active'),
+        ]);
+    }
+
     public function rules(): array
     {
         return [
             'periode_id' => 'required|exists:periode,id',
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
-            'is_active' => 'nullable|boolean',
+            'is_active' => 'boolean',
         ];
     }
 
-    /**
-     * Get the custom messages for validation errors.
-     */
     public function messages(): array
     {
         return [

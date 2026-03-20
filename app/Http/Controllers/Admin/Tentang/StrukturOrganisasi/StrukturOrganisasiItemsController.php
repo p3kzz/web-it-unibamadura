@@ -27,44 +27,28 @@ class StrukturOrganisasiItemsController extends Controller
         $search = trim($request->get('search'));
         $strukturId = $request->get('struktur_id');
 
-        // Get all struktur for dropdown
-        $strukturList = StrukturOrganisasi::with('periode')->latest()->get();
+        $strukturList = $this->query->getItems($search, 100); // reuse
         $periodes = Periode::orderBy('start_year', 'desc')->get();
 
-        // Get selected struktur and its units
         $selectedStruktur = null;
         $units = collect();
         $directorates = collect();
 
         if ($strukturId) {
-            $selectedStruktur = StrukturOrganisasi::with('periode')->find($strukturId);
+            $selectedStruktur = $this->query->findById($strukturId);
 
-            if ($selectedStruktur) {
-                // Get units as tree (directorates with subdirectorates)
-                $units = UnitOrganisasi::where('struktur_organisasi_id', $strukturId)
-                    ->whereNull('parent_id')
-                    ->with(['children' => fn($q) => $q->orderBy('order')])
-                    ->orderBy('order')
-                    ->get();
+            $units = app(\App\Services\Admin\Tentang\UnitOrganisasi\UnitOrganisasiQueryService::class)
+                ->getUnitTree($strukturId);
 
-                // Get directorates for parent dropdown in forms
-                $directorates = UnitOrganisasi::where('struktur_organisasi_id', $strukturId)
-                    ->where('type', 'directorate')
-                    ->orderBy('order')
-                    ->get();
-            }
+            $directorates = app(\App\Services\Admin\Tentang\UnitOrganisasi\UnitOrganisasiQueryService::class)
+                ->getDirectoratesByStrukturId($strukturId);
         }
 
-        if ($request->ajax()) {
-            return view('admin.pages.tentang.struktur-organisasi.partials.content', compact(
-                'selectedStruktur',
-                'units',
-                'directorates',
-                'search'
-            ));
-        }
+        $view = $request->ajax()
+            ? 'admin.pages.tentang.struktur-organisasi.partials.content'
+            : 'admin.pages.tentang.struktur-organisasi.index';
 
-        return view('admin.pages.tentang.struktur-organisasi.index', compact(
+        return view($view, compact(
             'strukturList',
             'periodes',
             'selectedStruktur',

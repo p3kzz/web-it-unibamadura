@@ -12,7 +12,8 @@ class StrukturOrganisasiQueryService
     public function getItems(?string $search = null, int $perPage = 10)
     {
         return StrukturOrganisasi::query()
-            ->with(['periode', 'unitOrganisasi'])
+            ->with(['periode'])
+            ->withCount('units') 
             ->when($search, function ($q) use ($search) {
                 $q->whereHas('periode', function ($query) use ($search) {
                     $query->where('name', 'like', "%{$search}%");
@@ -24,25 +25,27 @@ class StrukturOrganisasiQueryService
     }
 
     /**
-     * Get active struktur organisasi with units.
+     * Get active struktur organisasi with full tree.
      */
     public function getActive()
     {
         return StrukturOrganisasi::query()
             ->with([
                 'periode',
-                'directorates.subdirectorates' => fn($q) => $q->orderBy('order'),
+                'roots.childrenRecursive',
             ])
             ->active()
             ->first();
     }
 
     /**
-     * Find struktur organisasi by id.
+     * Find struktur organisasi by id with full tree.
      */
     public function findById(int $id)
     {
-        return StrukturOrganisasi::with(['periode', 'unitOrganisasi'])
-            ->findOrFail($id);
+        return StrukturOrganisasi::with([
+            'periode',
+            'roots.childrenRecursive',
+        ])->findOrFail($id);
     }
 }

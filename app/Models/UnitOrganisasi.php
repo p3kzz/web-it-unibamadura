@@ -18,20 +18,18 @@ class UnitOrganisasi extends Model
         'name',
         'parent_id',
         'type',
-        'tasks',
-        'functions',
+        'description',
         'order',
     ];
 
     protected $casts = [
-        'functions' => 'array',
         'order' => 'integer',
     ];
 
     /**
      * Get the struktur organisasi that owns the unit.
      */
-    public function strukturOrganisasi(): BelongsTo
+    public function struktur(): BelongsTo
     {
         return $this->belongsTo(StrukturOrganisasi::class, 'struktur_organisasi_id');
     }
@@ -52,8 +50,13 @@ class UnitOrganisasi extends Model
         return $this->hasMany(UnitOrganisasi::class, 'parent_id')->orderBy('order');
     }
 
+    public function childrenRecursive(): HasMany
+    {
+        return $this->children()->with('childrenRecursive');
+    }
+
     /**
-     * Get the subdirectorates (alias for children).
+     * Get the subdirectorates.
      */
     public function subdirectorates(): HasMany
     {
@@ -76,12 +79,9 @@ class UnitOrganisasi extends Model
         return $query->where('type', 'subdirectorate');
     }
 
-    /**
-     * Scope to order by the order column.
-     */
-    public function scopeOrdered($query)
+    public function scopeRoots($query)
     {
-        return $query->orderBy('order');
+        return $query->whereNull('parent_id');
     }
 
     /**

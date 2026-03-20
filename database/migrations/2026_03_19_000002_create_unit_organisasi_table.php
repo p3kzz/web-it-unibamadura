@@ -17,9 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('parent_id')->nullable()->constrained('unit_organisasi')->nullOnDelete();
             $table->enum('type', ['directorate', 'subdirectorate'])->default('directorate');
-            $table->text('tasks')->nullable();
-            $table->json('functions')->nullable();
-            $table->unsignedInteger('order')->default(0);
+            $table->longText('description')->nullable();
+            $table->integer('order')->default(0);
             $table->timestamps();
         });
     }

@@ -19,10 +19,10 @@ class StrukturOrganisasiService
                     ->store('struktur-organisasi', 'public');
             }
 
-            $isActive = isset($data['is_active']) && (int) $data['is_active'] === 1;
+            $isActive = $data['is_active'] ?? false;
 
             if ($isActive) {
-                $this->deactivateAll();
+                $this->deactivateAll($data['periode_id']);
             }
 
             return StrukturOrganisasi::create([
@@ -48,10 +48,10 @@ class StrukturOrganisasiService
                     ->store('struktur-organisasi', 'public');
             }
 
-            $isActive = isset($data['is_active']) && (int) $data['is_active'] === 1;
+            $isActive = $data['is_active'] ?? $struktur->is_active;
 
             if ($isActive) {
-                $this->deactivateAll($struktur->id);
+                $this->deactivateAll($data['periode_id'], $struktur->id);
             }
 
             $struktur->update([
@@ -64,25 +64,32 @@ class StrukturOrganisasiService
         });
     }
 
-    /**
+    /** 
      * Delete a struktur organisasi.
      */
     public function delete(StrukturOrganisasi $struktur): void
     {
-        if ($struktur->image && Storage::disk('public')->exists($struktur->image)) {
-            Storage::disk('public')->delete($struktur->image);
-        }
-
-        $struktur->delete();
+        DB::transaction(function () use ($struktur) {
+            $this->deleteImage($struktur->image);
+            $struktur->delete();
+        });
     }
 
     /**
      * Deactivate all struktur organisasi.
      */
-    private function deactivateAll(?int $exceptId = null): void
+    private function deactivateAll(int $periodeId, ?int $exceptId = null): void
     {
-        StrukturOrganisasi::where('is_active', true)
+        StrukturOrganisasi::where('periode_id', $periodeId)
+            ->where('is_active', true)
             ->when($exceptId, fn($q) => $q->where('id', '!=', $exceptId))
             ->update(['is_active' => false]);
+    }
+
+    private function deleteImage(?string $path): void
+    {
+        if ($path && Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
     }
 }

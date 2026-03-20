@@ -53,7 +53,8 @@
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue/20 outline-none transition-all">
                         <option value="">Pilih Periode</option>
                         @foreach ($periodes as $periode)
-                            <option value="{{ $periode->id }}">
+                            <option value="{{ $periode->id }}"
+                                {{ old('periode_id') == $periode->id ? 'selected' : '' }}>
                                 {{ $periode->name ?? $periode->start_year . ' - ' . $periode->end_year }}
                             </option>
                         @endforeach
@@ -105,8 +106,8 @@
                 {{-- Is Active --}}
                 <div class="pt-4 border-t border-gray-100">
                     <label class="flex items-center gap-3 cursor-pointer group">
-                        <input type="checkbox" name="is_active" value="1"
-                            class="w-5 h-5 text-uniba-blue border-gray-300 rounded focus:ring-uniba-blue/20">
+                        <input type="checkbox" name="is_active" value="1" {{ old('is_active') ? 'checked' : '' }}
+                        class="w-5 h-5 text-uniba-blue border-gray-300 rounded focus:ring-uniba-blue/20">
                         <div>
                             <span
                                 class="text-sm font-semibold text-gray-700 group-hover:text-uniba-blue transition-colors">

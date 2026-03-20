@@ -10,6 +10,7 @@ use App\Models\UnitOrganisasi;
 use App\Services\Admin\Tentang\UnitOrganisasi\UnitOrganisasiQueryService;
 use App\Services\Admin\Tentang\UnitOrganisasi\UnitOrganisasiService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UnitOrganisasiController extends Controller
 {
@@ -23,15 +24,14 @@ class UnitOrganisasiController extends Controller
      */
     public function index(Request $request, StrukturOrganisasi $struktur)
     {
-        $search = trim($request->get('search'));
         $units = $this->query->getUnitTree($struktur->id);
         $directorates = $this->query->getDirectoratesByStrukturId($struktur->id);
 
-        if ($request->ajax()) {
-            return view('admin.pages.tentang.struktur-organisasi.unit.partials.table', compact('units', 'struktur'));
-        }
+        $view = $request->ajax()
+            ? 'admin.pages.tentang.struktur-organisasi.unit.partials.table'
+            : 'admin.pages.tentang.struktur-organisasi.unit.index';
 
-        return view('admin.pages.tentang.struktur-organisasi.unit.index', compact('units', 'struktur', 'directorates'));
+        return view($view, compact('units', 'struktur', 'directorates'));
     }
 
     /**
@@ -93,15 +93,13 @@ class UnitOrganisasiController extends Controller
     /**
      * Update the order of units.
      */
-    public function updateOrder(Request $request)
+    public function updateOrder(array $orderedIds): void
     {
-        $request->validate([
-            'ordered_ids' => 'required|array',
-            'ordered_ids.*' => 'integer|exists:unit_organisasi,id',
-        ]);
-
-        $this->service->updateOrder($request->ordered_ids);
-
-        return response()->json(['success' => true]);
+        DB::transaction(function () use ($orderedIds) {
+            foreach ($orderedIds as $index => $id) {
+                UnitOrganisasi::where('id', $id)
+                    ->update(['order' => $index + 1]);
+            }
+        });
     }
 }

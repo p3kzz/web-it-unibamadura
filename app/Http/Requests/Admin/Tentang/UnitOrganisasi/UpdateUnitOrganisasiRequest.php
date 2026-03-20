@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\Tentang\UnitOrganisasi;
 
+use App\Models\UnitOrganisasi;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -24,13 +25,12 @@ class UpdateUnitOrganisasiRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'struktur_organisasi_id' => 'required|exists:struktur_organisasi,id',
             'name' => 'required|string|max:255',
             'parent_id' => 'nullable|exists:unit_organisasi,id',
             'type' => ['required', Rule::in(['directorate', 'subdirectorate'])],
-            'tasks' => 'nullable|string',
-            'functions' => 'nullable|array',
-            'functions.*' => 'nullable|string|max:500',
-            'order' => 'nullable|integer|min:0',
+            'description' => 'nullable|string',
+            'order' => 'nullable|integer',
         ];
     }
 
@@ -45,10 +45,36 @@ class UpdateUnitOrganisasiRequest extends FormRequest
             'parent_id.exists' => 'Parent unit tidak valid.',
             'type.required' => 'Tipe unit wajib dipilih.',
             'type.in' => 'Tipe unit harus directorate atau subdirectorate.',
-            'functions.array' => 'Format fungsi tidak valid.',
-            'functions.*.max' => 'Setiap fungsi maksimal 500 karakter.',
-            'order.integer' => 'Urutan harus berupa angka.',
-            'order.min' => 'Urutan minimal 0.',
+            'description.string' => 'Deskripsi unit harus berupa string.',
+            'order.integer' => 'Order unit harus berupa integer.',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+
+            $unit = $this->route('unit_organisasi');
+
+            if ($this->parent_id) {
+                $parent = UnitOrganisasi::find($this->parent_id);
+
+                if ($parent && $parent->struktur_organisasi_id != $unit->struktur_organisasi_id) {
+                    $validator->errors()->add('parent_id', 'Parent harus dalam struktur yang sama.');
+                }
+
+                if ($unit && $this->parent_id == $unit->id) {
+                    $validator->errors()->add('parent_id', 'Unit tidak boleh menjadi parent dirinya sendiri.');
+                }
+            }
+
+            if ($this->type === 'directorate' && $this->parent_id) {
+                $validator->errors()->add('parent_id', 'Directorate tidak boleh memiliki parent.');
+            }
+
+            if ($this->type === 'subdirectorate' && !$this->parent_id) {
+                $validator->errors()->add('parent_id', 'Subdirectorate wajib memiliki parent.');
+            }
+        });
     }
 }

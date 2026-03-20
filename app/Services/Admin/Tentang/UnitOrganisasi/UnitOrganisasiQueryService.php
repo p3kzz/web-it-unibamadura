@@ -16,7 +16,6 @@ class UnitOrganisasiQueryService
             ->when($search, function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%");
             })
-            ->orderBy('order')
             ->get();
     }
 
@@ -41,17 +40,18 @@ class UnitOrganisasiQueryService
         return UnitOrganisasi::query()
             ->where('struktur_organisasi_id', $strukturId)
             ->whereNull('parent_id')
-            ->with(['children' => fn($q) => $q->orderBy('order')])
+            ->with('childrenRecursive')
             ->orderBy('order')
             ->get();
     }
+
 
     /**
      * Find unit by id.
      */
     public function findById(int $id)
     {
-        return UnitOrganisasi::with(['parent', 'children'])
+        return UnitOrganisasi::with(['parent', 'childrenRecursive'])
             ->findOrFail($id);
     }
 }

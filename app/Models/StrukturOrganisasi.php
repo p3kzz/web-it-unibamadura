@@ -34,7 +34,7 @@ class StrukturOrganisasi extends Model
     /**
      * Get the unit organisasi for the struktur organisasi.
      */
-    public function unitOrganisasi(): HasMany
+    public function units(): HasMany
     {
         return $this->hasMany(UnitOrganisasi::class, 'struktur_organisasi_id');
     }
@@ -42,12 +42,17 @@ class StrukturOrganisasi extends Model
     /**
      * Get only directorates (top-level units).
      */
-    public function directorates(): HasMany
+    public function roots(): HasMany
     {
         return $this->hasMany(UnitOrganisasi::class, 'struktur_organisasi_id')
-            ->where('type', 'directorate')
             ->whereNull('parent_id')
             ->orderBy('order');
+    }
+
+    public function directorates(): HasMany
+    {
+        return $this->roots()
+            ->where('type', 'directorate');
     }
 
     /**

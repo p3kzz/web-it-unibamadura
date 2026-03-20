@@ -72,7 +72,6 @@
                 </div>
             </div>
 
-            {{-- Button Tambah Struktur --}}
             <button @click="$dispatch('open-create-struktur')"
                 class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-uniba-blue text-white rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 whitespace-nowrap">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

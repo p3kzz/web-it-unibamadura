@@ -31,7 +31,7 @@ class UpdateStrukturRequest extends FormRequest
     {
         return [
             'periode_id' => 'required|exists:periode,id',
-            'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'image' => 'sometimes|image|mimes:jpg,jpeg,png,webp|max:5120',
             'is_active' => 'boolean',
         ];
     }

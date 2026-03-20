@@ -92,4 +92,5 @@
     @include('admin.pages.tentang.struktur-organisasi.partials.form-edit-struktur')
     @include('admin.pages.tentang.struktur-organisasi.partials.form-create-unit')
     @include('admin.pages.tentang.struktur-organisasi.partials.form-edit-unit')
+    @include('admin.pages.tentang.struktur-organisasi.partials.form-show-unit')
 @endsection

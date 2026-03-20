@@ -17,7 +17,7 @@ class UnitOrganisasiService
             if (!empty($data['parent_id'])) {
                 $parent = UnitOrganisasi::find($data['parent_id']);
 
-                if ($parent->struktur_organisasi_id !== $data['struktur_organisasi_id']) {
+                if ((int) $parent->struktur_organisasi_id !== (int) $data['struktur_organisasi_id']) {
                     throw new \Exception('Parent tidak valid.');
                 }
             }
@@ -90,7 +90,7 @@ class UnitOrganisasiService
     {
         if (!$parentId) return;
 
-        if ($unit->id === $parentId) {
+        if ((int) $unit->id === (int) $parentId) {
             throw new \Exception('Unit tidak boleh menjadi parent dirinya sendiri.');
         }
 
@@ -100,13 +100,13 @@ class UnitOrganisasiService
             throw new \Exception('Parent tidak ditemukan.');
         }
 
-        if ($parent->struktur_organisasi_id !== $unit->struktur_organisasi_id) {
+        if ((int) $parent->struktur_organisasi_id !== (int) $unit->struktur_organisasi_id) {
             throw new \Exception('Parent harus dalam struktur yang sama.');
         }
 
         $current = $parent;
         while ($current) {
-            if ($current->id === $unit->id) {
+            if ((int) $current->id === (int) $unit->id) {
                 throw new \Exception('Terjadi circular reference.');
             }
             $current = $current->parent;

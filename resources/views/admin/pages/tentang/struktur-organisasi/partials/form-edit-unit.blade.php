@@ -1,19 +1,12 @@
 <div x-data="{
     open: false,
     item: null,
-    functions: [''],
     initEdit(data) {
         this.item = data;
-        this.functions = data.functions && data.functions.length > 0 ? data.functions : [''];
+        $nextTick(() => {
+            initSummernote('edit-unit-description', data.description || '');
+        });
     },
-    addFunction() {
-        this.functions.push('');
-    },
-    removeFunction(index) {
-        if (this.functions.length > 1) {
-            this.functions.splice(index, 1);
-        }
-    }
 }" x-on:open-edit-unit.window="open = true; initEdit($event.detail);" x-show="open" x-cloak
     @click.self="open = false"
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
@@ -22,7 +15,7 @@
         x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
         @keydown.escape="open = false"
-        class="bg-white rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+        class="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
 
         {{-- Header --}}
         <div class="bg-amber-500 px-6 py-4 flex items-center justify-between">
@@ -52,6 +45,7 @@
             class="flex-1 overflow-y-auto">
             @csrf
             @method('PUT')
+            <input type="hidden" name="struktur_organisasi_id" x-bind:value="item?.struktur_organisasi_id">
 
             <div class="p-6 space-y-5">
                 {{-- Name --}}
@@ -101,41 +95,14 @@
                     </div>
                 @endif
 
-                {{-- Tasks --}}
+                {{-- Description with Summernote --}}
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Tugas</label>
-                    <textarea name="tasks" rows="3" x-model="item.tasks"
-                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 outline-none transition-all resize-none"
-                        placeholder="Deskripsi tugas unit ini..."></textarea>
-                </div>
-
-                {{-- Functions (dynamic) --}}
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Fungsi</label>
-                    <div class="space-y-2">
-                        <template x-for="(func, index) in functions" :key="index">
-                            <div class="flex gap-2">
-                                <input type="text" :name="`functions[${index}]`" x-model="functions[index]"
-                                    class="flex-1 border-2 border-gray-300 rounded-lg px-4 py-2 focus:border-amber-500 outline-none transition-all text-sm"
-                                    placeholder="Masukkan fungsi...">
-                                <button type="button" @click="removeFunction(index)" x-show="functions.length > 1"
-                                    class="w-10 h-10 bg-red-100 text-red-500 rounded-lg flex items-center justify-center hover:bg-red-200 transition-all">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M6 18L18 6M6 6l12 12"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </template>
-                    </div>
-                    <button type="button" @click="addFunction()"
-                        class="mt-2 inline-flex items-center gap-1 text-sm text-amber-600 hover:text-amber-700 font-semibold">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
-                            </path>
-                        </svg>
-                        Tambah Fungsi
-                    </button>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Deskripsi</label>
+                    <x-form-summernote id="edit-unit-description" name="description" value="" :height="200"
+                        placeholder="Deskripsi tugas dan fungsi unit..." />
+                    @error('description')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 {{-- Order --}}

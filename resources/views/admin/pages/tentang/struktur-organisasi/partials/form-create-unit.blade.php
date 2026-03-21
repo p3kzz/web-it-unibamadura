@@ -102,13 +102,6 @@
                     @enderror
                 </div>
 
-                {{-- Order --}}
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Urutan</label>
-                    <input type="number" name="order" value="0" min="0"
-                        class="w-24 border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-emerald-500 outline-none transition-all">
-                    <p class="text-xs text-gray-500 mt-1">Angka kecil ditampilkan lebih dulu</p>
-                </div>
             </div>
 
             {{-- Footer --}}

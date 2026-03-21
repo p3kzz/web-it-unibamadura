@@ -19,11 +19,6 @@ class UnitOrganisasi extends Model
         'parent_id',
         'type',
         'description',
-        'order',
-    ];
-
-    protected $casts = [
-        'order' => 'integer',
     ];
 
     /**
@@ -47,7 +42,7 @@ class UnitOrganisasi extends Model
      */
     public function children(): HasMany
     {
-        return $this->hasMany(UnitOrganisasi::class, 'parent_id')->orderBy('order');
+        return $this->hasMany(UnitOrganisasi::class, 'parent_id');
     }
 
     public function childrenRecursive(): HasMany

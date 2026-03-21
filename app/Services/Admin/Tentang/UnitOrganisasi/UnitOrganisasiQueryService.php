@@ -28,7 +28,6 @@ class UnitOrganisasiQueryService
             ->where('struktur_organisasi_id', $strukturId)
             ->directorates()
             ->whereNull('parent_id')
-            ->orderBy('order')
             ->get();
     }
 
@@ -41,7 +40,6 @@ class UnitOrganisasiQueryService
             ->where('struktur_organisasi_id', $strukturId)
             ->whereNull('parent_id')
             ->with('childrenRecursive')
-            ->orderBy('order')
             ->get();
     }
 

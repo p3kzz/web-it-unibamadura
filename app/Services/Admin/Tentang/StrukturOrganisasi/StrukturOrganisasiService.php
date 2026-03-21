@@ -22,7 +22,7 @@ class StrukturOrganisasiService
             $isActive = isset($data['is_active']) && (int) $data['is_active'] === 1;
 
             if ($isActive) {
-                $this->deactivateAll($data['periode_id']);
+                $this->deactivateAll();
             }
 
             return StrukturOrganisasi::create([
@@ -51,7 +51,7 @@ class StrukturOrganisasiService
             $isActive = isset($data['is_active']) && (int) $data['is_active'] === 1;
 
             if ($isActive) {
-                $this->deactivateAll($data['periode_id'], $struktur->id);
+                $this->deactivateAll($struktur->id);
             }
 
             $struktur->update([
@@ -78,10 +78,9 @@ class StrukturOrganisasiService
     /**
      * Deactivate all struktur organisasi.
      */
-    private function deactivateAll(int $periodeId, ?int $exceptId = null): void
+    private function deactivateAll(?int $exceptId = null): void
     {
-        StrukturOrganisasi::where('periode_id', $periodeId)
-            ->where('is_active', true)
+        StrukturOrganisasi::where('is_active', true)
             ->when($exceptId, fn($q) => $q->where('id', '!=', $exceptId))
             ->update(['is_active' => false]);
     }

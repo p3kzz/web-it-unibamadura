@@ -30,7 +30,6 @@ class UpdateUnitOrganisasiRequest extends FormRequest
             'parent_id' => 'nullable|exists:unit_organisasi,id',
             'type' => ['required', Rule::in(['directorate', 'subdirectorate'])],
             'description' => 'nullable|string',
-            'order' => 'nullable|integer',
         ];
     }
 
@@ -46,7 +45,6 @@ class UpdateUnitOrganisasiRequest extends FormRequest
             'type.required' => 'Tipe unit wajib dipilih.',
             'type.in' => 'Tipe unit harus directorate atau subdirectorate.',
             'description.string' => 'Deskripsi unit harus berupa string.',
-            'order.integer' => 'Order unit harus berupa integer.',
         ];
     }
 

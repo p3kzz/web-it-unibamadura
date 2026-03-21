@@ -103,6 +103,7 @@
 
                 {{-- Is Active --}}
                 <div class="pt-4 border-t border-gray-100">
+                    <input type="hidden" name="is_active" value="0">
                     <label class="flex items-center gap-3 cursor-pointer group">
                         <input type="checkbox" name="is_active" value="1" :checked="item?.is_active"
                             class="w-5 h-5 text-amber-500 border-gray-300 rounded focus:ring-amber-500/20">

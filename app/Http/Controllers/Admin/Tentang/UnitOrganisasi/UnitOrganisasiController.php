@@ -90,16 +90,4 @@ class UnitOrganisasiController extends Controller
         return back()->with('success', 'Unit organisasi berhasil dihapus.');
     }
 
-    /**
-     * Update the order of units.
-     */
-    public function updateOrder(array $orderedIds): void
-    {
-        DB::transaction(function () use ($orderedIds) {
-            foreach ($orderedIds as $index => $id) {
-                UnitOrganisasi::where('id', $id)
-                    ->update(['order' => $index + 1]);
-            }
-        });
-    }
 }

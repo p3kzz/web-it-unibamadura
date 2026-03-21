@@ -22,10 +22,7 @@ class UnitOrganisasiService
                 }
             }
 
-            $order = $data['order'] ?? $this->getNextOrder(
-                $data['struktur_organisasi_id'],
-                $data['parent_id'] ?? null
-            );
+
 
             return UnitOrganisasi::create([
                 'struktur_organisasi_id' => $data['struktur_organisasi_id'],
@@ -33,7 +30,6 @@ class UnitOrganisasiService
                 'parent_id' => $data['parent_id'] ?? null,
                 'type' => $data['type'],
                 'description' => $data['description'] ?? null,
-                'order' => $order,
             ]);
         });
     }
@@ -51,21 +47,11 @@ class UnitOrganisasiService
 
             $newParentId = $data['parent_id'] ?? $unit->parent_id;
 
-            $order = $data['order'] ?? $unit->order;
-
-            if ($newParentId != $unit->parent_id) {
-                $order = $this->getNextOrder(
-                    $unit->struktur_organisasi_id,
-                    $newParentId
-                );
-            }
-
             $unit->update([
                 'name' => $data['name'] ?? $unit->name,
                 'parent_id' => $newParentId,
                 'type' => $data['type'] ?? $unit->type,
                 'description' => $data['description'] ?? $unit->description,
-                'order' => $order,
             ]);
 
             return $unit->refresh();
@@ -111,12 +97,5 @@ class UnitOrganisasiService
             }
             $current = $current->parent;
         }
-    }
-
-    private function getNextOrder(int $strukturId, ?int $parentId): int
-    {
-        return UnitOrganisasi::where('struktur_organisasi_id', $strukturId)
-            ->where('parent_id', $parentId)
-            ->max('order') + 1;
     }
 }

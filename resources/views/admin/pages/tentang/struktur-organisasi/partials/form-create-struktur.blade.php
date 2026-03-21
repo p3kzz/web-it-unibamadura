@@ -105,9 +105,10 @@
 
                 {{-- Is Active --}}
                 <div class="pt-4 border-t border-gray-100">
+                    <input type="hidden" name="is_active" value="0">
                     <label class="flex items-center gap-3 cursor-pointer group">
                         <input type="checkbox" name="is_active" value="1" {{ old('is_active') ? 'checked' : '' }}
-                        class="w-5 h-5 text-uniba-blue border-gray-300 rounded focus:ring-uniba-blue/20">
+                            class="w-5 h-5 text-uniba-blue border-gray-300 rounded focus:ring-uniba-blue/20">
                         <div>
                             <span
                                 class="text-sm font-semibold text-gray-700 group-hover:text-uniba-blue transition-colors">

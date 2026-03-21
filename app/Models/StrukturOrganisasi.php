@@ -45,8 +45,7 @@ class StrukturOrganisasi extends Model
     public function roots(): HasMany
     {
         return $this->hasMany(UnitOrganisasi::class, 'struktur_organisasi_id')
-            ->whereNull('parent_id')
-            ->orderBy('order');
+            ->whereNull('parent_id');
     }
 
     public function directorates(): HasMany

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Pages\Tentang;
 
 use App\Http\Controllers\Controller;
+use App\Models\StrukturOrganisasi;
+use App\Models\UnitOrganisasi;
 use Illuminate\Http\Request;
 
 class StrukturOrganisasiController extends Controller
@@ -12,7 +14,21 @@ class StrukturOrganisasiController extends Controller
      */
     public function index()
     {
-        return view('pages.tentang.struktur-organisasi');
+        // Get active struktur organisasi
+        $struktur = StrukturOrganisasi::with('periode')
+            ->where('is_active', true)
+            ->first();
+
+        // Get units for the active struktur (with hierarchy)
+        $units = collect();
+        if ($struktur) {
+            $units = UnitOrganisasi::where('struktur_organisasi_id', $struktur->id)
+                ->whereNull('parent_id')
+                ->with('childrenRecursive')
+                ->get();
+        }
+
+        return view('pages.tentang.struktur-organisasi', compact('struktur', 'units'));
     }
 
     /**

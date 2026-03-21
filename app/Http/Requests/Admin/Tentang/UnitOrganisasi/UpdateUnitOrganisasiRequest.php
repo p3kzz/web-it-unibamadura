@@ -52,12 +52,12 @@ class UpdateUnitOrganisasiRequest extends FormRequest
     {
         $validator->after(function ($validator) {
 
-            $unit = $this->route('unit_organisasi');
+            $unit = $this->route('unit');
 
             if ($this->parent_id) {
                 $parent = UnitOrganisasi::find($this->parent_id);
 
-                if ($parent && $parent->struktur_organisasi_id != $unit->struktur_organisasi_id) {
+                if ($parent && $unit && $parent->struktur_organisasi_id != $unit->struktur_organisasi_id) {
                     $validator->errors()->add('parent_id', 'Parent harus dalam struktur yang sama.');
                 }
 

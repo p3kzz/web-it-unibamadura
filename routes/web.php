@@ -29,7 +29,7 @@ Route::prefix('content')->name('content.')->group(function () {
         ->whereIn('type', ['news', 'announcement', 'agenda'])
         ->name('show');
 });
-
+ 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');

@@ -49,16 +49,29 @@
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">Periode <span
                             class="text-red-500">*</span></label>
-                    <select name="periode_id" required
-                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue/20 outline-none transition-all">
-                        <option value="">Pilih Periode</option>
-                        @foreach ($periodes as $periode)
-                            <option value="{{ $periode->id }}"
-                                {{ old('periode_id') == $periode->id ? 'selected' : '' }}>
-                                {{ $periode->name ?? $periode->start_year . ' - ' . $periode->end_year }}
-                            </option>
-                        @endforeach
-                    </select>
+                    @if ($availablePeriodes->count() > 0)
+                        <select name="periode_id" required
+                            class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue/20 outline-none transition-all">
+                            <option value="">Pilih Periode</option>
+                            @foreach ($availablePeriodes as $periode)
+                                <option value="{{ $periode->id }}"
+                                    {{ old('periode_id') == $periode->id ? 'selected' : '' }}>
+                                    {{ $periode->name ?? $periode->start_year . ' - ' . $periode->end_year }}
+                                </option>
+                            @endforeach
+                        </select>
+                    @else
+                        <div class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
+                            <div class="flex items-center gap-2 text-amber-700">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                                <p class="text-sm font-medium">Semua periode sudah memiliki struktur organisasi</p>
+                            </div>
+                            <p class="text-xs text-amber-600 mt-1 ml-7">Silakan buat periode baru terlebih dahulu atau hapus struktur yang sudah ada</p>
+                        </div>
+                    @endif
                     @error('periode_id')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror

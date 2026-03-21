@@ -61,7 +61,11 @@
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 outline-none transition-all">
                         <option value="">Pilih Periode</option>
                         @foreach ($periodes as $periode)
-                            <option value="{{ $periode->id }}">
+                            @php
+                                $isAvailable = $availablePeriodes->contains('id', $periode->id);
+                            @endphp
+                            <option value="{{ $periode->id }}"
+                                x-bind:class="{ 'hidden': {{ $periode->id }} != item?.periode_id && !{{ $isAvailable ? 'true' : 'false' }} }">
                                 {{ $periode->name ?? $periode->start_year . ' - ' . $periode->end_year }}
                             </option>
                         @endforeach

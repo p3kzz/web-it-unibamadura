@@ -35,9 +35,9 @@
         @endif
     </td>
     <td class="px-6 py-4">
-        <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div class="flex items-center gap-2">
             <button @click="$dispatch('open-show-unit', {{ json_encode($unit->load('parent', 'children')) }})"
-                class="w-8 h-8 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-200 transition-all"
+                class="inline-flex items-center gap-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
                 title="Lihat Detail">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -47,7 +47,7 @@
                 </svg>
             </button>
             <button @click="$dispatch('open-edit-unit', {{ json_encode($unit) }})"
-                class="w-8 h-8 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center hover:bg-amber-200 transition-all"
+                class="inline-flex items-center gap-1 px-3 py-2 bg-orange-600 hover:bg-orange-700 text-white text-xs font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
                 title="Edit">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -55,12 +55,12 @@
                     </path>
                 </svg>
             </button>
-            <form action="{{ route('admin.tentang.unit-organisasi.destroy', $unit) }}" method="POST" class="inline"
-                onsubmit="return confirm('Yakin ingin menghapus unit ini?')">
+            <form action="{{ route('admin.tentang.unit-organisasi.destroy', $unit) }}" method="POST" class="inline">
+
                 @csrf
                 @method('DELETE')
-                <button type="submit"
-                    class="w-8 h-8 bg-red-100 text-red-600 rounded-lg flex items-center justify-center hover:bg-red-200 transition-all"
+                <button type="button" onclick="confirmDelete(this)"
+                    class="inline-flex items-center gap-1 px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
                     title="Hapus">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -1,8 +1,7 @@
 <div x-data="{
     open: false,
     item: {},
-}"
-    x-on:open-show-unit.window="
+}" x-on:open-show-unit.window="
         item = $event.detail;
         open = true;
     "
@@ -53,7 +52,8 @@
                 <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
                     <div class="flex items-center gap-2 mb-2">
                         <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                            <svg class="w-4 h-4 text-uniba-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-uniba-blue" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
                                 </path>
@@ -62,13 +62,15 @@
                         <p class="text-xs font-semibold text-gray-500 uppercase">Tipe Unit</p>
                     </div>
                     <template x-if="item.type === 'directorate'">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+                        <span
+                            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
                             <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-1.5"></span>
                             Direktorat
                         </span>
                     </template>
                     <template x-if="item.type === 'subdirectorate'">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-800">
+                        <span
+                            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-800">
                             <span class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-1.5"></span>
                             Subdirektorat
                         </span>
@@ -79,7 +81,8 @@
                 <div class="bg-gray-50 rounded-xl p-4 border border-gray-100">
                     <div class="flex items-center gap-2 mb-2">
                         <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4">
                                 </path>
@@ -96,7 +99,8 @@
                 <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-4 border border-purple-100">
                     <div class="flex items-center gap-2 mb-2">
                         <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                            <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 10l7-7m0 0l7 7m-7-7v18">
                                 </path>
@@ -131,7 +135,8 @@
                                 <div class="flex-1">
                                     <p class="font-medium text-gray-800 text-sm" x-text="child.name"></p>
                                 </div>
-                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-700">
+                                <span
+                                    class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-700">
                                     Sub
                                 </span>
                             </div>

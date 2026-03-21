@@ -5,9 +5,7 @@
 
 @section('content')
     <div class="space-y-6">
-        {{-- Header Actions --}}
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            {{-- Dropdown Filter Struktur --}}
             <div x-data="{ open: false }" class="relative">
                 <button @click="open = !open" @click.away="open = false"
                     class="inline-flex items-center justify-between gap-3 px-4 py-2.5 bg-white border-2 border-gray-300 rounded-lg hover:border-uniba-blue transition-all duration-200 shadow-sm hover:shadow-md min-w-[280px]">
@@ -17,7 +15,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
                                 </path>
-                            </svg>
+                            </svg> 
                         </div>
                         <span class="text-sm font-semibold text-gray-700">
                             @if ($selectedStruktur)

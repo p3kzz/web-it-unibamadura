@@ -11,7 +11,7 @@
                 timerProgressBar: true
             });
         });
-    </script>
+    </script> 
 @endif
 
 @if ($errors->any())

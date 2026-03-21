@@ -19,7 +19,7 @@ class StrukturOrganisasiService
                     ->store('struktur-organisasi', 'public');
             }
 
-            $isActive = $data['is_active'] ?? false;
+            $isActive = isset($data['is_active']) && (int) $data['is_active'] === 1;
 
             if ($isActive) {
                 $this->deactivateAll($data['periode_id']);
@@ -48,7 +48,7 @@ class StrukturOrganisasiService
                     ->store('struktur-organisasi', 'public');
             }
 
-            $isActive = $data['is_active'] ?? $struktur->is_active;
+            $isActive = isset($data['is_active']) && (int) $data['is_active'] === 1;
 
             if ($isActive) {
                 $this->deactivateAll($data['periode_id'], $struktur->id);
@@ -64,7 +64,7 @@ class StrukturOrganisasiService
         });
     }
 
-    /** 
+    /**
      * Delete a struktur organisasi.
      */
     public function delete(StrukturOrganisasi $struktur): void

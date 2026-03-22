@@ -1,9 +1,19 @@
 <div x-data="{
     open: false,
-    item: null,
+    item: {
+        id: '',
+        periode_id: '',
+        image: '',
+        is_active: false
+    },
     imagePreview: null,
     initEdit(data) {
-        this.item = data;
+        this.item = {
+            id: data.id || '',
+            periode_id: data.periode_id || '',
+            image: data.image || '',
+            is_active: Boolean(data.is_active)
+        };
         this.imagePreview = data.image ? '/storage/' + data.image : null;
     },
     fileChosen(event) {
@@ -65,7 +75,8 @@
                                 $isAvailable = $availablePeriodes->contains('id', $periode->id);
                             @endphp
                             <option value="{{ $periode->id }}"
-                                x-bind:class="{ 'hidden': {{ $periode->id }} != item?.periode_id && !{{ $isAvailable ? 'true' : 'false' }} }">
+                                x-bind:class="{ 'hidden': {{ $periode->id }} != item?.periode_id && !
+                                        {{ $isAvailable ? 'true' : 'false' }} }">
                                 {{ $periode->name ?? $periode->start_year . ' - ' . $periode->end_year }}
                             </option>
                         @endforeach

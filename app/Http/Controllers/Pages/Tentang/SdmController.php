@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Pages\Tentang;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Pegawai;
+use App\Models\StrukturOrganisasi;
 
 class SdmController extends Controller
 {
@@ -12,54 +13,30 @@ class SdmController extends Controller
      */
     public function index()
     {
-        return view('pages.tentang.sdm');
-    }
+        // Get active struktur organisasi
+        $struktur = StrukturOrganisasi::where('is_active', true)->first();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        // Get active pegawai with their current unit assignments
+        $pegawaiList = Pegawai::with(['penugasan' => function ($q) {
+            $q->where('is_primary', true)
+                ->whereNull('tanggal_selesai')
+                ->with('unitOrganisasi');
+        }])
+            ->where('status', 'aktif')
+            ->orderBy('nama')
+            ->get();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // Calculate statistics
+        $totalPegawai = $pegawaiList->count();
+        $totalSertifikasi = $pegawaiList->sum(function ($p) {
+            return is_array($p->sertifikasi) ? count($p->sertifikasi) : 0;
+        });
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('pages.tentang.sdm', compact(
+            'pegawaiList',
+            'totalPegawai',
+            'totalSertifikasi',
+            'struktur'
+        ));
     }
 }

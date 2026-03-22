@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\Periode\PeriodeController;
 use App\Http\Controllers\Admin\Tentang\Histories\HistoriesItemsController;
 use App\Http\Controllers\Admin\Tentang\StrukturOrganisasi\StrukturOrganisasiItemsController;
+use App\Http\Controllers\Admin\Tentang\Sdm\PegawaiController;
 use App\Http\Controllers\Admin\Tentang\UnitOrganisasi\UnitOrganisasiController;
 use App\Http\Controllers\Admin\Tentang\VisiMisi\VisiMisiItemsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -29,7 +30,7 @@ Route::prefix('content')->name('content.')->group(function () {
         ->whereIn('type', ['news', 'announcement', 'agenda'])
         ->name('show');
 });
- 
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
@@ -59,6 +60,9 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     Route::patch('/content/{content}/restore', [ContentItemsController::class, 'restore'])->name('content.restore');
     Route::post('/editor/upload-image', [ContentItemsController::class, 'uploadEditorImage'])->name('editor.upload-image');
     Route::resource('/struktur-organisasi-item', StrukturOrganisasiItemsController::class)->names('tentang.struktur-organisasi');
+
+    // SDM (Pegawai) routes
+    Route::resource('/pegawai', PegawaiController::class)->names('tentang.pegawai');
 
     // Unit Organisasi routes (nested under struktur)
     Route::get('/struktur-organisasi/{struktur}/unit', [UnitOrganisasiController::class, 'index'])->name('tentang.unit-organisasi.index');

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UnitOrganisasi extends Model
@@ -93,5 +94,29 @@ class UnitOrganisasi extends Model
     public function isSubdirectorate(): bool
     {
         return $this->type === 'subdirectorate';
+    }
+
+    /**
+     * Get employees assigned to this unit.
+     */
+    public function pegawai(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Pegawai::class,
+            'penugasan_pegawai',
+            'unit_organisasi_id',
+            'pegawai_id'
+        )->withPivot(['is_primary', 'tanggal_mulai', 'tanggal_selesai'])
+            ->withTimestamps();
+    }
+
+    /**
+     * Get active employees assigned to this unit.
+     */
+    public function pegawaiAktif(): BelongsToMany
+    {
+        return $this->pegawai()
+            ->where('status', 'aktif')
+            ->wherePivotNull('tanggal_selesai');
     }
 }

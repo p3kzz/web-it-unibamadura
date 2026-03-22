@@ -1,8 +1,22 @@
 <div x-data="{
     open: false,
-    item: null,
+    item: {
+        id: '',
+        struktur_organisasi_id: '',
+        name: '',
+        type: 'directorate',
+        parent_id: '',
+        description: ''
+    },
     initEdit(data) {
-        this.item = data;
+        this.item = {
+            id: data.id || '',
+            struktur_organisasi_id: data.struktur_organisasi_id || '',
+            name: data.name || '',
+            type: data.type || 'directorate',
+            parent_id: data.parent_id || '',
+            description: data.description || ''
+        };
         $nextTick(() => {
             initSummernote('edit-unit-description', data.description || '');
         });

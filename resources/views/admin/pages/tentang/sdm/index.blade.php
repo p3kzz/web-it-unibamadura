@@ -1,11 +1,12 @@
 @extends('layouts.admin')
 
-@section('page-title', 'Struktur Organisasi')
-@section('page-subtitle', 'Kelola bagan struktur dan unit organisasi UPT TIK')
+@section('title', 'Sumber Daya Manusia')
 
 @section('content')
     <div class="space-y-4 sm:space-y-6">
+        {{-- Header with Dropdown and Add Button --}}
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+            {{-- Struktur Dropdown --}}
             <div x-data="{ open: false }" class="relative w-full sm:w-auto">
                 <button @click="open = !open" @click.away="open = false"
                     class="w-full sm:w-auto inline-flex items-center justify-between gap-3 px-3 sm:px-4 py-2.5 bg-white border-2 border-gray-300 rounded-lg hover:border-uniba-blue transition-all duration-200 shadow-sm hover:shadow-md sm:min-w-[280px]">
@@ -40,7 +41,7 @@
                     class="absolute left-0 right-0 sm:right-auto mt-2 sm:w-72 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50 max-h-64 overflow-y-auto">
 
                     @forelse ($strukturList as $struktur)
-                        <a href="{{ route('admin.tentang.struktur-organisasi.index', ['struktur_id' => $struktur->id]) }}"
+                        <a href="{{ route('admin.tentang.pegawai.index', ['struktur_id' => $struktur->id]) }}"
                             class="flex items-center gap-3 px-4 py-2.5 hover:bg-blue-50 transition-colors duration-150 {{ $selectedStruktur && $selectedStruktur->id === $struktur->id ? 'bg-blue-50' : '' }}">
                             <div class="flex-shrink-0">
                                 @if ($selectedStruktur && $selectedStruktur->id === $struktur->id)
@@ -72,25 +73,25 @@
                 </div>
             </div>
 
-            <button @click="$dispatch('open-create-struktur')"
-                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-uniba-blue text-white rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 whitespace-nowrap text-sm sm:text-base">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                </svg>
-                <span class="font-semibold">Tambah Struktur</span>
-            </button>
+            @if ($selectedStruktur)
+                <button @click="$dispatch('open-create-pegawai')"
+                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-uniba-blue text-white rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 whitespace-nowrap text-sm sm:text-base">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    <span class="font-semibold">Tambah Pegawai</span>
+                </button>
+            @endif
         </div>
 
-        {{-- Content Area --}}
-        <div id="ajax-content-container">
-            @include('admin.pages.tentang.struktur-organisasi.partials.content')
-        </div>
+        {{-- Content --}}
+        @include('admin.pages.tentang.sdm.partials.content')
     </div>
 
     {{-- Modals --}}
-    @include('admin.pages.tentang.struktur-organisasi.partials.form-create-struktur')
-    @include('admin.pages.tentang.struktur-organisasi.partials.form-edit-struktur')
-    @include('admin.pages.tentang.struktur-organisasi.partials.form-create-unit')
-    @include('admin.pages.tentang.struktur-organisasi.partials.form-edit-unit')
-    @include('admin.pages.tentang.struktur-organisasi.partials.form-show-unit')
+    @if ($selectedStruktur)
+        @include('admin.pages.tentang.sdm.partials.form-create')
+        @include('admin.pages.tentang.sdm.partials.form-edit')
+        @include('admin.pages.tentang.sdm.partials.form-show')
+    @endif
 @endsection

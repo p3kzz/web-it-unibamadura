@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Periode\PeriodeController;
 use App\Http\Controllers\Admin\Tentang\Histories\HistoriesItemsController;
 use App\Http\Controllers\Admin\Tentang\StrukturOrganisasi\StrukturOrganisasiItemsController;
 use App\Http\Controllers\Admin\Tentang\PilarTransformasi\PilarTransformasiController;
+use App\Http\Controllers\Admin\Tentang\Prestasi\PrestasiController as AdminPrestasiController;
 use App\Http\Controllers\Admin\Tentang\ProgramKerja\ProgramKerjaController as AdminProgramKerjaController;
 use App\Http\Controllers\Admin\Tentang\Sdm\PegawaiController;
 use App\Http\Controllers\Admin\Tentang\UnitOrganisasi\UnitOrganisasiController;
@@ -80,6 +81,9 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     // Program Kerja Admin routes
     Route::get('/program-kerja/pilars', [AdminProgramKerjaController::class, 'getPilarsByPeriode'])->name('tentang.program-kerja.pilars');
     Route::resource('/program-kerja', AdminProgramKerjaController::class)->names('tentang.program-kerja');
+
+    // Prestasi Admin routes
+    Route::resource('/prestasi', AdminPrestasiController::class)->names('tentang.prestasi');
 });
 
 require __DIR__ . '/auth.php';

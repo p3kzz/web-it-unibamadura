@@ -25,4 +25,14 @@ class Periode extends Model
     {
         return $this->hasMany(StrukturOrganisasi::class);
     }
+
+    public function pilarTransformasi()
+    {
+        return $this->hasMany(PilarTransformasi::class);
+    }
+
+    public function programKerja()
+    {
+        return $this->hasMany(ProgramKerja::class);
+    }
 }

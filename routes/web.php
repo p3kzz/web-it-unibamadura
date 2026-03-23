@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\Periode\PeriodeController;
 use App\Http\Controllers\Admin\Tentang\Histories\HistoriesItemsController;
 use App\Http\Controllers\Admin\Tentang\StrukturOrganisasi\StrukturOrganisasiItemsController;
+use App\Http\Controllers\Admin\Tentang\PilarTransformasi\PilarTransformasiController;
+use App\Http\Controllers\Admin\Tentang\ProgramKerja\ProgramKerjaController as AdminProgramKerjaController;
 use App\Http\Controllers\Admin\Tentang\Sdm\PegawaiController;
 use App\Http\Controllers\Admin\Tentang\UnitOrganisasi\UnitOrganisasiController;
 use App\Http\Controllers\Admin\Tentang\VisiMisi\VisiMisiItemsController;
@@ -71,6 +73,13 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     Route::put('/unit-organisasi/{unit}', [UnitOrganisasiController::class, 'update'])->name('tentang.unit-organisasi.update');
     Route::delete('/unit-organisasi/{unit}', [UnitOrganisasiController::class, 'destroy'])->name('tentang.unit-organisasi.destroy');
     Route::post('/unit-organisasi/update-order', [UnitOrganisasiController::class, 'updateOrder'])->name('tentang.unit-organisasi.update-order');
+
+    // Pilar Transformasi routes
+    Route::resource('/pilar-transformasi', PilarTransformasiController::class)->names('tentang.pilar-transformasi');
+
+    // Program Kerja Admin routes
+    Route::get('/program-kerja/pilars', [AdminProgramKerjaController::class, 'getPilarsByPeriode'])->name('tentang.program-kerja.pilars');
+    Route::resource('/program-kerja', AdminProgramKerjaController::class)->names('tentang.program-kerja');
 });
 
 require __DIR__ . '/auth.php';

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Pages\Tentang;
 
 use App\Http\Controllers\Controller;
+use App\Models\Periode;
+use App\Models\PilarTransformasi;
+use App\Models\ProgramKerja;
 use Illuminate\Http\Request;
 
 class ProgramKerjaController extends Controller
@@ -12,7 +15,30 @@ class ProgramKerjaController extends Controller
      */
     public function index()
     {
-        return view('pages.tentang.program-kerja');
+        $periodeAktif = Periode::where('is_active', true)->first();
+
+        if (!$periodeAktif) {
+            return view('pages.tentang.program-kerja', [
+                'periode' => null,
+                'pilars' => collect(),
+                'programKerja' => collect(),
+            ]);
+        }
+
+        $pilars = PilarTransformasi::where('periode_id', $periodeAktif->id)
+            ->where('is_active', true)
+            ->get();
+
+        $programKerja = ProgramKerja::with('pilar')
+            ->where('periode_id', $periodeAktif->id)
+            ->where('is_active', true)
+            ->get();
+
+        return view('pages.tentang.program-kerja', compact(
+            'periodeAktif',
+            'pilars',
+            'programKerja'
+        ));
     }
 
     /**

@@ -49,7 +49,13 @@
             <span class="text-sm">Sumber Daya Manusia</span>
         </a>
 
-        <a href="#"
+        <a href="/admin_tik/pilar-transformasi"
+            class="group flex items-center px-4 py-2.5 text-blue-100 hover:bg-blue-800 hover:bg-opacity-50 rounded-lg transition-all duration-200 hover:translate-x-1">
+            <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
+            <span class="text-sm">Pilar Tranformasi</span>
+        </a>
+
+        <a href="/admin_tik/program-kerja"
             class="group flex items-center px-4 py-2.5 text-blue-100 hover:bg-blue-800 hover:bg-opacity-50 rounded-lg transition-all duration-200 hover:translate-x-1">
             <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
             <span class="text-sm">Program Kerja</span>

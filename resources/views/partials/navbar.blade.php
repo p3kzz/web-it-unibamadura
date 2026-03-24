@@ -21,9 +21,7 @@
                 @include('partials.navbar.dropdown-mutu')
                 @include('partials.navbar.dropdown-kebijakan')
                 @include('partials.navbar.dropdown-content')
-                {{-- <a href="#"
-                    class="text-gray-600 hover:text-uniba-blue hover:scale-105 transition-all">Download</a> --}}
-                <a href="#"
+                <a href="/fasilitas"
                     class="text-gray-600 hover:text-uniba-blue hover:scale-105 transition-all">Fasilitas</a>
 
                 <a href="#"

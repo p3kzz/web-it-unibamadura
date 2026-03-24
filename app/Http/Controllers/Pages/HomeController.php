@@ -7,7 +7,9 @@ use App\Services\Pages\Content\ContentPageQueryService;
 
 class HomeController extends Controller
 {
-    public function __construct(private readonly ContentPageQueryService $contentQuery) {}
+    public function __construct(
+        private readonly ContentPageQueryService $contentQuery
+    ) {}
 
     public function index()
     {

@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\Fasilitas\UpdateFasilitasRequest;
 use App\Models\Fasilitas;
 use App\Services\Admin\Fasilitas\FasilitasService;
 use App\Services\Admin\Fasilitas\FasilitasQueryService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class FasilitasController extends Controller
@@ -53,5 +54,15 @@ class FasilitasController extends Controller
         $this->service->delete($fasilita);
 
         return redirect()->back()->with('success', 'Fasilitas berhasil dihapus.');
+    }
+
+    public function deleteGalleryImage(int $imageId): JsonResponse
+    {
+        try {
+            $this->service->deleteGalleryImage($imageId);
+            return response()->json(['success' => true, 'message' => 'Gambar berhasil dihapus']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 400);
+        }
     }
 }

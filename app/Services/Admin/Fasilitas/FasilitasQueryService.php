@@ -14,6 +14,7 @@ class FasilitasQueryService
     public function getItems(array $filters): Paginator
     {
         return Fasilitas::query()
+            ->with('galleryImages')
             ->when($filters['search'] ?? null, function ($q) use ($filters) {
                 $search = $filters['search'];
                 $q->where('nama', 'like', "%{$search}%");
@@ -29,6 +30,7 @@ class FasilitasQueryService
     public function getActive(int $limit = null): Collection
     {
         return Fasilitas::query()
+            ->with('galleryImages')
             ->active()
             ->latest()
             ->when($limit, fn($q) => $q->limit($limit))

@@ -90,6 +90,8 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
 
     // Fasilitas Admin routes
     Route::resource('/fasilitas', FasilitasController::class)->names('fasilitas');
+    Route::delete('/fasilitas/gallery/{imageId}', [FasilitasController::class, 'deleteGalleryImage'])
+        ->name('fasilitas.gallery.destroy');
 });
 
 require __DIR__ . '/auth.php';

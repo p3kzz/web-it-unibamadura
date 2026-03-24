@@ -8,12 +8,63 @@
         is_active: false
     },
     imagePreview: null,
+    existingGalleryImages: [],
+    newGalleryPreviews: [],
     fileChosen(event) {
         const file = event.target.files[0];
         if (!file) return;
         const reader = new FileReader();
         reader.onload = (e) => { this.imagePreview = e.target.result; };
         reader.readAsDataURL(file);
+    },
+    async deleteExistingImage(imageId, index) {
+        const result = await Swal.fire({
+            title: 'Hapus gambar?',
+            text: 'Gambar akan dihapus permanen',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc2626',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        });
+
+        if (result.isConfirmed) {
+            try {
+                const response = await fetch(`/admin_tik/fasilitas/gallery/${imageId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    this.existingGalleryImages.splice(index, 1);
+                    Swal.fire('Berhasil!', 'Gambar telah dihapus', 'success');
+                }
+            } catch (error) {
+                Swal.fire('Error', 'Gagal menghapus gambar', 'error');
+            }
+        }
+    },
+    handleNewGalleryImages(event) {
+        const files = Array.from(event.target.files);
+        const totalImages = this.existingGalleryImages.length + this.newGalleryPreviews.length + files.length;
+
+        if (totalImages > 10) {
+            Swal.fire('Error', 'Maksimal 10 gambar galeri', 'error');
+            event.target.value = '';
+            return;
+        }
+
+        files.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                this.newGalleryPreviews.push(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        });
     }
 }"
     x-on:open-edit-fasilitas.window="
@@ -26,6 +77,8 @@
             is_active: Boolean($event.detail.is_active)
         };
         imagePreview = form.image ? '/storage/' + form.image : null;
+        existingGalleryImages = $event.detail.gallery_images || [];
+        newGalleryPreviews = [];
         $nextTick(() => {
             initSummernote('deskripsi-edit', form.deskripsi);
         });
@@ -108,6 +161,44 @@
                             <p class="mt-1 text-xs text-gray-500">Format: JPEG, PNG, JPG, WEBP. Maksimal 2MB. Biarkan
                                 kosong jika tidak ingin mengubah.</p>
                         </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Galeri Gambar</label>
+                    <div class="space-y-3">
+                        <div x-show="existingGalleryImages.length > 0" class="mb-3">
+                            <p class="text-xs text-gray-500 mb-2">Gambar yang sudah ada. Klik X untuk menghapus.</p>
+                            <div class="grid grid-cols-4 gap-3">
+                                <template x-for="(img, index) in existingGalleryImages" :key="img.id">
+                                    <div class="relative group">
+                                        <img :src="img.url" class="w-full h-20 rounded-lg object-cover border-2 border-gray-200">
+                                        <button type="button" @click="deleteExistingImage(img.id, index)"
+                                            class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div x-show="newGalleryPreviews.length > 0" class="mb-3">
+                            <p class="text-xs text-gray-600 mb-2">Gambar baru:</p>
+                            <div class="grid grid-cols-4 gap-3">
+                                <template x-for="(preview, index) in newGalleryPreviews" :key="'new-' + index">
+                                    <div class="relative group">
+                                        <img :src="preview" class="w-full h-20 rounded-lg object-cover border-2 border-green-300">
+                                        <span class="absolute bottom-1 left-1 bg-green-500 text-white text-xs px-1 rounded">Baru</span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <input type="file" name="gallery_images[]" accept="image/*" multiple @change="handleNewGalleryImages"
+                            class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                        <p class="text-xs text-gray-500">Format: JPEG, PNG, JPG, WEBP. Maksimal 2MB per file. Maksimal 10 gambar total.</p>
                     </div>
                 </div>
 

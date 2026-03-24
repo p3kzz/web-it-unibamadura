@@ -59,20 +59,47 @@
                     @foreach ($fasilitasItems as $index => $fasilitas)
                         @php
                             $color = $colors[$index % count($colors)];
+                            $allImages = $fasilitas->all_images;
+                            $hasMultipleImages = count($allImages) > 1;
                         @endphp
                         <div class="scroll-animate stagger-{{ ($index % 4) + 1 }}">
                             <div
                                 class="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-gray-100 hover:border-{{ $color }}-500 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group h-full flex flex-col">
-                                {{-- Image --}}
-                                @if ($fasilitas->image)
-                                    <div class="relative h-56 overflow-hidden">
-                                        <img src="{{ asset('storage/' . $fasilitas->image) }}" alt="{{ $fasilitas->nama }}"
-                                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                                        <div class="absolute bottom-0 left-0 right-0 p-6">
-                                            <h3 class="text-white font-bold text-xl">{{ $fasilitas->nama }}</h3>
+                                {{-- Image/Gallery Section --}}
+                                @if ($hasMultipleImages)
+                                    {{-- Splide Slider for Multiple Images --}}
+                                    <div class="splide fasilitas-slider" data-splide='{"type":"loop","perPage":1,"arrows":true,"pagination":true}'>
+                                        <div class="splide__track">
+                                            <ul class="splide__list">
+                                                @foreach ($allImages as $img)
+                                                    <li class="splide__slide">
+                                                        <a href="{{ $img['url'] }}" class="glightbox" data-gallery="gallery-{{ $fasilitas->id }}">
+                                                            <div class="relative h-56 overflow-hidden">
+                                                                <img src="{{ $img['url'] }}" alt="{{ $fasilitas->nama }}"
+                                                                    class="w-full h-full object-cover">
+                                                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
                                         </div>
                                     </div>
+                                    <div class="px-6 pt-4">
+                                        <h3 class="text-gray-900 font-bold text-xl">{{ $fasilitas->nama }}</h3>
+                                    </div>
+                                @elseif ($fasilitas->image)
+                                    {{-- Single Image with Lightbox --}}
+                                    <a href="{{ $fasilitas->image_url }}" class="glightbox" data-gallery="single-{{ $fasilitas->id }}">
+                                        <div class="relative h-56 overflow-hidden">
+                                            <img src="{{ $fasilitas->image_url }}" alt="{{ $fasilitas->nama }}"
+                                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                                <h3 class="text-white font-bold text-xl">{{ $fasilitas->nama }}</h3>
+                                            </div>
+                                        </div>
+                                    </a>
                                 @else
                                     <div
                                         class="relative h-56 bg-gradient-to-br from-{{ $color }}-500 to-{{ $color }}-700 flex items-center justify-center">
@@ -96,6 +123,16 @@
                                     <div class="prose prose-sm max-w-none text-gray-600 flex-grow">
                                         {!! $fasilitas->deskripsi !!}
                                     </div>
+                                    @if (count($allImages) > 1)
+                                        <div class="mt-4 flex items-center text-sm text-gray-500">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                                </path>
+                                            </svg>
+                                            {{ count($allImages) }} foto
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -145,3 +182,26 @@
     </section>
 
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all Splide sliders
+    document.querySelectorAll('.fasilitas-slider').forEach(function(el) {
+        new Splide(el, {
+            type: 'loop',
+            perPage: 1,
+            arrows: true,
+            pagination: true,
+        }).mount();
+    });
+
+    // Initialize GLightbox
+    GLightbox({
+        touchNavigation: true,
+        loop: true,
+        autoplayVideos: false
+    });
+});
+</script>
+@endpush

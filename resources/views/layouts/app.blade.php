@@ -15,7 +15,10 @@
     <meta property="og:image" content="@yield('og_image', asset('assets/img/logo-uniba.webp'))">
     <title>@yield('title', 'UPT TIK - UNIBA Madura')</title>
     <link rel="shortcut icon" href="{{ asset('images/logo/logo.webp') }}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('styles')
 </head>
 
 <body class="bg-gray-50 text-gray-800 antialiased" x-data="{ mobileOpen: false, devModalOpen: false }">
@@ -27,6 +30,9 @@
     @include('partials.footer')
     @include('partials.developer-modal')
 
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    @stack('scripts')
 </body>
 
 </html>

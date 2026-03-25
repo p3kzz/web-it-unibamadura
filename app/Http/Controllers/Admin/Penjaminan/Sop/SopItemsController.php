@@ -3,63 +3,48 @@
 namespace App\Http\Controllers\Admin\Penjaminan\Sop;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Penjaminan\Sop\StoreSopRequest;
+use App\Http\Requests\Admin\Penjaminan\Sop\UpdateSopRequest;
+use App\Models\SopItem;
+use App\Services\Admin\Penjaminan\Sop\SopService;
+use App\Services\Admin\Penjaminan\Sop\SopQueryService;
 use Illuminate\Http\Request;
 
 class SopItemsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(
+        private SopService $service,
+        private SopQueryService $queryService
+    ) {}
+
+    public function index(Request $request)
     {
-        //
+        $search = trim($request->get('search'));
+        $filters = ['search' => $search];
+        $items = $this->queryService->getItems($filters);
+
+        if ($request->ajax()) {
+            return view('admin.pages.penjaminan-mutu.sop.partials.table', compact('items', 'search'));
+        }
+
+        return view('admin.pages.penjaminan-mutu.sop.index', compact('items', 'search'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreSopRequest $request)
     {
-        //
+        $this->service->store($request->validated());
+        return redirect()->back()->with('success', 'SOP berhasil ditambahkan.');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(UpdateSopRequest $request, SopItem $sop)
     {
-        //
+        $this->service->update($sop, $request->validated());
+        return redirect()->back()->with('success', 'SOP berhasil diperbarui.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function destroy(SopItem $sop)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $this->service->delete($sop);
+        return redirect()->back()->with('success', 'SOP berhasil dihapus.');
     }
 }

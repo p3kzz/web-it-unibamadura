@@ -127,14 +127,18 @@
                         <div x-show="galleryPreviews.length > 0" class="grid grid-cols-4 gap-3">
                             <template x-for="(preview, index) in galleryPreviews" :key="index">
                                 <div class="relative group">
-                                    <img :src="preview" class="w-full h-20 rounded-lg object-cover border-2 border-gray-200">
-                                    <span class="absolute bottom-1 left-1 bg-green-500 text-white text-xs px-1 rounded">Baru</span>
+                                    <img :src="preview"
+                                        class="w-full h-20 rounded-lg object-cover border-2 border-gray-200">
+                                    <span
+                                        class="absolute bottom-1 left-1 bg-green-500 text-white text-xs px-1 rounded">Baru</span>
                                 </div>
                             </template>
                         </div>
-                        <input type="file" name="gallery_images[]" accept="image/*" multiple @change="handleGalleryImages"
+                        <input type="file" name="gallery_images[]" accept="image/*" multiple
+                            @change="handleGalleryImages"
                             class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                        <p class="text-xs text-gray-500">Format: JPEG, PNG, JPG, WEBP. Maksimal 2MB per file. Maksimal 10 gambar.</p>
+                        <p class="text-xs text-gray-500">Format: JPEG, PNG, JPG, WEBP. Maksimal 2MB per file. Maksimal
+                            10 gambar.</p>
                     </div>
                     @error('gallery_images.*')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

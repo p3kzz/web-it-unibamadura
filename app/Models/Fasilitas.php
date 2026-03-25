@@ -35,7 +35,7 @@ class Fasilitas extends Model
     public function galleryImages(): HasMany
     {
         return $this->hasMany(FasilitasImage::class, 'fasilitas_id')
-                    ->orderBy('sort_order');
+            ->orderBy('sort_order');
     }
 
     public function getAllImagesAttribute(): array

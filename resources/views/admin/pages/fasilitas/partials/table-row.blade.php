@@ -49,16 +49,16 @@
                     </path>
                 </svg>
             </button>
-            <button @click="$dispatch('open-edit-fasilitas', {
+            <button
+                @click="$dispatch('open-edit-fasilitas', {
                 id: {{ $item->id }},
                 nama: '{{ addslashes($item->nama) }}',
                 deskripsi: `{!! addslashes($item->deskripsi) !!}`,
                 image: '{{ $item->image }}',
                 is_active: {{ $item->is_active ? 'true' : 'false' }},
                 gallery_images: [
-                    @foreach($item->galleryImages as $galleryImage)
-                    { id: {{ $galleryImage->id }}, url: '{{ $galleryImage->image_url }}' },
-                    @endforeach
+                    @foreach ($item->galleryImages as $galleryImage)
+                    { id: {{ $galleryImage->id }}, url: '{{ $galleryImage->image_url }}' }, @endforeach
                 ]
             })"
                 class="p-2 text-amber-600 hover:bg-amber-50 rounded-lg transition-colors" title="Edit">

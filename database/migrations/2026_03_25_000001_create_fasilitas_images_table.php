@@ -11,8 +11,8 @@ return new class extends Migration
         Schema::create('fasilitas_images', function (Blueprint $table) {
             $table->id();
             $table->foreignId('fasilitas_id')
-                  ->constrained('fasilitas')
-                  ->onDelete('cascade');
+                ->constrained('fasilitas')
+                ->onDelete('cascade');
             $table->string('image', 255);
             $table->integer('sort_order')->default(0);
             $table->timestamps();

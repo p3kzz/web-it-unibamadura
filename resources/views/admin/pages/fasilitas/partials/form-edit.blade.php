@@ -17,6 +17,18 @@
         reader.onload = (e) => { this.imagePreview = e.target.result; };
         reader.readAsDataURL(file);
     },
+    async refreshTable() {
+        try {
+            const response = await fetch(window.location.href, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            });
+            if (response.ok) {
+                const html = await response.text();
+                const container = document.getElementById('ajax-table-container');
+                if (container) container.innerHTML = html;
+            }
+        } catch (e) {}
+    },
     async deleteExistingImage(imageId, index) {
         const result = await Swal.fire({
             title: 'Hapus gambar?',
@@ -39,9 +51,14 @@
                     }
                 });
 
-                if (response.ok) {
+                const data = await response.json();
+
+                if (response.ok && data.success) {
                     this.existingGalleryImages.splice(index, 1);
+                    await this.refreshTable();
                     Swal.fire('Berhasil!', 'Gambar telah dihapus', 'success');
+                } else {
+                    Swal.fire('Error', data.message || 'Gagal menghapus gambar', 'error');
                 }
             } catch (error) {
                 Swal.fire('Error', 'Gagal menghapus gambar', 'error');
@@ -172,11 +189,14 @@
                             <div class="grid grid-cols-4 gap-3">
                                 <template x-for="(img, index) in existingGalleryImages" :key="img.id">
                                     <div class="relative group">
-                                        <img :src="img.url" class="w-full h-20 rounded-lg object-cover border-2 border-gray-200">
+                                        <img :src="img.url"
+                                            class="w-full h-20 rounded-lg object-cover border-2 border-gray-200">
                                         <button type="button" @click="deleteExistingImage(img.id, index)"
                                             class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12"></path>
                                             </svg>
                                         </button>
                                     </div>
@@ -189,16 +209,20 @@
                             <div class="grid grid-cols-4 gap-3">
                                 <template x-for="(preview, index) in newGalleryPreviews" :key="'new-' + index">
                                     <div class="relative group">
-                                        <img :src="preview" class="w-full h-20 rounded-lg object-cover border-2 border-green-300">
-                                        <span class="absolute bottom-1 left-1 bg-green-500 text-white text-xs px-1 rounded">Baru</span>
+                                        <img :src="preview"
+                                            class="w-full h-20 rounded-lg object-cover border-2 border-green-300">
+                                        <span
+                                            class="absolute bottom-1 left-1 bg-green-500 text-white text-xs px-1 rounded">Baru</span>
                                     </div>
                                 </template>
                             </div>
                         </div>
 
-                        <input type="file" name="gallery_images[]" accept="image/*" multiple @change="handleNewGalleryImages"
+                        <input type="file" name="gallery_images[]" accept="image/*" multiple
+                            @change="handleNewGalleryImages"
                             class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                        <p class="text-xs text-gray-500">Format: JPEG, PNG, JPG, WEBP. Maksimal 2MB per file. Maksimal 10 gambar total.</p>
+                        <p class="text-xs text-gray-500">Format: JPEG, PNG, JPG, WEBP. Maksimal 2MB per file. Maksimal
+                            10 gambar total.</p>
                     </div>
                 </div>
 

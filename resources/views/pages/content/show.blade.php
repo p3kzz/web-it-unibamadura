@@ -62,8 +62,10 @@
                             {!! $content->content !!}
                         </div>
                         @if ($content->type === 'agenda')
-                            <div class="bg-gradient-to-r from-blue-50 via-emerald-50 to-orange-50 rounded-2xl p-6 mb-8 border border-blue-100">
-                                <p class="text-sm font-bold text-uniba-blue uppercase tracking-wider mb-5 flex items-center gap-2">
+                            <div
+                                class="bg-gradient-to-r from-blue-50 via-emerald-50 to-orange-50 rounded-2xl p-6 mb-8 border border-blue-100">
+                                <p
+                                    class="text-sm font-bold text-uniba-blue uppercase tracking-wider mb-5 flex items-center gap-2">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
@@ -72,10 +74,12 @@
                                     Informasi Agenda
                                 </p>
                                 <div class="grid sm:grid-cols-3 gap-4">
-                                    <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                                    <div
+                                        class="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                                         <div class="flex items-center gap-3 mb-3">
                                             <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-uniba-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <svg class="w-5 h-5 text-uniba-blue" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
                                                     </path>
@@ -90,10 +94,13 @@
                                             {{ $content->event_date?->translatedFormat('l') ?? '' }}
                                         </p>
                                     </div>
-                                    <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                                    <div
+                                        class="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                                         <div class="flex items-center gap-3 mb-3">
-                                            <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <div
+                                                class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
+                                                <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
                                                     </path>
@@ -102,14 +109,18 @@
                                             <p class="text-xs font-bold uppercase tracking-wide text-gray-500">Waktu</p>
                                         </div>
                                         <p class="text-lg font-bold text-gray-900">
-                                            {{ $content->event_time ? \Carbon\Carbon::parse($content->event_time)->format('H:i') : '-' }} WIB
+                                            {{ $content->event_time ? \Carbon\Carbon::parse($content->event_time)->format('H:i') : '-' }}
+                                            WIB
                                         </p>
                                         <p class="text-sm text-gray-500 mt-1">Waktu Indonesia Barat</p>
                                     </div>
-                                    <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                                    <div
+                                        class="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                                         <div class="flex items-center gap-3 mb-3">
-                                            <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center">
-                                                <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <div
+                                                class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center">
+                                                <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
                                                     </path>
@@ -165,8 +176,8 @@
                                 <button
                                     @click="navigator.clipboard.writeText('{{ request()->fullUrl() }}').then(() => { copied = true; setTimeout(() => copied = false, 2500) })"
                                     class="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 bg-white text-gray-700 text-sm font-semibold hover:bg-gray-50 transition-colors">
-                                    <svg x-show="!copied" class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
+                                    <svg x-show="!copied" class="w-4 h-4 flex-shrink-0" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
                                         </path>
@@ -212,10 +223,10 @@
                                     <p>{{ $content->event_date->translatedFormat('d F Y') }}</p>
                                 </div>
                                 @if ($content->event_time)
-                                <div>
-                                    <p class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-1">Waktu</p>
-                                    <p>{{ \Carbon\Carbon::parse($content->event_time)->format('H:i') }} WIB</p>
-                                </div>
+                                    <div>
+                                        <p class="text-xs font-bold uppercase tracking-wide text-gray-400 mb-1">Waktu</p>
+                                        <p>{{ \Carbon\Carbon::parse($content->event_time)->format('H:i') }} WIB</p>
+                                    </div>
                                 @endif
                             @endif
                             @if ($content->location)
@@ -240,7 +251,7 @@
                     </div>
 
                     <div class="bg-white rounded-3xl border border-gray-200 shadow-sm p-6">
-                        <h2 class="text-lg font-bold text-gray-900 mb-4">Konten Terkait</h2>
+                        <h2 class="text-lg font-bold text-gray-900 mb-4">Konten Terbaru</h2>
                         <div class="space-y-4">
                             @forelse ($relatedItems as $item)
                                 <a href="{{ route('content.show', ['type' => $content->type, 'slug' => $item->slug]) }}"

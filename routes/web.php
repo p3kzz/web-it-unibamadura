@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Tentang\StrukturOrganisasi\StrukturOrganisasiItem
 use App\Http\Controllers\Admin\Tentang\PilarTransformasi\PilarTransformasiController;
 use App\Http\Controllers\Admin\Fasilitas\FasilitasController;
 use App\Http\Controllers\Admin\Penjaminan\Sop\SopItemsController;
+use App\Http\Controllers\Admin\Penjaminan\SistemDokumen\SistemDokumenItemsController;
 use App\Http\Controllers\Admin\Tentang\Prestasi\PrestasiController as AdminPrestasiController;
 use App\Http\Controllers\Admin\Tentang\ProgramKerja\ProgramKerjaController as AdminProgramKerjaController;
 use App\Http\Controllers\Admin\Tentang\Sdm\PegawaiController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Pages\HomeController;
 use App\Http\Controllers\Pages\Content\ContentController;
 use App\Http\Controllers\Pages\Fasilitas\FasilitasItemsController;
 use App\Http\Controllers\Pages\Penjaminan\SopController as PublicSopController;
+use App\Http\Controllers\Pages\Penjaminan\SistemDokumenController as PublicSistemDokumenController;
 use App\Http\Controllers\Pages\Tentang\PrestasiController;
 use App\Http\Controllers\Pages\Tentang\ProgramKerjaController;
 use App\Http\Controllers\Pages\Tentang\SdmController;
@@ -58,6 +60,7 @@ Route::resource('/program-kerja', ProgramKerjaController::class);
 Route::resource('/prestasi', PrestasiController::class);
 Route::resource('/fasilitas', FasilitasItemsController::class);
 Route::resource('/sop', PublicSopController::class);
+Route::resource('/sistem-dokumen', PublicSistemDokumenController::class);
 
 
 Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->group(function () {
@@ -98,6 +101,9 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
 
     // SOP Admin routes
     Route::resource('/sop', SopItemsController::class)->names('sop');
+
+    // Sistem Dokumen Admin routes
+    Route::resource('/sistem-dokumen', SistemDokumenItemsController::class)->names('sistem-dokumen');
 });
 
 require __DIR__ . '/auth.php';

@@ -11,8 +11,9 @@
         class="absolute left-0 top-full w-64 bg-white border-t-4 border-uniba-yellow shadow-lg py-2 rounded-b-lg invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300">
         <a href="/sop" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">SOP (Standar
             Operasional)</a>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Sistem
-            Dokumentasi</a>
+        <a href="/sistem-dokumen"
+            class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Sistem
+            Dokumen</a>
         <a href="#" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Audit
             Internal</a>
         <a href="#" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Tinjauan

@@ -65,44 +65,50 @@ Route::resource('/sistem-dokumen', PublicSistemDokumenController::class);
 
 Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->group(function () {
     Route::resource('/dashboard', DashboardAdminController::class);
+
+    // periode
     Route::resource('/periode', PeriodeController::class)->names('periode');
+
+    // visi misi
     Route::resource('/visi-misi', VisiMisiItemsController::class)->names('tentang.visi-misi');
+
+    // sejarah
     Route::resource('/histories', HistoriesItemsController::class)->names('tentang.histories');
+
+    // content
     Route::resource('/content', ContentItemsController::class)->names('content');
     Route::patch('/content/{content}/restore', [ContentItemsController::class, 'restore'])->name('content.restore');
     Route::post('/editor/upload-image', [ContentItemsController::class, 'uploadEditorImage'])->name('editor.upload-image');
+
+    // struktur & unit
     Route::resource('/struktur-organisasi-item', StrukturOrganisasiItemsController::class)->names('tentang.struktur-organisasi');
-
-    // SDM (Pegawai) routes
-    Route::resource('/pegawai', PegawaiController::class)->names('tentang.pegawai');
-
-    // Unit Organisasi routes (nested under struktur)
     Route::get('/struktur-organisasi/{struktur}/unit', [UnitOrganisasiController::class, 'index'])->name('tentang.unit-organisasi.index');
     Route::post('/unit-organisasi', [UnitOrganisasiController::class, 'store'])->name('tentang.unit-organisasi.store');
     Route::get('/unit-organisasi/{unit}', [UnitOrganisasiController::class, 'show'])->name('tentang.unit-organisasi.show');
     Route::put('/unit-organisasi/{unit}', [UnitOrganisasiController::class, 'update'])->name('tentang.unit-organisasi.update');
     Route::delete('/unit-organisasi/{unit}', [UnitOrganisasiController::class, 'destroy'])->name('tentang.unit-organisasi.destroy');
-    Route::post('/unit-organisasi/update-order', [UnitOrganisasiController::class, 'updateOrder'])->name('tentang.unit-organisasi.update-order');
 
-    // Pilar Transformasi routes
+    // SDM
+    Route::resource('/pegawai', PegawaiController::class)->names('tentang.pegawai');
+
+    // Pilar Transformasi
     Route::resource('/pilar-transformasi', PilarTransformasiController::class)->names('tentang.pilar-transformasi');
 
-    // Program Kerja Admin routes
+    // Program Kerja
     Route::get('/program-kerja/pilars', [AdminProgramKerjaController::class, 'getPilarsByPeriode'])->name('tentang.program-kerja.pilars');
     Route::resource('/program-kerja', AdminProgramKerjaController::class)->names('tentang.program-kerja');
 
-    // Prestasi Admin routes
+    // Prestasi
     Route::resource('/prestasi', AdminPrestasiController::class)->names('tentang.prestasi');
 
-    // Fasilitas Admin routes
+    // Fasilitas
     Route::resource('/fasilitas', FasilitasController::class)->names('fasilitas');
-    Route::delete('/fasilitas/gallery/{imageId}', [FasilitasController::class, 'deleteGalleryImage'])
-        ->name('fasilitas.gallery.destroy');
+    Route::delete('/fasilitas/gallery/{imageId}', [FasilitasController::class, 'deleteGalleryImage'])->name('fasilitas.gallery.destroy');
 
-    // SOP Admin routes
+    // SOP
     Route::resource('/sop', SopItemsController::class)->names('sop');
 
-    // Sistem Dokumen Admin routes
+    // Sistem Dokumen
     Route::resource('/sistem-dokumen', SistemDokumenItemsController::class)->names('sistem-dokumen');
 });
 

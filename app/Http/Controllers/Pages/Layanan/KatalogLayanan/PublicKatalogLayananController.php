@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Pages\Layanan;
+namespace App\Http\Controllers\Pages\Layanan\KatalogLayanan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class LayananController extends Controller
+class PublicKatalogLayananController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -14,12 +14,14 @@ use App\Http\Controllers\Admin\Tentang\ProgramKerja\ProgramKerjaController as Ad
 use App\Http\Controllers\Admin\Tentang\Sdm\PegawaiController;
 use App\Http\Controllers\Admin\Tentang\UnitOrganisasi\UnitOrganisasiController;
 use App\Http\Controllers\Admin\Tentang\VisiMisi\VisiMisiItemsController;
+use App\Http\Controllers\Admin\Layanan\KatalogLayanan\KatalogLayananItemsCOntroller;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Pages\HomeController;
 use App\Http\Controllers\Pages\Content\ContentController;
 use App\Http\Controllers\Pages\Fasilitas\FasilitasItemsController;
 use App\Http\Controllers\Pages\Penjaminan\SopController as PublicSopController;
 use App\Http\Controllers\Pages\Penjaminan\SistemDokumenController as PublicSistemDokumenController;
+use App\Http\Controllers\Pages\Layanan\KatalogLayanan\PublicKatalogLayananController;
 use App\Http\Controllers\Pages\Tentang\PrestasiController;
 use App\Http\Controllers\Pages\Tentang\ProgramKerjaController;
 use App\Http\Controllers\Pages\Tentang\SdmController;
@@ -61,6 +63,7 @@ Route::resource('/prestasi', PrestasiController::class);
 Route::resource('/fasilitas', FasilitasItemsController::class);
 Route::resource('/sop', PublicSopController::class);
 Route::resource('/sistem-dokumen', PublicSistemDokumenController::class);
+Route::get('/katalog-layanan', [PublicKatalogLayananController::class, 'index'])->name('katalog-layanan.index');
 
 
 Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->group(function () {
@@ -110,6 +113,9 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
 
     // Sistem Dokumen
     Route::resource('/sistem-dokumen', SistemDokumenItemsController::class)->names('sistem-dokumen');
+
+    // Katalog Layanan
+    Route::resource('/katalog-layanan', KatalogLayananItemsCOntroller::class)->names('layanan.katalog-layanan');
 });
 
 require __DIR__ . '/auth.php';

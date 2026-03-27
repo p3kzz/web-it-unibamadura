@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('katalog_layanan', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('kategori_layanan_id')->nullable()->constrained('kategori_layanan')->nullOnDelete();
+            $table->string('nama');
+            $table->text('deskripsi')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('link')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->integer('sort_order')->default(0);
             $table->timestamps();
         });
     }

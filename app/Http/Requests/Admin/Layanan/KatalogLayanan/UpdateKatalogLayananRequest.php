@@ -3,26 +3,39 @@
 namespace App\Http\Requests\Admin\Layanan\KatalogLayanan;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateKatalogLayananRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check() && Auth::user()->isAdmin();
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'kategori_layanan_id' => 'nullable|exists:kategori_layanan,id',
+            'nama' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,svg,webp|max:2048',
+            'link' => 'nullable|url|max:500',
+            'is_active' => 'nullable|boolean',
+            'sort_order' => 'nullable|integer|min:0',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'nama.required' => 'Nama layanan wajib diisi',
+            'nama.max' => 'Nama layanan maksimal 255 karakter',
+            'icon.image' => 'Icon harus berupa gambar',
+            'icon.mimes' => 'Format icon harus jpeg, png, jpg, svg, atau webp',
+            'icon.max' => 'Ukuran icon maksimal 2MB',
+            'link.url' => 'Link harus berupa URL yang valid',
+            'kategori_layanan_id.exists' => 'Kategori layanan tidak ditemukan',
         ];
     }
 }
+

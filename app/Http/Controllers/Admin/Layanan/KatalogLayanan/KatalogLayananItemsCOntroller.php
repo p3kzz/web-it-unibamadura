@@ -3,63 +3,52 @@
 namespace App\Http\Controllers\Admin\Layanan\KatalogLayanan;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Layanan\KatalogLayanan\StoreKatalogLayananRequest;
+use App\Http\Requests\Admin\Layanan\KatalogLayanan\UpdateKatalogLayananRequest;
+use App\Models\KatalogLayanan;
+use App\Models\KategoriLayanan;
+use App\Services\Admin\Layanan\KatalogLayanan\KatalogLayananService;
+use App\Services\Admin\Layanan\KatalogLayanan\KatalogLayananQueryService;
 use Illuminate\Http\Request;
 
 class KatalogLayananItemsCOntroller extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(
+        private KatalogLayananService $service,
+        private KatalogLayananQueryService $queryService
+    ) {}
+
+    public function index(Request $request)
     {
-        //
+        $search = trim($request->get('search'));
+        $isActive = $request->get('is_active', '');
+        $filters = ['search' => $search, 'is_active' => $isActive];
+        $items = $this->queryService->getItems($filters);
+        $categories = KategoriLayanan::orderBy('sort_order')->orderBy('nama')->get();
+
+        if ($request->ajax()) {
+            return view('admin.pages.layanan.katalog-layanan.partials.table', compact('items', 'search', 'isActive'));
+        }
+
+        return view('admin.pages.layanan.katalog-layanan.index', compact('items', 'search', 'isActive', 'categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(StoreKatalogLayananRequest $request)
     {
-        //
+        $this->service->store($request->validated());
+        return redirect()->back()->with('success', 'Layanan berhasil ditambahkan.');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(UpdateKatalogLayananRequest $request, KatalogLayanan $katalog_layanan)
     {
-        //
+        $this->service->update($katalog_layanan, $request->validated());
+        return redirect()->back()->with('success', 'Layanan berhasil diperbarui.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function destroy(KatalogLayanan $katalog_layanan)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $this->service->delete($katalog_layanan);
+        return redirect()->back()->with('success', 'Layanan berhasil dihapus.');
     }
 }
+

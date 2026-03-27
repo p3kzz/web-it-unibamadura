@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('layanan', function (Blueprint $table) {
+        Schema::create('katalog_layanan', function (Blueprint $table) {
             $table->id();
-             $table->foreignId('kategori_id')->constrained('kategori_layanan')->cascadeOnDelete();
+            $table->foreignId('kategori_layanan_id')->constrained('kategori_layanan')->cascadeOnDelete();
 
             $table->string('kode')->nullable();
             $table->string('nama');
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->text('biaya')->nullable();
             $table->text('cara_akses')->nullable();
 
-            $table->string('status')->default('Aktif');
+            $table->enum('status', ['Aktif', 'Non-Aktif'])->default('Aktif');
             $table->string('dependencies')->nullable();
             $table->string('kontak')->nullable();
 
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('layanan');
+        Schema::dropIfExists('katalog_layanan');
     }
 };

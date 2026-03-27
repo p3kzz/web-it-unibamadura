@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Tentang\Histories\HistoriesItemsController;
 use App\Http\Controllers\Admin\Tentang\StrukturOrganisasi\StrukturOrganisasiItemsController;
 use App\Http\Controllers\Admin\Tentang\PilarTransformasi\PilarTransformasiController;
 use App\Http\Controllers\Admin\Fasilitas\FasilitasController;
+use App\Http\Controllers\Admin\Layanan\KategoriLayanan\KategoriLayananItemsController;
 use App\Http\Controllers\Admin\Penjaminan\Sop\SopItemsController;
 use App\Http\Controllers\Admin\Penjaminan\SistemDokumen\SistemDokumenItemsController;
 use App\Http\Controllers\Admin\Tentang\Prestasi\PrestasiController as AdminPrestasiController;
@@ -90,6 +91,9 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     // Program Kerja Admin routes
     Route::get('/program-kerja/pilars', [AdminProgramKerjaController::class, 'getPilarsByPeriode'])->name('tentang.program-kerja.pilars');
     Route::resource('/program-kerja', AdminProgramKerjaController::class)->names('tentang.program-kerja');
+
+    //Kategori Layanan
+    Route::resource('/kategori-layanan', KategoriLayananItemsController::class)->names('layanan.kategori-layanan');
 
     // Prestasi Admin routes
     Route::resource('/prestasi', AdminPrestasiController::class)->names('tentang.prestasi');

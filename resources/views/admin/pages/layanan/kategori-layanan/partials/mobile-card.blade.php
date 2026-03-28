@@ -1,110 +1,166 @@
-<div class="lg:hidden space-y-4">
-    <div class="bg-white rounded-xl shadow-md border border-gray-200 p-4">
-        <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-uniba-blue rounded-lg flex items-center justify-center">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
-                        </path>
-                    </svg>
+<div class="lg:hidden space-y-3 px-1">
+
+    <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-4 space-y-3">
+        <x-table-search-hybrid placeholder="Cari kategori layanan ..." :currentSearch="$search ?? ''" :preserveParams="[
+            'nama' => $search,
+        ]" />
+
+        <div x-data="{ open: false }" class="relative">
+            <button type="button" @click="open = !open" @click.away="open = false"
+                class="w-full inline-flex items-center justify-between gap-2 px-4 py-2.5
+                    bg-gray-50 border-2 border-gray-200 rounded-xl
+                    hover:border-uniba-blue hover:bg-blue-50
+                    transition-all duration-200 group">
+                <div class="flex items-center gap-2">
+                    <div
+                        class="w-7 h-7 bg-uniba-blue bg-opacity-10 rounded-lg flex items-center justify-center group-hover:bg-opacity-20 transition-all">
+                        <svg class="w-3.5 h-3.5 text-uniba-blue" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                        </svg>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="font-bold text-gray-800">Daftar Fasilitas</h3>
-                    <p class="text-xs text-gray-500">Total: {{ $items->count() }} data</p>
-                </div>
+                <svg class="w-4 h-4 text-gray-400 transition-transform duration-200 flex-shrink-0"
+                    :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+
+            <div x-show="open" @click.outside="open = false" x-cloak
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2"
+                class="absolute left-0 right-0 mt-2 bg-white rounded-xl shadow-xl
+                    border border-gray-100 py-2 z-50 max-h-72 overflow-y-auto">
+
+                <div class="mx-4 border-t border-gray-100 my-1"></div>
             </div>
         </div>
-
-        @include('admin.pages.fasilitas.partials.search')
     </div>
 
-    @forelse ($items as $item)
-        <div class="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden">
-            <div class="p-4">
-                <div class="flex gap-4">
-                    @if ($item->image)
-                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->nama }}"
-                            class="w-20 h-20 object-cover rounded-lg border border-gray-200 flex-shrink-0">
-                    @else
-                        <div class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                </path>
-                            </svg>
-                        </div>
-                    @endif
-                    <div class="flex-1 min-w-0">
-                        <h4 class="font-semibold text-gray-800 truncate">{{ $item->nama }}</h4>
-                        <p class="text-sm text-gray-600 line-clamp-2 mt-1">{!! Str::limit(strip_tags($item->deskripsi), 80) !!}</p>
-                        <div class="mt-2">
-                            @if ($item->is_active)
-                                <span
-                                    class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-700">
-                                    Aktif
-                                </span>
-                            @else
-                                <span
-                                    class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">
-                                    Nonaktif
-                                </span>
-                            @endif
-                        </div>
+    @forelse ($items as $index => $item)
+        <div
+            class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden
+                hover:shadow-lg transition-all duration-200">
+            <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gray-50">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 bg-uniba-blue rounded-lg flex items-center justify-center flex-shrink-0">
+                        <span class="text-white text-xs font-bold">
+                            {{ $loop->iteration + ($items->currentPage() - 1) * $items->perPage() }}
+                        </span>
                     </div>
                 </div>
 
-                <div class="flex items-center justify-end gap-2 mt-4 pt-4 border-t border-gray-100">
-                    <button @click="$dispatch('open-show-fasilitas', {{ json_encode($item) }})"
-                        class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                            </path>
-                        </svg>
-                    </button>
-                    <button @click="$dispatch('open-edit-fasilitas', {{ json_encode($item) }})"
-                        class="p-2 text-amber-600 hover:bg-amber-50 rounded-lg transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                            </path>
-                        </svg>
-                    </button>
-                    <form action="{{ route('admin.fasilitas.destroy', $item) }}" method="POST" class="inline"
-                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus fasilitas ini?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                                </path>
-                            </svg>
-                        </button>
-                    </form>
+                @if ($item->is_active ?? true)
+                    <span
+                        class="inline-flex items-center gap-1 px-2.5 py-1
+                                bg-green-100 text-green-700 text-xs font-semibold rounded-full flex-shrink-0">
+                        <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                        Aktif
+                    </span>
+                @else
+                    <span
+                        class="inline-flex items-center gap-1 px-2.5 py-1
+                                bg-gray-100 text-gray-500 text-xs font-semibold rounded-full flex-shrink-0">
+                        <span class="w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
+                        Nonaktif
+                    </span>
+                @endif
+            </div>
+
+            <div class="p-4 space-y-3">
+                <div>
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Judul</p>
+                    <p class="text-sm font-semibold text-gray-900 leading-relaxed line-clamp-2">
+                        {{ $item->nama }}
+                    </p>
                 </div>
+                <div class="border-t border-gray-100"></div>
+
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 px-4 pb-4">
+                <button @click="$dispatch('open-edit-kategori-layanan', {{ $item->toJson() }})"
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2.5
+                        bg-orange-500 hover:bg-orange-600 active:bg-orange-700
+                        text-white text-sm font-semibold rounded-xl
+                        shadow-sm hover:shadow-md transition-all duration-200">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    Edit
+                </button>
+
+                <form method="POST" action="{{ route('admin.layanan.kategori-layanan.destroy', $item) }}"
+                    onsubmit="return confirm('Yakin ingin menghapus data ini?\n\nData yang dihapus tidak dapat dikembalikan!')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5
+                            bg-red-500 hover:bg-red-600 active:bg-red-700
+                            text-white text-sm font-semibold rounded-xl
+                            shadow-sm hover:shadow-md transition-all duration-200">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Hapus
+                    </button>
+                </form>
             </div>
         </div>
+
     @empty
-        <div class="bg-white rounded-xl shadow-md border border-gray-200 p-8 text-center">
-            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
-                    </path>
-                </svg>
+        <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-10 text-center">
+            <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                @if ($search)
+                    <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                @else
+                    <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                    </svg>
+                @endif
             </div>
-            <h3 class="font-semibold text-gray-700 mb-1">Belum Ada Fasilitas</h3>
-            <p class="text-gray-500 text-sm">Mulai tambahkan data fasilitas baru</p>
+            <p class="text-gray-700 font-semibold mb-1">
+                @if ($search)
+                    Tidak ada hasil pencarian
+                @else
+                    Belum ada data
+                @endif
+            </p>
+            <p class="text-gray-400 text-sm mb-5 leading-relaxed">
+                @if ($search)
+                    Tidak ditemukan kategori layanan dengan kata kunci "<span
+                        class="font-semibold text-gray-700">{{ $search }}</span>"
+                @else
+                    Belum ada data kategori layanan yang ditambahkan
+                @endif
+            </p>
+
+            <button @click="$dispatch('open-create-kategori-layanan')"
+                class="inline-flex items-center gap-2 px-5 py-2.5
+                    bg-uniba-blue hover:bg-blue-800 active:bg-blue-900
+                    text-white text-sm font-semibold rounded-xl
+                    shadow-sm hover:shadow-md transition-all duration-200">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                Tambah Data Pertama
+            </button>
         </div>
     @endforelse
 
     @if ($items->hasPages())
-        <div class="bg-white rounded-xl shadow-md border border-gray-200 p-4">
+        <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-4">
             {{ $items->links() }}
         </div>
     @endif
+
 </div>

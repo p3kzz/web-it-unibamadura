@@ -1,39 +1,5 @@
-<div x-data="{
-    open: false,
-    imagePreview: null,
-    galleryPreviews: [],
-    fileChosen(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => { this.imagePreview = e.target.result; };
-        reader.readAsDataURL(file);
-    },
-    handleGalleryImages(event) {
-        const files = Array.from(event.target.files);
-        if (this.galleryPreviews.length + files.length > 10) {
-            Swal.fire('Error', 'Maksimal 10 gambar galeri', 'error');
-            event.target.value = '';
-            return;
-        }
-        files.forEach(file => {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                this.galleryPreviews.push(e.target.result);
-            };
-            reader.readAsDataURL(file);
-        });
-    }
-}"
-    x-on:open-create-fasilitas.window="
-        open = true;
-        imagePreview = null;
-        galleryPreviews = [];
-        $nextTick(() => {
-            initSummernote('deskripsi-create', '');
-        });
-    "
-    x-show="open" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+<div x-data="{ open: false }" x-on:open-create-kategori-layanan.window="open = true" x-show="open" x-cloak
+    x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
     x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
@@ -44,7 +10,7 @@
         x-transition:leave-end="opacity-0 scale-95"
         class="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
 
-        <div class="bg-uniba-blue px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+        <div class="bg-uniba-blue px-6 py-4 flex items-center justify-between sticky top-0">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,7 +18,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-white">Tambah Fasilitas</h3>
+                    <h3 class="text-xl font-bold text-white">Tambah Kategori Layanan</h3>
                     <p class="text-blue-100 text-sm">Isi form di bawah untuk menambah data baru</p>
                 </div>
             </div>
@@ -65,91 +31,30 @@
             </button>
         </div>
 
-        <form method="POST" action="{{ route('admin.fasilitas.store') }}" enctype="multipart/form-data" class="p-6">
+        <form method="POST" action="{{ route('admin.layanan.kategori-layanan.store') }}" class="p-6">
             @csrf
 
             <div class="space-y-5">
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">
-                        Nama Fasilitas <span class="text-red-500">*</span>
-                    </label>
-                    <input type="text" name="nama"
-                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                        value="{{ old('nama') }}" placeholder="Contoh: Laboratorium Komputer" required>
-                    @error('nama')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">
-                        Deskripsi <span class="text-red-500">*</span>
-                    </label>
-                    <x-form-summernote id="deskripsi-create" name="deskripsi" :value="old('deskripsi')" height="200" />
-                    @error('deskripsi')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Gambar Fasilitas</label>
-                    <div class="flex items-start gap-4">
-                        <div class="relative w-24 h-24 flex-shrink-0">
-                            <template x-if="imagePreview">
-                                <img :src="imagePreview"
-                                    class="w-24 h-24 rounded-lg object-cover border-2 border-gray-200">
-                            </template>
-                            <template x-if="!imagePreview">
-                                <div
-                                    class="w-24 h-24 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 border-2 border-dashed border-gray-300">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </template>
-                        </div>
-                        <div class="flex-1">
-                            <input type="file" name="image" accept="image/*" @change="fileChosen"
-                                class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                            <p class="mt-1 text-xs text-gray-500">Format: JPEG, PNG, JPG, WEBP. Maksimal 2MB</p>
-                        </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">
+                            name <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" name="nama"
+                            class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
+                            value="{{ old('nama') }}" placeholder="Masukkan name kategori" required>
+                        @error('nama')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
-                    @error('image')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Galeri Gambar</label>
-                    <div class="space-y-3">
-                        <div x-show="galleryPreviews.length > 0" class="grid grid-cols-4 gap-3">
-                            <template x-for="(preview, index) in galleryPreviews" :key="index">
-                                <div class="relative group">
-                                    <img :src="preview"
-                                        class="w-full h-20 rounded-lg object-cover border-2 border-gray-200">
-                                    <span
-                                        class="absolute bottom-1 left-1 bg-green-500 text-white text-xs px-1 rounded">Baru</span>
-                                </div>
-                            </template>
-                        </div>
-                        <input type="file" name="gallery_images[]" accept="image/*" multiple
-                            @change="handleGalleryImages"
-                            class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                        <p class="text-xs text-gray-500">Format: JPEG, PNG, JPG, WEBP. Maksimal 2MB per file. Maksimal
-                            10 gambar.</p>
-                    </div>
-                    @error('gallery_images.*')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
                 </div>
 
                 <input type="hidden" name="is_active" value="0">
                 <div class="flex items-center gap-3">
-                    <input type="checkbox" name="is_active" value="1" checked
-                        class="w-5 h-5 text-uniba-blue border-gray-300 rounded focus:ring-uniba-blue">
-                    <label class="text-sm text-gray-700">Jadikan sebagai fasilitas aktif</label>
+                    <input type="checkbox" name="is_active" value="1"
+                        class="w-5 h-5 text-orange-500 border-gray-300 rounded">
+                    <label class="text-sm text-gray-700">Jadikan sebagai pilar aktif</label>
                 </div>
             </div>
 

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin\Layanan\KatalogLayanan;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdateKatalogLayananRequest extends FormRequest
 {
@@ -32,7 +33,7 @@ class UpdateKatalogLayananRequest extends FormRequest
             'sla' => 'sometimes|string',
             'biaya' => 'sometimes|string',
             'cara_akses' => 'sometimes|string',
-            'status' => 'sometimes|in:Aktif,Non-Aktif',
+            'status' => ['required', Rule::in(['Aktif', 'Tidak Aktif', 'Maintenance'])],
             'dependencies' => 'nullable|string',
             'kontak' => 'nullable|string',
             'is_active' => 'boolean',

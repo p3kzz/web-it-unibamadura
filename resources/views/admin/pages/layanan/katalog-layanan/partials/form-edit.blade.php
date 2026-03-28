@@ -1,103 +1,49 @@
+@php
+    $kategoriLayananOptions = \App\Models\KategoriLayanan::query()->orderBy('nama')->get();
+@endphp
+
 <div x-data="{
     open: false,
     form: {
         id: '',
+        kategori_layanan_id: '',
         nama: '',
         deskripsi: '',
-        image: '',
-        is_active: false
-    },
-    imagePreview: null,
-    existingGalleryImages: [],
-    newGalleryPreviews: [],
-    fileChosen(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => { this.imagePreview = e.target.result; };
-        reader.readAsDataURL(file);
-    },
-    async refreshTable() {
-        try {
-            const response = await fetch(window.location.href, {
-                headers: { 'X-Requested-With': 'XMLHttpRequest' }
-            });
-            if (response.ok) {
-                const html = await response.text();
-                const container = document.getElementById('ajax-table-container');
-                if (container) container.innerHTML = html;
-            }
-        } catch (e) {}
-    },
-    async deleteExistingImage(imageId, index) {
-        const result = await Swal.fire({
-            title: 'Hapus gambar?',
-            text: 'Gambar akan dihapus permanen',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#dc2626',
-            cancelButtonColor: '#6b7280',
-            confirmButtonText: 'Ya, hapus!',
-            cancelButtonText: 'Batal'
-        });
-
-        if (result.isConfirmed) {
-            try {
-                const response = await fetch(`/admin_tik/fasilitas/gallery/${imageId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
-                        'Accept': 'application/json'
-                    }
-                });
-
-                const data = await response.json();
-
-                if (response.ok && data.success) {
-                    this.existingGalleryImages.splice(index, 1);
-                    await this.refreshTable();
-                    Swal.fire('Berhasil!', 'Gambar telah dihapus', 'success');
-                } else {
-                    Swal.fire('Error', data.message || 'Gagal menghapus gambar', 'error');
-                }
-            } catch (error) {
-                Swal.fire('Error', 'Gagal menghapus gambar', 'error');
-            }
-        }
-    },
-    handleNewGalleryImages(event) {
-        const files = Array.from(event.target.files);
-        const totalImages = this.existingGalleryImages.length + this.newGalleryPreviews.length + files.length;
-
-        if (totalImages > 10) {
-            Swal.fire('Error', 'Maksimal 10 gambar galeri', 'error');
-            event.target.value = '';
-            return;
-        }
-
-        files.forEach(file => {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                this.newGalleryPreviews.push(e.target.result);
-            };
-            reader.readAsDataURL(file);
-        });
+        pengguna_sasaran: '',
+        service_owner: '',
+        jam_layanan: '',
+        sla: '',
+        biaya: '',
+        cara_akses: '',
+        status: 'Aktif',
+        dependencies: '',
+        kontak: '',
+        is_active: true,
     }
 }"
-    x-on:open-edit-fasilitas.window="
+    x-on:open-edit-katalog-layanan.window="
         open = true;
         form = {
             id: $event.detail.id,
-            nama: $event.detail.nama,
+            kategori_layanan_id: $event.detail.kategori_layanan_id || '',
+            nama: $event.detail.nama || '',
             deskripsi: $event.detail.deskripsi || '',
-            image: $event.detail.image || '',
-            is_active: Boolean($event.detail.is_active)
+            pengguna_sasaran: $event.detail.pengguna_sasaran || '',
+            service_owner: $event.detail.service_owner || '',
+            jam_layanan: $event.detail.jam_layanan || '',
+            sla: $event.detail.sla || '',
+            biaya: $event.detail.biaya || '',
+            cara_akses: $event.detail.cara_akses || '',
+            status: $event.detail.status || 'Aktif',
+            dependencies: $event.detail.dependencies || '',
+            kontak: $event.detail.kontak || '',
+            is_active: Boolean($event.detail.is_active),
         };
-        imagePreview = form.image ? '/storage/' + form.image : null;
-        existingGalleryImages = $event.detail.gallery_images || [];
-        newGalleryPreviews = [];
         $nextTick(() => {
             initSummernote('deskripsi-edit', form.deskripsi);
+            initSummernote('sla-edit', form.sla);
+            initSummernote('biaya-edit', form.biaya);
+            initSummernote('cara-akses-edit', form.cara_akses);
         });
     "
     x-show="open" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
@@ -106,7 +52,7 @@
         x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95"
-        class="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
+        class="bg-white rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
 
         <div class="bg-uniba-blue px-6 py-4 flex items-center justify-between sticky top-0 z-10">
             <div class="flex items-center gap-3">
@@ -118,7 +64,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-white">Edit Fasilitas</h3>
+                    <h3 class="text-xl font-bold text-white">Edit Katalog Layanan</h3>
                     <p class="text-blue-100 text-sm">Perbarui data yang sudah ada</p>
                 </div>
             </div>
@@ -131,108 +77,108 @@
             </button>
         </div>
 
-        <form :action="`{{ url('admin_tik/fasilitas') }}/${form.id}`" method="POST" enctype="multipart/form-data"
-            class="p-6">
+        <form :action="`{{ url('admin_tik/katalog-layanan') }}/${form.id}`" method="POST" class="p-6">
             @csrf
             @method('PUT')
 
-            <div class="space-y-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">
-                        Nama Fasilitas <span class="text-red-500">*</span>
+                        Kategori Layanan <span class="text-red-500">*</span>
+                    </label>
+                    <select name="kategori_layanan_id" x-model="form.kategori_layanan_id"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
+                        required>
+                        <option value="">Pilih kategori layanan</option>
+                        @foreach ($kategoriLayananOptions as $kategori)
+                            <option value="{{ $kategori->id }}">{{ $kategori->nama }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">
+                        Nama Layanan <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="nama" x-model="form.nama"
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                        placeholder="Contoh: Laboratorium Komputer" required>
+                        required>
                 </div>
 
-                <div>
+                <div class="md:col-span-2">
                     <label class="block text-sm font-bold text-gray-700 mb-2">
                         Deskripsi <span class="text-red-500">*</span>
                     </label>
-                    <x-form-summernote id="deskripsi-edit" name="deskripsi" :value="''" height="200" />
+                    <x-form-summernote id="deskripsi-edit" name="deskripsi" :value="''" height="180"
+                        placeholder="Deskripsi singkat layanan" required />
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Gambar Fasilitas</label>
-                    <div class="flex items-start gap-4">
-                        <div class="relative w-24 h-24 flex-shrink-0">
-                            <template x-if="imagePreview">
-                                <img :src="imagePreview"
-                                    class="w-24 h-24 rounded-lg object-cover border-2 border-gray-200">
-                            </template>
-                            <template x-if="!imagePreview">
-                                <div
-                                    class="w-24 h-24 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 border-2 border-dashed border-gray-300">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </template>
-                        </div>
-                        <div class="flex-1">
-                            <input type="file" name="image" accept="image/*" @change="fileChosen"
-                                class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                            <p class="mt-1 text-xs text-gray-500">Format: JPEG, PNG, JPG, WEBP. Maksimal 2MB. Biarkan
-                                kosong jika tidak ingin mengubah.</p>
-                        </div>
-                    </div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Pengguna Sasaran</label>
+                    <input type="text" name="pengguna_sasaran" x-model="form.pengguna_sasaran"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Galeri Gambar</label>
-                    <div class="space-y-3">
-                        <div x-show="existingGalleryImages.length > 0" class="mb-3">
-                            <p class="text-xs text-gray-500 mb-2">Gambar yang sudah ada. Klik X untuk menghapus.</p>
-                            <div class="grid grid-cols-4 gap-3">
-                                <template x-for="(img, index) in existingGalleryImages" :key="img.id">
-                                    <div class="relative group">
-                                        <img :src="img.url"
-                                            class="w-full h-20 rounded-lg object-cover border-2 border-gray-200">
-                                        <button type="button" @click="deleteExistingImage(img.id, index)"
-                                            class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M6 18L18 6M6 6l12 12"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </template>
-                            </div>
-                        </div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Service Owner</label>
+                    <input type="text" name="service_owner" x-model="form.service_owner"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none">
+                </div>
 
-                        <div x-show="newGalleryPreviews.length > 0" class="mb-3">
-                            <p class="text-xs text-gray-600 mb-2">Gambar baru:</p>
-                            <div class="grid grid-cols-4 gap-3">
-                                <template x-for="(preview, index) in newGalleryPreviews" :key="'new-' + index">
-                                    <div class="relative group">
-                                        <img :src="preview"
-                                            class="w-full h-20 rounded-lg object-cover border-2 border-green-300">
-                                        <span
-                                            class="absolute bottom-1 left-1 bg-green-500 text-white text-xs px-1 rounded">Baru</span>
-                                    </div>
-                                </template>
-                            </div>
-                        </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Jam Layanan</label>
+                    <input type="text" name="jam_layanan" x-model="form.jam_layanan"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none">
+                </div>
 
-                        <input type="file" name="gallery_images[]" accept="image/*" multiple
-                            @change="handleNewGalleryImages"
-                            class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                        <p class="text-xs text-gray-500">Format: JPEG, PNG, JPG, WEBP. Maksimal 2MB per file. Maksimal
-                            10 gambar total.</p>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">SLA</label>
+                    <x-form-summernote id="sla-edit" name="sla" :value="''" height="140"
+                        placeholder="Contoh: 2 hari kerja" required />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Biaya</label>
+                    <x-form-summernote id="biaya-edit" name="biaya" :value="''" height="140"
+                        placeholder="Gratis / nominal tertentu" required />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Status Layanan</label>
+                    <select name="status" x-model="form.status"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none">
+                        @foreach (['Aktif', 'Tidak Aktif', 'Maintenance'] as $status)
+                            <option value="{{ $status }}">{{ $status }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Cara Akses</label>
+                    <x-form-summernote id="cara-akses-edit" name="cara_akses" :value="''" height="160"
+                        placeholder="Langkah akses layanan" required />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Dependencies</label>
+                    <input type="text" name="dependencies" x-model="form.dependencies"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Kontak</label>
+                    <input type="text" name="kontak" x-model="form.kontak"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none">
+                </div>
+
+                <div class="md:col-span-2">
+                    <input type="hidden" name="is_active" value="0">
+                    <div class="flex items-center gap-3">
+                        <input type="checkbox" name="is_active" value="1" x-model="form.is_active"
+                            class="w-5 h-5 text-uniba-blue border-gray-300 rounded focus:ring-uniba-blue">
+                        <label class="text-sm text-gray-700">Tandai sebagai data aktif</label>
                     </div>
                 </div>
-
-                <input type="hidden" name="is_active" value="0">
-                <div class="flex items-center gap-3">
-                    <input type="checkbox" name="is_active" value="1" x-model="form.is_active"
-                        class="w-5 h-5 text-uniba-blue border-gray-300 rounded focus:ring-uniba-blue">
-                    <label class="text-sm text-gray-700">Jadikan sebagai fasilitas aktif</label>
-                </div>
-
             </div>
 
             <div class="flex items-center justify-between gap-3 mt-8 pt-6 border-t border-gray-200">

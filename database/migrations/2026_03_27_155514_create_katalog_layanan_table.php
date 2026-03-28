@@ -27,7 +27,7 @@ return new class extends Migration
             $table->text('biaya')->nullable();
             $table->text('cara_akses')->nullable();
 
-            $table->enum('status', ['Aktif', 'Non-Aktif'])->default('Aktif');
+            $table->string('status')->default('Aktif');
             $table->string('dependencies')->nullable();
             $table->string('kontak')->nullable();
 

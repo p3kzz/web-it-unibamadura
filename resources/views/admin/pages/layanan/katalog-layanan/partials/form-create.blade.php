@@ -1,36 +1,15 @@
-<div x-data="{
-    open: false,
-    imagePreview: null,
-    galleryPreviews: [],
-    fileChosen(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => { this.imagePreview = e.target.result; };
-        reader.readAsDataURL(file);
-    },
-    handleGalleryImages(event) {
-        const files = Array.from(event.target.files);
-        if (this.galleryPreviews.length + files.length > 10) {
-            Swal.fire('Error', 'Maksimal 10 gambar galeri', 'error');
-            event.target.value = '';
-            return;
-        }
-        files.forEach(file => {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                this.galleryPreviews.push(e.target.result);
-            };
-            reader.readAsDataURL(file);
-        });
-    }
-}"
-    x-on:open-create-fasilitas.window="
+@php
+    $kategoriLayananOptions = \App\Models\KategoriLayanan::query()->orderBy('nama')->get();
+@endphp
+
+<div x-data="{ open: false }"
+    x-on:open-create.window="
         open = true;
-        imagePreview = null;
-        galleryPreviews = [];
         $nextTick(() => {
             initSummernote('deskripsi-create', '');
+            initSummernote('sla-create', '');
+            initSummernote('biaya-create', '');
+            initSummernote('cara-akses-create', '');
         });
     "
     x-show="open" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
@@ -42,7 +21,7 @@
         x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95"
-        class="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
+        class="bg-white rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
 
         <div class="bg-uniba-blue px-6 py-4 flex items-center justify-between sticky top-0 z-10">
             <div class="flex items-center gap-3">
@@ -52,7 +31,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-white">Tambah Fasilitas</h3>
+                    <h3 class="text-xl font-bold text-white">Tambah Katalog Layanan</h3>
                     <p class="text-blue-100 text-sm">Isi form di bawah untuk menambah data baru</p>
                 </div>
             </div>
@@ -65,91 +44,133 @@
             </button>
         </div>
 
-        <form method="POST" action="{{ route('admin.fasilitas.store') }}" enctype="multipart/form-data" class="p-6">
+        <form method="POST" action="{{ route('admin.layanan.katalog-layanan.store') }}" class="p-6">
             @csrf
 
-            <div class="space-y-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">
-                        Nama Fasilitas <span class="text-red-500">*</span>
+                        Kategori Layanan <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" name="nama"
+                    <select name="kategori_layanan_id"
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                        value="{{ old('nama') }}" placeholder="Contoh: Laboratorium Komputer" required>
-                    @error('nama')
+                        required>
+                        <option value="">Pilih kategori layanan</option>
+                        @foreach ($kategoriLayananOptions as $kategori)
+                            <option value="{{ $kategori->id }}" @selected(old('kategori_layanan_id') == $kategori->id)>
+                                {{ $kategori->nama }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('kategori_layanan_id')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">
+                        Nama Layanan <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" name="nama"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
+                        value="{{ old('nama') }}" placeholder="Contoh: Layanan Surat Aktif" required>
+                    @error('nama')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">
                         Deskripsi <span class="text-red-500">*</span>
                     </label>
-                    <x-form-summernote id="deskripsi-create" name="deskripsi" :value="old('deskripsi')" height="200" />
+                    <x-form-summernote id="deskripsi-create" name="deskripsi" :value="old('deskripsi')" height="180"
+                        placeholder="Deskripsi singkat layanan" required />
                     @error('deskripsi')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Gambar Fasilitas</label>
-                    <div class="flex items-start gap-4">
-                        <div class="relative w-24 h-24 flex-shrink-0">
-                            <template x-if="imagePreview">
-                                <img :src="imagePreview"
-                                    class="w-24 h-24 rounded-lg object-cover border-2 border-gray-200">
-                            </template>
-                            <template x-if="!imagePreview">
-                                <div
-                                    class="w-24 h-24 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 border-2 border-dashed border-gray-300">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </template>
-                        </div>
-                        <div class="flex-1">
-                            <input type="file" name="image" accept="image/*" @change="fileChosen"
-                                class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                            <p class="mt-1 text-xs text-gray-500">Format: JPEG, PNG, JPG, WEBP. Maksimal 2MB</p>
-                        </div>
-                    </div>
-                    @error('image')
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Pengguna Sasaran</label>
+                    <input type="text" name="pengguna_sasaran"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
+                        value="{{ old('pengguna_sasaran') }}" placeholder="Mahasiswa, Dosen, Tenaga Kependidikan">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Service Owner</label>
+                    <input type="text" name="service_owner"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
+                        value="{{ old('service_owner') }}" placeholder="Unit/Bagian penanggung jawab">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Jam Layanan</label>
+                    <input type="text" name="jam_layanan"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
+                        value="{{ old('jam_layanan') }}" placeholder="Senin - Jumat, 08:00 - 16:00">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">SLA</label>
+                    <x-form-summernote id="sla-create" name="sla" :value="old('sla')" height="140"
+                        placeholder="Contoh: 2 hari kerja" required />
+                    @error('sla')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Galeri Gambar</label>
-                    <div class="space-y-3">
-                        <div x-show="galleryPreviews.length > 0" class="grid grid-cols-4 gap-3">
-                            <template x-for="(preview, index) in galleryPreviews" :key="index">
-                                <div class="relative group">
-                                    <img :src="preview"
-                                        class="w-full h-20 rounded-lg object-cover border-2 border-gray-200">
-                                    <span
-                                        class="absolute bottom-1 left-1 bg-green-500 text-white text-xs px-1 rounded">Baru</span>
-                                </div>
-                            </template>
-                        </div>
-                        <input type="file" name="gallery_images[]" accept="image/*" multiple
-                            @change="handleGalleryImages"
-                            class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                        <p class="text-xs text-gray-500">Format: JPEG, PNG, JPG, WEBP. Maksimal 2MB per file. Maksimal
-                            10 gambar.</p>
-                    </div>
-                    @error('gallery_images.*')
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Biaya</label>
+                    <x-form-summernote id="biaya-create" name="biaya" :value="old('biaya')" height="140"
+                        placeholder="Gratis / nominal tertentu" required />
+                    @error('biaya')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <input type="hidden" name="is_active" value="0">
-                <div class="flex items-center gap-3">
-                    <input type="checkbox" name="is_active" value="1" checked
-                        class="w-5 h-5 text-uniba-blue border-gray-300 rounded focus:ring-uniba-blue">
-                    <label class="text-sm text-gray-700">Jadikan sebagai fasilitas aktif</label>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Status Layanan</label>
+                    <select name="status"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none">
+                        @foreach (['Aktif', 'Tidak Aktif', 'Maintenance'] as $status)
+                            <option value="{{ $status }}" @selected(old('status', 'Aktif') === $status)>
+                                {{ $status }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Cara Akses</label>
+                    <x-form-summernote id="cara-akses-create" name="cara_akses" :value="old('cara_akses')" height="160"
+                        placeholder="Langkah akses layanan" required />
+                    @error('cara_akses')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Dependencies</label>
+                    <input type="text" name="dependencies"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
+                        value="{{ old('dependencies') }}" placeholder="Syarat atau ketergantungan layanan">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Kontak</label>
+                    <input type="text" name="kontak"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
+                        value="{{ old('kontak') }}" placeholder="Email/WhatsApp/Telepon">
+                </div>
+
+                <div class="md:col-span-2">
+                    <input type="hidden" name="is_active" value="0">
+                    <div class="flex items-center gap-3">
+                        <input type="checkbox" name="is_active" value="1" checked
+                            class="w-5 h-5 text-uniba-blue border-gray-300 rounded focus:ring-uniba-blue">
+                        <label class="text-sm text-gray-700">Tandai sebagai data aktif</label>
+                    </div>
                 </div>
             </div>
 

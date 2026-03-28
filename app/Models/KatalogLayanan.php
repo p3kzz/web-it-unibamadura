@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class KatalogLayanan extends Model
 {
     use HasFactory;
-    protected $table = 'layanan';
+    protected $table = 'katalog_layanan';
 
     protected $fillable = [
         'kategori_layanan_id',

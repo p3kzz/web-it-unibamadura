@@ -122,7 +122,7 @@
             <div>
                 <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Deskripsi</label>
                 <div class="prose prose-sm max-w-none bg-gray-50 rounded-xl p-4 border border-gray-200"
-                    x-html="item.deskripsi || '-' "></div>
+                    x-html="item.deskripsi"></div>
             </div>
 
             <div>

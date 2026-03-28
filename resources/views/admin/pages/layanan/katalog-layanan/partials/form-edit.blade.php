@@ -4,6 +4,7 @@
 
 <div x-data="{
     open: false,
+    kategoriMap: @js($kategoriLayananOptions->pluck('nama', 'id')),
     form: {
         id: '',
         kategori_layanan_id: '',
@@ -19,6 +20,9 @@
         dependencies: '',
         kontak: '',
         is_active: true,
+    },
+    syncNamaFromKategori() {
+        this.form.nama = this.kategoriMap[this.form.kategori_layanan_id] || '';
     }
 }"
     x-on:open-edit-katalog-layanan.window="
@@ -39,6 +43,7 @@
             kontak: $event.detail.kontak || '',
             is_active: Boolean($event.detail.is_active),
         };
+        syncNamaFromKategori();
         $nextTick(() => {
             initSummernote('deskripsi-edit', form.deskripsi);
             initSummernote('sla-edit', form.sla);
@@ -87,6 +92,7 @@
                         Kategori Layanan <span class="text-red-500">*</span>
                     </label>
                     <select name="kategori_layanan_id" x-model="form.kategori_layanan_id"
+                        @change="syncNamaFromKategori()"
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
                         required>
                         <option value="">Pilih kategori layanan</option>
@@ -100,7 +106,7 @@
                     <label class="block text-sm font-bold text-gray-700 mb-2">
                         Nama Layanan <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" name="nama" x-model="form.nama"
+                    <input type="text" name="nama" x-model="form.nama" readonly
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
                         required>
                 </div>

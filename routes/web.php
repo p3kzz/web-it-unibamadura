@@ -20,6 +20,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Pages\HomeController;
 use App\Http\Controllers\Pages\Content\ContentController;
 use App\Http\Controllers\Pages\Fasilitas\FasilitasItemsController;
+use App\Http\Controllers\Pages\Layanan\KatalogLayananController;
 use App\Http\Controllers\Pages\Penjaminan\SopController as PublicSopController;
 use App\Http\Controllers\Pages\Penjaminan\SistemDokumenController as PublicSistemDokumenController;
 use App\Http\Controllers\Pages\Tentang\PrestasiController;
@@ -61,6 +62,7 @@ Route::resource('/sumber-daya-manusia', SdmController::class);
 Route::resource('/program-kerja', ProgramKerjaController::class);
 Route::resource('/prestasi', PrestasiController::class);
 Route::resource('/fasilitas', FasilitasItemsController::class);
+Route::resource('/katalog-layanan', KatalogLayananController::class);
 Route::resource('/sop', PublicSopController::class);
 Route::resource('/sistem-dokumen', PublicSistemDokumenController::class);
 

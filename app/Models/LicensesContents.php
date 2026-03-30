@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class LicensesContents extends Model
 {
     use HasFactory;
-    protected $table = 'licenses_contents';
+    protected $table = 'license_contents';
     protected $fillable = [
-        'licenses_sections_id',
+        'license_section_id',
         'content',
     ];
 
     public function licenseSection()
     {
-        return $this->belongsTo(LicensesSections::class, 'licenses_sections_id');
+        return $this->belongsTo(LicensesSections::class, 'license_section_id');
     }
 }

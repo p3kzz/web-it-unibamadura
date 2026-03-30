@@ -12,7 +12,8 @@ class LicensesQueryService
     public function getItems(array $filters)
     {
         return SoftwareLicenses::query()
-            ->when($filters['search'], function ($q) use ($filters) {
+            ->with('sections.contents')
+            ->when($filters['search'] ?? null, function ($q) use ($filters) {
                 $search = $filters['search'];
                 $q->where('name', 'like', "%{$search}%")
                     ->orWhere('short_description', 'like', "%{$search}%");

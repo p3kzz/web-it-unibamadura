@@ -1,5 +1,5 @@
 <tr>
-    <td colspan="8" class="px-6 py-16 text-center">
+    <td colspan="7" class="px-6 py-16 text-center">
         <div class="flex flex-col items-center">
             <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
                 @if ($search)
@@ -19,14 +19,14 @@
                 @if ($search)
                     Tidak ada hasil pencarian
                 @else
-                    Data katalog layanan belum tersedia
+                    Data lisensi software belum tersedia
                 @endif
             </h3>
             <p class="text-gray-500 text-sm mb-4">
                 @if ($search)
                     Tidak ditemukan data untuk kata kunci "{{ $search }}"
                 @else
-                    Mulai tambahkan katalog layanan pertama
+                    Mulai tambahkan lisensi software pertama
                 @endif
             </p>
             <button @click="$dispatch('open-create')"
@@ -34,7 +34,7 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
-                Tambah Katalog Layanan
+                Tambah Lisensi Software
             </button>
         </div>
     </td>

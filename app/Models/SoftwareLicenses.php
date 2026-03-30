@@ -19,4 +19,9 @@ class SoftwareLicenses extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    public function sections()
+    {
+        return $this->hasMany(LicensesSections::class, 'software_licenses_id');
+    }
 }

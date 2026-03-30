@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class LicensesSections extends Model
 {
     use HasFactory;
-    protected $table = 'licenses_sections';
+    protected $table = 'license_sections';
     protected $fillable = [
         'software_licenses_id',
         'title',
@@ -19,4 +19,8 @@ class LicensesSections extends Model
         return $this->belongsTo(SoftwareLicenses::class, 'software_licenses_id');
     }
 
+    public function contents()
+    {
+        return $this->hasMany(LicensesContents::class, 'license_section_id');
+    }
 }

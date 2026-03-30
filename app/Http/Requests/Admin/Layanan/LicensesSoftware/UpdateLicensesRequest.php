@@ -22,13 +22,32 @@ class UpdateLicensesRequest extends FormRequest
      */
     public function rules(): array
     {
-            return [
-            'name' => 'sometimes|string|max:255',
+        return [
+            'name' => 'required|string|max:255',
             'short_description' => 'nullable|string',
             'is_active' => 'boolean',
-            'sections' => 'sometimes|array',
-            'sections.*.title' => 'sometimes|string|max:255',
-            'sections.*.content' => 'sometimes|string',
+            'sections' => 'required|array|min:1',
+            'sections.*.title' => 'required|string|max:255',
+            'sections.*.content' => 'required|string',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Nama lisensi wajib diisi',
+            'name.string' => 'Nama lisensi harus berupa string',
+            'name.max' => 'Nama lisensi maksimal 255 karakter',
+            'short_description.string' => 'Deskripsi singkat harus berupa string',
+            'is_active.boolean' => 'Status aktif harus berupa boolean',
+            'sections.required' => 'Bagian-bagian lisensi wajib diisi',
+            'sections.array' => 'Bagian-bagian lisensi harus berupa array',
+            'sections.min' => 'Minimal harus ada 1 bagian lisensi',
+            'sections.*.title.required' => 'Judul bagian wajib diisi',
+            'sections.*.title.string' => 'Judul bagian harus berupa string',
+            'sections.*.title.max' => 'Judul bagian maksimal 255 karakter',
+            'sections.*.content.required' => 'Konten bagian wajib diisi',
+            'sections.*.content.string' => 'Konten bagian harus berupa string',
         ];
     }
 }

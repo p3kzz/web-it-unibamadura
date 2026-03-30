@@ -40,7 +40,7 @@ class LicensesItemController extends Controller
      */
     public function store(StoreLicensesRequest $request)
     {
-        $this->service->store($request->validate());
+        $this->service->store($request->validated());
         return back()->with('success', 'Data berhasil ditambahkan');
     }
 
@@ -63,17 +63,18 @@ class LicensesItemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLicensesRequest $request, SoftwareLicenses $softwareLicenses)
+    public function update(UpdateLicensesRequest $request, SoftwareLicenses $lisensi_software)
     {
-        $this->service->update($softwareLicenses, $request->validated());
+        $this->service->update($lisensi_software, $request->validated());
         return back()->with('success', 'Data berhasil diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(SoftwareLicenses $lisensi_software)
     {
-        //
+        $this->service->delete($lisensi_software);
+        return back()->with('success', 'Data berhasil dihapus');
     }
 }

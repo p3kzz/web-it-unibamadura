@@ -42,12 +42,12 @@
         <table class="w-full text-left border-collapse">
             <colgroup>
                 <col style="width: 70px;">
-                <col style="width: 260px;">
+                <col style="width: 200px;">
                 <col style="width: 180px;">
+                <col style="width: 150px;">
                 <col style="width: 180px;">
-                <col style="width: 120px;">
-                <col style="width: 120px;">
-                <col style="width: 160px;">
+                <col style="width: 100px;">
+                <col style="width: 140px;">
             </colgroup>
             <thead>
                 <tr class="bg-uniba-blue text-white">
@@ -67,7 +67,7 @@
                                     d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z">
                                 </path>
                             </svg>
-                            Nama Lisensi Software
+                            Nama Lisensi
                         </div>
                     </th>
                     <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">
@@ -87,7 +87,7 @@
                                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
                                 </path>
                             </svg>
-                            Judul
+                            Bagian
                         </div>
                     </th>
                     <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">
@@ -97,7 +97,7 @@
                                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
                                 </path>
                             </svg>
-                            Content
+                            Konten
                         </div>
                     </th>
                     <th class="px-6 py-4 text-center text-xs font-bold uppercase tracking-wider">
@@ -106,7 +106,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            aktif
+                            Status
                         </div>
                     </th>
                     <th class="px-6 py-4 text-center text-xs font-bold uppercase tracking-wider">
@@ -123,9 +123,9 @@
             </thead>
             <tbody class="divide-y divide-gray-200">
                 @forelse ($items as $index => $item)
-                    @include('admin.pages.layanan.katalog-layanan.partials.table-row')
+                    @include('admin.pages.layanan.lisensi-software.partials.table-row')
                 @empty
-                    @include('admin.pages.layanan.katalog-layanan.partials.empty-state')
+                    @include('admin.pages.layanan.lisensi-software.partials.empty-state')
                 @endforelse
             </tbody>
         </table>
@@ -140,4 +140,4 @@
     @endif
 </div>
 
-@include('admin.pages.layanan.katalog-layanan.partials.mobile-card')
+@include('admin.pages.layanan.lisensi-software.partials.mobile-card')

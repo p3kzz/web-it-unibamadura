@@ -94,7 +94,7 @@ class ContentService
         $count = 1;
 
         while (
-            Content::withTrashed() // ✅ Include soft deleted
+            Content::withTrashed() 
             ->where('slug', $slug)
             ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
             ->exists()

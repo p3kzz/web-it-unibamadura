@@ -9,14 +9,14 @@
     <td class="px-6 py-4 align-top">
         <div>
             <p class="font-semibold text-gray-900 break-words line-clamp-2 leading-tight">
-                {{ $item->name }}
+                {{ $item->title }}
             </p>
         </div>
     </td>
 
     <td class="px-6 py-4 align-top">
         <div class="text-sm text-gray-700 leading-relaxed break-words line-clamp-2">
-            {{ Str::limit($item->short_description, 100) ?: '-' }}
+            {{ Str::limit($item->description, 100) ?: '-' }}
         </div>
     </td>
 
@@ -40,7 +40,7 @@
 
     <td class="px-6 py-4 align-top">
         @php
-            $firstContent = $item->sections->first()?->contents->first()?->content;
+            $firstContent = $item->sections->first()?->content;
         @endphp
         <div class="text-sm text-gray-700 leading-relaxed break-words line-clamp-2">
             {{ $firstContent ? Str::limit(strip_tags($firstContent), 80) : '-' }}
@@ -65,7 +65,7 @@
 
     <td class="px-6 py-4 align-top">
         <div class="flex items-center justify-center gap-2">
-            <button @click="$dispatch('open-show-lisensi', {{ $item->toJson() }})" title="Lihat detail"
+            <button @click="$dispatch('open-show-web-hosting', {{ $item->toJson() }})" title="Lihat detail"
                 class="inline-flex items-center gap-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -75,7 +75,7 @@
                 </svg>
             </button>
 
-            <button @click="$dispatch('open-edit-lisensi', {{ $item->toJson() }})" title="Edit data"
+            <button @click="$dispatch('open-edit-web-hosting', {{ $item->toJson() }})" title="Edit data"
                 class="inline-flex items-center gap-1 px-3 py-2 bg-orange-600 hover:bg-orange-700 text-white text-xs font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -83,7 +83,7 @@
                 </svg>
             </button>
 
-            <form method="POST" action="{{ route('admin.layanan.lisensi-software.destroy', $item) }}">
+            <form method="POST" action="{{ route('admin.layanan.web-hosting.destroy', $item) }}">
                 @csrf
                 @method('DELETE')
                 <button type="button" onclick="confirmDelete(this)" @disabled($item->is_active)

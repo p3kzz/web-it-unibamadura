@@ -2,45 +2,106 @@
     open: false,
     form: {
         id: '',
-        name: '',
-        short_description: '',
+        slug: '',
+        title: '',
+        description: '',
         is_active: false
     },
-    sections: [{ title: '', content: '' }],
-    addSection() {
-        this.sections.push({ title: '', content: '' });
+    sections: [],
+
+    newSection(payload = {}) {
+        return {
+            uid: Date.now().toString(36) + Math.random().toString(36).slice(2),
+            title: payload.title || '',
+            content: payload.content || ''
+        };
     },
+
+    initEditor(section, index) {
+        this.$nextTick(() => {
+            const editorId = `edit-hosting-content-${section.uid}`;
+            const $el = $('#' + editorId);
+
+            if (!$el.length) return;
+
+            initSummernote(editorId, section.content || '');
+            $el.off('summernote.change').on('summernote.change', (event, contents) => {
+                this.sections[index].content = contents;
+                $el.val(contents);
+            });
+        });
+    },
+
+    syncEditor(section, index) {
+        const editorId = `edit-hosting-content-${section.uid}`;
+        const $el = $('#' + editorId);
+
+        if (!$el.length) return;
+
+        const content = $el.next('.note-editor').length ? $el.summernote('code') : ($el.val() || '');
+        this.sections[index].content = content;
+        $el.val(content);
+    },
+
+    syncAllEditors() {
+        this.sections.forEach((section, index) => this.syncEditor(section, index));
+    },
+
+    initAllEditors() {
+        this.sections.forEach((section, index) => this.initEditor(section, index));
+    },
+
+    addSection() {
+        this.sections.push(this.newSection());
+        this.$nextTick(() => {
+            this.initEditor(this.sections[this.sections.length - 1], this.sections.length - 1);
+        });
+    },
+
     removeSection(index) {
-        if (this.sections.length > 1) {
-            this.sections.splice(index, 1);
+        if (this.sections.length <= 1) return;
+
+        const section = this.sections[index];
+        const editorId = `edit-hosting-content-${section.uid}`;
+        const $el = $('#' + editorId);
+
+        if ($el.length && $el.next('.note-editor').length) {
+            $el.summernote('destroy');
         }
+
+        this.sections.splice(index, 1);
+
+        this.$nextTick(() => {
+            this.initAllEditors();
+        });
     }
 }"
-    x-on:open-edit-lisensi.window="
-        open = true;
-        form = {
-            id: $event.detail.id,
-            name: $event.detail.name,
-            short_description: $event.detail.short_description || '',
-            is_active: Boolean($event.detail.is_active)
-        };
-        sections = $event.detail.sections && $event.detail.sections.length > 0
-            ? $event.detail.sections.map(s => ({
-                title: s.title,
-                content: s.contents && s.contents.length > 0 ? s.contents[0].content : ''
-            }))
-            : [{ title: '', content: '' }];
-    "
-    x-show="open" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
-    x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
-    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    x-on:open-edit-web-hosting.window="
+    form = {
+        id: $event.detail.id,
+        slug: $event.detail.slug,
+        title: $event.detail.title,
+        description: $event.detail.description || '',
+        is_active: Boolean($event.detail.is_active)
+    };
+
+    sections = $event.detail.sections && $event.detail.sections.length > 0
+        ? $event.detail.sections.map((section) => newSection({
+            title: section.title,
+            content: section.content || ''
+        }))
+        : [newSection()];
+
+    open = true;
+    $nextTick(() => initAllEditors());
+"
+    x-show="open" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
 
     <div @click.away="open = false" x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95"
-        class="bg-white rounded-2xl w-full max-w-3xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
+        class="bg-white rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
 
         <div class="bg-uniba-blue px-6 py-4 flex items-center justify-between sticky top-0 z-10">
             <div class="flex items-center gap-3">
@@ -52,7 +113,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-white">Edit Lisensi Software</h3>
+                    <h3 class="text-xl font-bold text-white">Edit Web Hosting</h3>
                     <p class="text-blue-100 text-sm">Perbarui data yang sudah ada</p>
                 </div>
             </div>
@@ -65,31 +126,32 @@
             </button>
         </div>
 
-        <form :action="`/admin_tik/lisensi-software/${form.id}`" method="POST" class="p-6">
+        <form :action="`/admin_tik/web-hosting/${form.slug || form.id}`" method="POST" @submit="syncAllEditors()"
+            class="p-6">
             @csrf
             @method('PUT')
 
             <div class="space-y-5">
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">
-                        Nama Lisensi Software <span class="text-red-500">*</span>
+                        Judul Web Hosting <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" name="name" x-model="form.name"
+                    <input type="text" name="title" x-model="form.title"
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                        placeholder="Contoh: Microsoft Office 365" required>
+                        placeholder="Contoh: Layanan Hosting Website Kampus" required>
                 </div>
 
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">Deskripsi Singkat</label>
-                    <textarea name="short_description" rows="3" x-model="form.short_description"
+                    <textarea name="description" rows="3" x-model="form.description"
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none resize-none"
-                        placeholder="Masukkan deskripsi singkat lisensi software..."></textarea>
+                        placeholder="Masukkan deskripsi singkat layanan web hosting..."></textarea>
                 </div>
 
                 <div class="border-t border-gray-200 pt-5">
                     <div class="flex items-center justify-between mb-4">
                         <label class="block text-sm font-bold text-gray-700">
-                            Bagian-Bagian Lisensi <span class="text-red-500">*</span>
+                            Bagian Web Hosting <span class="text-red-500">*</span>
                         </label>
                         <button type="button" @click="addSection()"
                             class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-100 hover:bg-green-200 text-green-700 text-xs font-semibold rounded-lg transition-colors">
@@ -101,7 +163,7 @@
                         </button>
                     </div>
 
-                    <template x-for="(section, index) in sections" :key="index">
+                    <template x-for="(section, index) in sections" :key="section.uid">
                         <div class="bg-gray-50 rounded-xl p-4 mb-4 border border-gray-200">
                             <div class="flex items-center justify-between mb-3">
                                 <span class="text-sm font-semibold text-gray-600">Bagian <span
@@ -124,16 +186,16 @@
                                     </label>
                                     <input type="text" :name="`sections[${index}][title]`" x-model="section.title"
                                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2 text-sm focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                                        placeholder="Contoh: Syarat dan Ketentuan" required>
+                                        placeholder="Contoh: Fitur Layanan" required>
                                 </div>
 
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-500 mb-1">
                                         Konten <span class="text-red-500">*</span>
                                     </label>
-                                    <textarea :name="`sections[${index}][content]`" x-model="section.content" rows="4"
-                                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2 text-sm focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none resize-none"
-                                        placeholder="Masukkan konten bagian lisensi..." required></textarea>
+                                    <x-form-summernote id="" name="" ::id="`edit-hosting-content-${section.uid}`" ::name="`sections[${index}][content]`"
+                                        :value="''" height="180"
+                                        placeholder="Masukkan konten bagian web hosting..." />
                                 </div>
                             </div>
                         </div>
@@ -144,7 +206,7 @@
                 <div class="flex items-center gap-3">
                     <input type="checkbox" name="is_active" value="1" x-model="form.is_active"
                         class="w-5 h-5 text-orange-500 border-gray-300 rounded focus:ring-uniba-blue">
-                    <label class="text-sm text-gray-700">Jadikan sebagai lisensi aktif</label>
+                    <label class="text-sm text-gray-700">Jadikan sebagai data aktif</label>
                 </div>
             </div>
 
@@ -177,5 +239,6 @@
                 </div>
             </div>
         </form>
+
     </div>
 </div>

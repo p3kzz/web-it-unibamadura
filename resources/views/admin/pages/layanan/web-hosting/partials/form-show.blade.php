@@ -1,12 +1,12 @@
 <div x-data="{
     open: false,
     item: {
-        name: '',
-        short_description: '',
+        title: '',
+        description: '',
         is_active: false,
         sections: []
     }
-}" x-on:open-show-lisensi.window="
+}" x-on:open-show-web-hosting.window="
         open = true;
         item = $event.detail
     "
@@ -29,8 +29,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-white">Detail Lisensi Software</h3>
-                    <p class="text-blue-100 text-sm">Informasi lengkap lisensi software</p>
+                    <h3 class="text-xl font-bold text-white">Detail Web Hosting</h3>
+                    <p class="text-blue-100 text-sm">Informasi lengkap layanan web hosting</p>
                 </div>
             </div>
             <button @click="open = false"
@@ -45,9 +45,9 @@
         <div class="p-6 space-y-6">
             <div class="flex items-start justify-between gap-4">
                 <div class="flex-1">
-                    <h4 class="text-xl font-bold text-gray-900" x-text="item.name"></h4>
-                    <template x-if="item.short_description">
-                        <p class="text-gray-500 mt-1" x-text="item.short_description"></p>
+                    <h4 class="text-xl font-bold text-gray-900" x-text="item.title"></h4>
+                    <template x-if="item.description">
+                        <p class="text-gray-500 mt-1" x-text="item.description"></p>
                     </template>
                 </div>
                 <template x-if="item.is_active">
@@ -80,8 +80,7 @@
 
             <template x-if="item.sections && item.sections.length > 0">
                 <div>
-                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Bagian-Bagian Lisensi
-                    </p>
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Bagian Web Hosting</p>
                     <div class="space-y-4">
                         <template x-for="(section, index) in item.sections" :key="index">
                             <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
@@ -91,10 +90,8 @@
                                         x-text="index + 1"></span>
                                     <h5 class="font-semibold text-gray-900" x-text="section.title"></h5>
                                 </div>
-                                <template x-if="section.contents && section.contents.length > 0">
-                                    <div class="text-sm text-gray-700 leading-relaxed whitespace-pre-line"
-                                        x-text="section.contents[0].content"></div>
-                                </template>
+                                <div class="text-sm text-gray-700 leading-relaxed prose prose-sm max-w-none"
+                                    x-html="section.content"></div>
                             </div>
                         </template>
                     </div>

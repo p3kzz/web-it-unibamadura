@@ -10,7 +10,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="font-bold text-gray-800">Daftar Lisensi Software</h3>
+                    <h3 class="font-bold text-gray-800">Daftar Web Hosting</h3>
                     <p class="text-xs text-gray-500">
                         @if ($search)
                             Hasil pencarian: {{ $items->count() }} data
@@ -34,7 +34,7 @@
         </div>
 
         <div class="flex flex-col md:flex-row gap-3">
-            @include('admin.pages.layanan.lisensi-software.partials.search')
+            @include('admin.pages.layanan.web-hosting.partials.search')
         </div>
     </div>
 
@@ -67,7 +67,7 @@
                                     d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z">
                                 </path>
                             </svg>
-                            Nama Lisensi
+                            Nama Hosting
                         </div>
                     </th>
                     <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">
@@ -123,9 +123,9 @@
             </thead>
             <tbody class="divide-y divide-gray-200">
                 @forelse ($items as $index => $item)
-                    @include('admin.pages.layanan.lisensi-software.partials.table-row')
+                    @include('admin.pages.layanan.web-hosting.partials.table-row')
                 @empty
-                    @include('admin.pages.layanan.lisensi-software.partials.empty-state')
+                    @include('admin.pages.layanan.web-hosting.partials.empty-state')
                 @endforelse
             </tbody>
         </table>
@@ -140,4 +140,4 @@
     @endif
 </div>
 
-@include('admin.pages.layanan.lisensi-software.partials.mobile-card')
+@include('admin.pages.layanan.web-hosting.partials.mobile-card')

@@ -1,25 +1,90 @@
 <div x-data="{
     open: false,
-    sections: [{ title: '', content: '' }],
-    addSection() {
-        this.sections.push({ title: '', content: '' });
+    sections: [],
+
+    newSection() {
+        return {
+            uid: Date.now().toString(36) + Math.random().toString(36).slice(2),
+            title: '',
+            content: ''
+        };
     },
+
+    resetForm() {
+        this.sections = [this.newSection()];
+    },
+
+    initEditor(section, index) {
+        this.$nextTick(() => {
+            const editorId = `create-hosting-content-${section.uid}`;
+            const $el = $('#' + editorId);
+
+            if (!$el.length) return;
+
+            initSummernote(editorId, section.content || '');
+            $el.off('summernote.change').on('summernote.change', (event, contents) => {
+                this.sections[index].content = contents;
+                $el.val(contents);
+            });
+        });
+    },
+
+    syncEditor(section, index) {
+        const editorId = `create-hosting-content-${section.uid}`;
+        const $el = $('#' + editorId);
+
+        if (!$el.length) return;
+
+        const content = $el.next('.note-editor').length ? $el.summernote('code') : ($el.val() || '');
+        this.sections[index].content = content;
+        $el.val(content);
+    },
+
+    syncAllEditors() {
+        this.sections.forEach((section, index) => this.syncEditor(section, index));
+    },
+
+    initAllEditors() {
+        this.sections.forEach((section, index) => this.initEditor(section, index));
+    },
+
+    addSection() {
+        this.sections.push(this.newSection());
+        this.$nextTick(() => {
+            this.initEditor(this.sections[this.sections.length - 1], this.sections.length - 1);
+        });
+    },
+
     removeSection(index) {
-        if (this.sections.length > 1) {
-            this.sections.splice(index, 1);
+        if (this.sections.length <= 1) return;
+
+        const section = this.sections[index];
+        const editorId = `create-hosting-content-${section.uid}`;
+        const $el = $('#' + editorId);
+
+        if ($el.length && $el.next('.note-editor').length) {
+            $el.summernote('destroy');
         }
+
+        this.sections.splice(index, 1);
+
+        this.$nextTick(() => {
+            this.initAllEditors();
+        });
     }
-}" x-on:open-create.window="open = true; sections = [{ title: '', content: '' }]" x-show="open"
-    x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
-    x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
-    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+}" x-init="resetForm()"
+    x-on:open-create-web-hosting.window="
+    open = true;
+    resetForm();
+    $nextTick(() => initAllEditors());
+"
+    x-show="open" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
 
     <div @click.away="open = false" x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95"
-        class="bg-white rounded-2xl w-full max-w-3xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
+        class="bg-white rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
 
         <div class="bg-uniba-blue px-6 py-4 flex items-center justify-between sticky top-0 z-10">
             <div class="flex items-center gap-3">
@@ -29,7 +94,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-white">Tambah Lisensi Software</h3>
+                    <h3 class="text-xl font-bold text-white">Tambah Web Hosting</h3>
                     <p class="text-blue-100 text-sm">Isi form di bawah untuk menambah data baru</p>
                 </div>
             </div>
@@ -42,28 +107,29 @@
             </button>
         </div>
 
-        <form method="POST" action="{{ route('admin.layanan.lisensi-software.store') }}" class="p-6">
+        <form method="POST" action="{{ route('admin.layanan.web-hosting.store') }}" @submit="syncAllEditors()"
+            class="p-6">
             @csrf
 
             <div class="space-y-5">
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">
-                        Nama Lisensi Software <span class="text-red-500">*</span>
+                        Judul Web Hosting <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" name="name"
+                    <input type="text" name="title"
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                        value="{{ old('name') }}" placeholder="Contoh: Microsoft Office 365" required>
-                    @error('name')
+                        value="{{ old('title') }}" placeholder="Contoh: Layanan Hosting Website Kampus" required>
+                    @error('title')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">Deskripsi Singkat</label>
-                    <textarea name="short_description" rows="3"
+                    <textarea name="description" rows="3"
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none resize-none"
-                        placeholder="Masukkan deskripsi singkat lisensi software...">{{ old('short_description') }}</textarea>
-                    @error('short_description')
+                        placeholder="Masukkan deskripsi singkat layanan web hosting...">{{ old('description') }}</textarea>
+                    @error('description')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
@@ -71,7 +137,7 @@
                 <div class="border-t border-gray-200 pt-5">
                     <div class="flex items-center justify-between mb-4">
                         <label class="block text-sm font-bold text-gray-700">
-                            Bagian-Bagian Lisensi <span class="text-red-500">*</span>
+                            Bagian Web Hosting <span class="text-red-500">*</span>
                         </label>
                         <button type="button" @click="addSection()"
                             class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-green-100 hover:bg-green-200 text-green-700 text-xs font-semibold rounded-lg transition-colors">
@@ -83,7 +149,7 @@
                         </button>
                     </div>
 
-                    <template x-for="(section, index) in sections" :key="index">
+                    <template x-for="(section, index) in sections" :key="section.uid">
                         <div class="bg-gray-50 rounded-xl p-4 mb-4 border border-gray-200">
                             <div class="flex items-center justify-between mb-3">
                                 <span class="text-sm font-semibold text-gray-600">Bagian <span
@@ -106,16 +172,16 @@
                                     </label>
                                     <input type="text" :name="`sections[${index}][title]`" x-model="section.title"
                                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2 text-sm focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                                        placeholder="Contoh: Syarat dan Ketentuan" required>
+                                        placeholder="Contoh: Fitur Layanan" required>
                                 </div>
 
                                 <div>
                                     <label class="block text-xs font-semibold text-gray-500 mb-1">
                                         Konten <span class="text-red-500">*</span>
                                     </label>
-                                    <textarea :name="`sections[${index}][content]`" x-model="section.content" rows="4"
-                                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2 text-sm focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none resize-none"
-                                        placeholder="Masukkan konten bagian lisensi..." required></textarea>
+                                    <x-form-summernote id="" name="" ::id="`create-hosting-content-${section.uid}`" ::name="`sections[${index}][content]`"
+                                        :value="''" height="180"
+                                        placeholder="Masukkan konten bagian web hosting..." />
                                 </div>
                             </div>
                         </div>
@@ -136,7 +202,7 @@
                 <div class="flex items-center gap-3">
                     <input type="checkbox" name="is_active" value="1" checked
                         class="w-5 h-5 text-orange-500 border-gray-300 rounded focus:ring-uniba-blue">
-                    <label class="text-sm text-gray-700">Jadikan sebagai lisensi aktif</label>
+                    <label class="text-sm text-gray-700">Jadikan sebagai data aktif</label>
                 </div>
             </div>
 
@@ -169,5 +235,6 @@
                 </div>
             </div>
         </form>
+
     </div>
 </div>

@@ -1,7 +1,7 @@
 <div class="lg:hidden space-y-3 px-1">
 
     <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-4 space-y-3">
-        <x-table-search-hybrid placeholder="Cari lisensi software..." :currentSearch="$search ?? ''" :preserveParams="[]" />
+        <x-table-search-hybrid placeholder="Cari web hosting..." :currentSearch="$search ?? ''" :preserveParams="[]" />
     </div>
 
     @forelse ($items as $index => $item)
@@ -40,16 +40,16 @@
 
             <div class="p-4 space-y-3">
                 <div>
-                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Nama Lisensi</p>
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Nama Hosting</p>
                     <p class="text-sm font-semibold text-gray-900 leading-relaxed line-clamp-2">
-                        {{ $item->name }}
+                        {{ $item->title }}
                     </p>
                 </div>
-                @if ($item->short_description)
+                @if ($item->description)
                     <div class="border-t border-gray-100 pt-3">
                         <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Deskripsi</p>
                         <p class="text-sm text-gray-700 leading-relaxed line-clamp-2">
-                            {{ Str::limit($item->short_description, 100) }}
+                            {{ Str::limit($item->description, 100) }}
                         </p>
                     </div>
                 @endif
@@ -73,7 +73,7 @@
             </div>
 
             <div class="grid grid-cols-3 gap-2 px-4 pb-4">
-                <button @click="$dispatch('open-show-lisensi', {{ $item->toJson() }})"
+                <button @click="$dispatch('open-show-web-hosting', {{ $item->toJson() }})"
                     class="inline-flex items-center justify-center gap-2 px-4 py-2.5
                         bg-uniba-blue hover:bg-blue-700 active:bg-blue-800
                         text-white text-sm font-semibold rounded-xl
@@ -87,7 +87,7 @@
                     Detail
                 </button>
 
-                <button @click="$dispatch('open-edit-lisensi', {{ $item->toJson() }})"
+                <button @click="$dispatch('open-edit-web-hosting', {{ $item->toJson() }})"
                     class="inline-flex items-center justify-center gap-2 px-4 py-2.5
                         bg-orange-500 hover:bg-orange-600 active:bg-orange-700
                         text-white text-sm font-semibold rounded-xl
@@ -99,7 +99,7 @@
                     Edit
                 </button>
 
-                <form method="POST" action="{{ route('admin.layanan.lisensi-software.destroy', $item) }}"
+                <form method="POST" action="{{ route('admin.layanan.web-hosting.destroy', $item) }}"
                     onsubmit="return confirm('Yakin ingin menghapus data ini?\n\nData yang dihapus tidak dapat dikembalikan!')">
                     @csrf
                     @method('DELETE')
@@ -143,14 +143,14 @@
             </p>
             <p class="text-gray-400 text-sm mb-5 leading-relaxed">
                 @if ($search)
-                    Tidak ditemukan lisensi software dengan kata kunci "<span
+                    Tidak ditemukan data web hosting dengan kata kunci "<span
                         class="font-semibold text-gray-700">{{ $search }}</span>"
                 @else
-                    Belum ada data lisensi software yang ditambahkan
+                    Belum ada data web hosting yang ditambahkan
                 @endif
             </p>
 
-            <button @click="$dispatch('open-create')"
+            <button @click="$dispatch('open-create-web-hosting')"
                 class="inline-flex items-center gap-2 px-5 py-2.5
                     bg-uniba-blue hover:bg-blue-800 active:bg-blue-900
                     text-white text-sm font-semibold rounded-xl

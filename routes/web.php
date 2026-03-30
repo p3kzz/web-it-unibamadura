@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Tentang\PilarTransformasi\PilarTransformasiContro
 use App\Http\Controllers\Admin\Fasilitas\FasilitasController;
 use App\Http\Controllers\Admin\Layanan\KatalogLayanan\KatalogLayananItemsController;
 use App\Http\Controllers\Admin\Layanan\KategoriLayanan\KategoriLayananItemsController;
+use App\Http\Controllers\Admin\Layanan\LicensesSoftware\LicensesItemController;
 use App\Http\Controllers\Admin\Penjaminan\Sop\SopItemsController;
 use App\Http\Controllers\Admin\Penjaminan\SistemDokumen\SistemDokumenItemsController;
 use App\Http\Controllers\Admin\Tentang\Prestasi\PrestasiController as AdminPrestasiController;
@@ -98,6 +99,7 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     //Kategori Layanan
     Route::resource('/kategori-layanan', KategoriLayananItemsController::class)->names('layanan.kategori-layanan');
     Route::resource('/katalog-layanan', KatalogLayananItemsController::class)->names('layanan.katalog-layanan');
+    Route::resource('/lisensi-software', LicensesItemController::class)->names('layanan.lisensi-software');
 
     // Prestasi Admin routes
     Route::resource('/prestasi', AdminPrestasiController::class)->names('tentang.prestasi');

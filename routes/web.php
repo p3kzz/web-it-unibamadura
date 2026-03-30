@@ -22,6 +22,7 @@ use App\Http\Controllers\Pages\HomeController;
 use App\Http\Controllers\Pages\Content\ContentController;
 use App\Http\Controllers\Pages\Fasilitas\FasilitasItemsController;
 use App\Http\Controllers\Pages\Layanan\KatalogLayananController;
+use App\Http\Controllers\Pages\Layanan\LicensesSoftwareController;
 use App\Http\Controllers\Pages\Penjaminan\SopController as PublicSopController;
 use App\Http\Controllers\Pages\Penjaminan\SistemDokumenController as PublicSistemDokumenController;
 use App\Http\Controllers\Pages\Tentang\PrestasiController;
@@ -66,6 +67,7 @@ Route::resource('/fasilitas', FasilitasItemsController::class);
 Route::resource('/katalog-layanan', KatalogLayananController::class);
 Route::resource('/sop', PublicSopController::class);
 Route::resource('/sistem-dokumen', PublicSistemDokumenController::class);
+Route::resource('/lisensi-software', LicensesSoftwareController::class);
 
 
 Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->group(function () {

@@ -199,7 +199,7 @@
                                 Lihat Semua Layanan
                             </a>
                         </div>
-                    </div>
+                    </div> 
                 @endforelse
             </div>
 

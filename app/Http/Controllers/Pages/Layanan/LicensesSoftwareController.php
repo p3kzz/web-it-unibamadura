@@ -3,16 +3,23 @@
 namespace App\Http\Controllers\Pages\Layanan;
 
 use App\Http\Controllers\Controller;
+use App\Services\Pages\Layanan\LicensesSoftwarePageQueryService;
 use Illuminate\Http\Request;
 
 class LicensesSoftwareController extends Controller
 {
+    public function __construct(
+        private readonly LicensesSoftwarePageQueryService $licensesQuery
+    ) {}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $licenses = $this->licensesQuery->getPaginatedActive(9);
+
+        return view('pages.layanan.lisensi-software.index', compact('licenses'));
     }
 
     /**
@@ -20,7 +27,7 @@ class LicensesSoftwareController extends Controller
      */
     public function create()
     {
-        //
+        abort(404);
     }
 
     /**
@@ -28,15 +35,18 @@ class LicensesSoftwareController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        abort(404);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $lisensi_software)
     {
-        //
+        $license = $this->licensesQuery->getPublishedDetailOrFail($lisensi_software);
+        $relatedLicenses = $this->licensesQuery->getRelatedActive($license);
+
+        return view('pages.layanan.lisensi-software.show', compact('license', 'relatedLicenses'));
     }
 
     /**
@@ -44,7 +54,7 @@ class LicensesSoftwareController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -52,7 +62,7 @@ class LicensesSoftwareController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -60,6 +70,6 @@ class LicensesSoftwareController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        abort(404);
     }
 }

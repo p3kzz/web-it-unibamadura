@@ -13,7 +13,7 @@
             class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Katalog Layanan</a>
         <a href="/lisensi-software" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Lisensi
             Software</a>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Web
+        <a href="/web-hosting" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Web
             Hosting</a>
         <a href="#" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Email & Akun
             Uniba</a>

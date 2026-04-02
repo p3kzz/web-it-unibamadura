@@ -51,10 +51,10 @@
             <div class="grid lg:grid-cols-[minmax(0,1fr)_320px] gap-10 items-start">
 
                 <article class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
-                    {{-- @if ($content->thumbnail)
+                    @if ($content->thumbnail)
                         <img src="{{ $content->thumbnail_url }}" alt="{{ $content->title }}"
                             class="w-full max-h-[28rem] object-cover">
-                    @endif --}}
+                    @endif
 
                     <div class="p-6 md:p-10 flex flex-col h-full">
                         <div

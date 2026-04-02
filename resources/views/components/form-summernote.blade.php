@@ -34,12 +34,12 @@
                 },
 
                 toolbar: [
-                    ['style', ['style']],
-                    ['font', ['bold', 'underline', 'clear']],
+                    // ['style', ['style']],
+                    ['font', ['bold', 'underline']],
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['table', ['table']],
-                    ['insert', ['link', 'picture', 'video']],
+                    ['insert', ['link', 'picture']],
                     ['view', ['codeview']]
                 ],
 

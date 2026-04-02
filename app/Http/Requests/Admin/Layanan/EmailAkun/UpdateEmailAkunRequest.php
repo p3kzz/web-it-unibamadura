@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Requests\Admin\Layanan\WebHosting;
+namespace App\Http\Requests\Admin\Layanan\EmailAkun;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StoreWebHostingRequest extends FormRequest
+class UpdateEmailAkunRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-       return Auth::check() && Auth::user()->isAdmin();
+        return Auth::check() && Auth::user()->isAdmin();
     }
 
     /**
@@ -35,14 +35,14 @@ class StoreWebHostingRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'Judul web hosting wajib diisi',
-            'title.string' => 'Judul web hosting harus berupa string',
-            'title.max' => 'Judul web hosting maksimal 255 karakter',
+            'title.required' => 'Judul email akun wajib diisi',
+            'title.string' => 'Judul email akun harus berupa string',
+            'title.max' => 'Judul email akun maksimal 255 karakter',
             'description.string' => 'Deskripsi harus berupa string',
             'is_active.boolean' => 'Status aktif harus berupa boolean',
-            'sections.required' => 'Bagian web hosting wajib diisi',
-            'sections.array' => 'Bagian web hosting harus berupa array',
-            'sections.min' => 'Minimal harus ada 1 bagian web hosting',
+            'sections.required' => 'Bagian email akun wajib diisi',
+            'sections.array' => 'Bagian email akun harus berupa array',
+            'sections.min' => 'Minimal harus ada 1 bagian email akun',
             'sections.*.title.required' => 'Judul bagian wajib diisi',
             'sections.*.title.string' => 'Judul bagian harus berupa string',
             'sections.*.title.max' => 'Judul bagian maksimal 255 karakter',

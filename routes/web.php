@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Tentang\Histories\HistoriesItemsController;
 use App\Http\Controllers\Admin\Tentang\StrukturOrganisasi\StrukturOrganisasiItemsController;
 use App\Http\Controllers\Admin\Tentang\PilarTransformasi\PilarTransformasiController;
 use App\Http\Controllers\Admin\Fasilitas\FasilitasController;
+use App\Http\Controllers\Admin\Layanan\EmailAkun\EmailAkunItemsController;
 use App\Http\Controllers\Admin\Layanan\KatalogLayanan\KatalogLayananItemsController;
 use App\Http\Controllers\Admin\Layanan\KategoriLayanan\KategoriLayananItemsController;
 use App\Http\Controllers\Admin\Layanan\LicensesSoftware\LicensesItemController;
@@ -106,6 +107,7 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     Route::resource('/katalog-layanan', KatalogLayananItemsController::class)->names('layanan.katalog-layanan');
     Route::resource('/lisensi-software', LicensesItemController::class)->names('layanan.lisensi-software');
     Route::resource('/web-hosting', WebHostingItemsController::class)->names('layanan.web-hosting');
+    Route::resource('/email-akun', EmailAkunItemsController::class)->names('layanan.email-akun');
 
     // Prestasi
     Route::resource('/prestasi', AdminPrestasiController::class)->names('tentang.prestasi');

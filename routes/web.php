@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\Layanan\WebHosting\WebHostingItemsController;
 use App\Http\Controllers\Admin\Penjaminan\Audit\AuditItemsController;
 use App\Http\Controllers\Admin\Penjaminan\Sop\SopItemsController;
 use App\Http\Controllers\Admin\Penjaminan\SistemDokumen\SistemDokumenItemsController;
+use App\Http\Controllers\Admin\Penjaminan\TinjauanManajemen\TinjauanManajemenItemsController;
 use App\Http\Controllers\Admin\Tentang\Prestasi\PrestasiController as AdminPrestasiController;
 use App\Http\Controllers\Admin\Tentang\ProgramKerja\ProgramKerjaController as AdminProgramKerjaController;
 use App\Http\Controllers\Admin\Tentang\Sdm\PegawaiController;
@@ -126,6 +127,7 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     Route::resource('/sop', SopItemsController::class)->names('sop');
     Route::resource('/sistem-dokumen', SistemDokumenItemsController::class)->names('sistem-dokumen');
     Route::resource('/audit', AuditItemsController::class)->names('penjaminan.audit');
+    Route::resource('/tinjauan-manajemen', TinjauanManajemenItemsController::class)->names('penjaminan.tinjauan-manajemen');
 });
 
 require __DIR__ . '/auth.php';

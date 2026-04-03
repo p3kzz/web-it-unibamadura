@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Services\Admin\Penjaminan\Audit;
+namespace App\Services\Admin\Penjaminan\TinjauanManajemen;
 
-use App\Models\Audit;
+use App\Models\TinjauanManajemen;
 
-class AuditQueryService
+class TinjauanManajemenQueryService
 {
     /**
      * Create a new class instance.
      */
     public function getItems(array $filters)
     {
-        return Audit::query()
+        return TinjauanManajemen::query()
             ->with('sections')
             ->when($filters['search'] ?? null, function ($query) use ($filters) {
                 $search = $filters['search'];
@@ -30,9 +30,9 @@ class AuditQueryService
             ->withQueryString();
     }
 
-    public function getBySlug(string $slug): Audit
+    public function getBySlug(string $slug): TinjauanManajemen
     {
-        return Audit::query()
+        return TinjauanManajemen::query()
             ->with('sections')
             ->where('slug', $slug)
             ->firstOrFail();

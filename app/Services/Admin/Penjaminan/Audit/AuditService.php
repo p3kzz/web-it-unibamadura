@@ -16,34 +16,34 @@ class AuditService
         return DB::transaction(function () use ($data) {
             $data['slug'] = $this->generateUniqueSlug($data['title']);
 
-            $hosting = Audit::create($data);
-            $this->syncSections($hosting, $data['sections']);
+            $audit = Audit::create($data);
+            $this->syncSections($audit, $data['sections']);
 
-            return $hosting;
+            return $audit;
         });
     }
 
-    public function update(Audit $hosting, array $data): Audit
+    public function update(Audit $audit, array $data): Audit
     {
-        return DB::transaction(function () use ($hosting, $data) {
-            if (isset($data['title']) && $data['title'] !== $hosting->title) {
-                $data['slug'] = $this->generateUniqueSlug($data['title'], $hosting->id);
+        return DB::transaction(function () use ($audit, $data) {
+            if (isset($data['title']) && $data['title'] !== $audit->title) {
+                $data['slug'] = $this->generateUniqueSlug($data['title'], $audit->id);
             }
 
-            $hosting->update($data);
+            $audit->update($data);
 
             if (isset($data['sections'])) {
-                $hosting->sections()->delete();
-                $this->syncSections($hosting, $data['sections']);
+                $audit->sections()->delete();
+                $this->syncSections($audit, $data['sections']);
             }
 
-            return $hosting;
+            return $audit;
         });
     }
 
-    public function delete(Audit $hosting): void
+    public function delete(Audit $audit): void
     {
-        $hosting->delete();
+        $audit->delete();
     }
 
     protected function generateUniqueSlug(string $title, ?int $ignoreId = null): string
@@ -64,10 +64,10 @@ class AuditService
         return $slug;
     }
 
-    private function syncSections(Audit $hosting, array $sections): void
+    private function syncSections(Audit $audit, array $sections): void
     {
         foreach ($sections as $sectionData) {
-            $hosting->sections()->create([
+            $audit->sections()->create([
                 'title' => $sectionData['title'],
                 'content' => $sectionData['content'],
             ]);

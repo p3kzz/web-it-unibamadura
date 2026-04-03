@@ -83,7 +83,7 @@
                 </svg>
             </button>
 
-            <form method="POST" action="{{ route('admin.penjaminan-mutu.audit.destroy', $item) }}">
+            <form method="POST" action="{{ route('admin.penjaminan.audit.destroy', $item) }}">
                 @csrf
                 @method('DELETE')
                 <button type="button" onclick="confirmDelete(this)" @disabled($item->is_active)

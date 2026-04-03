@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Layanan\KatalogLayanan\KatalogLayananItemsControl
 use App\Http\Controllers\Admin\Layanan\KategoriLayanan\KategoriLayananItemsController;
 use App\Http\Controllers\Admin\Layanan\LicensesSoftware\LicensesItemController;
 use App\Http\Controllers\Admin\Layanan\WebHosting\WebHostingItemsController;
+use App\Http\Controllers\Admin\Penjaminan\Audit\AuditItemsController;
 use App\Http\Controllers\Admin\Penjaminan\Sop\SopItemsController;
 use App\Http\Controllers\Admin\Penjaminan\SistemDokumen\SistemDokumenItemsController;
 use App\Http\Controllers\Admin\Tentang\Prestasi\PrestasiController as AdminPrestasiController;
@@ -119,11 +120,10 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     Route::delete('/fasilitas/gallery/{imageId}', [FasilitasController::class, 'deleteGalleryImage'])
         ->name('fasilitas.gallery.destroy');
 
-    // SOP
+    // Penjaminan Mutu
     Route::resource('/sop', SopItemsController::class)->names('sop');
-
-    // Sistem Dokumen
     Route::resource('/sistem-dokumen', SistemDokumenItemsController::class)->names('sistem-dokumen');
+    Route::resource('/audit', AuditItemsController::class)->names('penjaminan.audit');
 });
 
 require __DIR__ . '/auth.php';

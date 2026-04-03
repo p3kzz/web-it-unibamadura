@@ -3,23 +3,22 @@
 namespace App\Http\Controllers\Pages\Layanan;
 
 use App\Http\Controllers\Controller;
-use App\Services\Pages\Layanan\WebHostingPageQueryService;
+use App\Services\Pages\Layanan\EmailAkunPageQueryService;
 use Illuminate\Http\Request;
 
-class WebHostingController extends Controller
+class EmailAkunController extends Controller
 {
-    public function __construct(
-        private readonly WebHostingPageQueryService $hostingQuery
+     public function __construct(
+        private readonly EmailAkunPageQueryService $emailAkunsQuery
     ) {}
-
     /**
      * Display a listing of the resource.
      */
-    public function index()
+      public function index()
     {
-        $hostings = $this->hostingQuery->getPaginatedActive(9);
+        $emailAkuns = $this->emailAkunsQuery->getPaginatedActive(9);
 
-        return view('pages.layanan.web-hosting.index', compact('hostings'));
+        return view('pages.layanan.email-akun.index', compact('emailAkuns'));
     }
 
     /**
@@ -41,12 +40,12 @@ class WebHostingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $web_hosting)
-    {   
-        $hosting = $this->hostingQuery->getPublishedDetailOrFail($web_hosting);
-        $relatedHostings = $this->hostingQuery->getRelatedActive($hosting);
+    public function show(string $email_akun)
+    {
+        $emailAkuns = $this->emailAkunsQuery->getPublishedDetailOrFail($email_akun);
+        $relatedEmailAkuns = $this->emailAkunsQuery->getRelatedActive($emailAkuns);
 
-        return view('pages.layanan.web-hosting.show', compact('hosting', 'relatedHostings'));
+        return view('pages.layanan.email-akun.show', compact('emailAkuns', 'relatedEmailAkuns'));
     }
 
     /**

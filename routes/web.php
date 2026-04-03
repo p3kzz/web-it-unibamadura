@@ -23,6 +23,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Pages\HomeController;
 use App\Http\Controllers\Pages\Content\ContentController;
 use App\Http\Controllers\Pages\Fasilitas\FasilitasItemsController;
+use App\Http\Controllers\Pages\Layanan\EmailAkunController;
 use App\Http\Controllers\Pages\Layanan\KatalogLayananController;
 use App\Http\Controllers\Pages\Layanan\LicensesSoftwareController;
 use App\Http\Controllers\Pages\Layanan\WebHostingController;
@@ -72,6 +73,7 @@ Route::resource('/sop', PublicSopController::class);
 Route::resource('/sistem-dokumen', PublicSistemDokumenController::class);
 Route::resource('/lisensi-software', LicensesSoftwareController::class);
 Route::resource('/web-hosting', WebHostingController::class);
+Route::resource('/email-akun', EmailAkunController::class);
 
 
 Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->group(function () {

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $audit->title . ' - Audit UPT TIK UNIBA Madura')
+@section('title', $tinjauan->title . ' - Tinjauan Manajemen UPT TIK UNIBA Madura')
 
 @section('content')
     <section class="relative bg-gradient-to-br from-uniba-blue via-blue-700 to-uniba-dark pt-5 pb-40 overflow-hidden">
@@ -28,11 +28,11 @@
                     <li><svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg></li>
-                    <li><a href="{{ route('audit.index') }}" class="hover:text-white transition-colors">Audit</a></li>
+                    <li><a href="{{ route('tinjauan-manajemen.index') }}" class="hover:text-white transition-colors">Tinjauan Manajemen</a></li>
                     <li><svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg></li>
-                    <li class="text-white font-medium truncate max-w-[180px]">{{ $audit->title }}</li>
+                    <li class="text-white font-medium truncate max-w-[180px]">{{ $tinjauan->title }}</li>
                 </ol>
             </nav>
 
@@ -44,11 +44,11 @@
 
                 <h1
                     class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6 animate-fade-in-up stagger-2">
-                    {{ $audit->title }}
+                    {{ $tinjauan->title }}
                 </h1>
 
                 <p class="text-blue-100 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed animate-fade-in-up stagger-3">
-                    {{ $audit->description ?: 'Informasi layanan audit untuk mendukung kebutuhan evaluasi dan peningkatan mutu institusi.' }}
+                    {{ $tinjauan->description ?: 'Informasi layanan tinjauan manajemen untuk mendukung kebutuhan evaluasi dan peningkatan mutu institusi.' }}
                 </p>
             </div>
         </div>
@@ -66,7 +66,7 @@
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto space-y-6">
-                @forelse ($audit->sections as $index => $section)
+                @forelse ($tinjauan->sections as $index => $section)
                     <article class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden scroll-animate">
                         <div class="bg-gradient-to-r from-uniba-blue to-blue-600 px-8 md:px-10 py-6">
                             <h3 class="text-xl font-bold text-white flex items-center gap-3">
@@ -87,26 +87,26 @@
                     </article>
                 @empty
                     <div class="bg-white border-2 border-dashed border-gray-200 rounded-3xl p-12 text-center">
-                        <h3 class="font-bold text-xl text-gray-900 mb-2">Bagian hosting belum tersedia</h3>
+                        <h3 class="font-bold text-xl text-gray-900 mb-2">Bagian tinjauan manajemen belum tersedia</h3>
                         <p class="text-gray-500 max-w-md mx-auto">
-                            Data web hosting ini belum memiliki rincian bagian. Silakan cek kembali beberapa saat lagi.
+                            Data tinjauan manajemen ini belum memiliki rincian bagian. Silakan cek kembali beberapa saat lagi.
                         </p>
                     </div>
                 @endforelse
 
-                @if ($relatedAudits->isNotEmpty())
+                @if ($relatedTinjauan->isNotEmpty())
                     <div class="scroll-animate pt-2">
                         <div class="flex items-center gap-4 mb-6">
                             <div class="w-1.5 h-10 bg-gradient-to-b from-uniba-blue to-blue-400 rounded-full"></div>
                             <div>
                                 <h2 class="text-2xl font-bold text-gray-900">Layanan Terkait</h2>
-                                <p class="text-sm text-gray-500">Referensi layanan audit lain yang tersedia</p>
+                                <p class="text-sm text-gray-500">Referensi layanan tinjauan manajemen lain yang tersedia</p>
                             </div>
                         </div>
 
                         <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            @foreach ($relatedAudits as $related)
-                                <a href="{{ route('audit.show', $related->slug) }}"
+                            @foreach ($relatedTinjauan as $related)
+                                <a href="{{ route('tinjauan-manajemen.show', $related->slug) }}"
                                     class="bg-white flex items-center gap-4 p-5 rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
                                     <div
                                         class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-uniba-blue transition-all text-uniba-blue group-hover:text-white">

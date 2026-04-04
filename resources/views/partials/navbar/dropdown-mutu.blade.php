@@ -16,7 +16,8 @@
             Dokumen</a>
         <a href="/audit" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Audit
         </a>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Tinjauan
+        <a href="/tinjauan-manajemen" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Tinjauan
             Manajemen</a>
+        <a href="/renstra-dti" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Renstra DTI</a>
     </div>
 </div>

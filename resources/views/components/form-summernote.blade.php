@@ -13,7 +13,6 @@
 
             if (!$el.length) return
 
-            // destroy jika sudah pernah init
             if ($el.next('.note-editor').length) {
                 $el.summernote('destroy')
             }
@@ -39,7 +38,7 @@
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['table', ['table']],
-                    ['insert', ['link', 'picture']],
+                    ['insert', ['picture']],
                     ['view', ['codeview']]
                 ],
 

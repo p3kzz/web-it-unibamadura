@@ -19,7 +19,7 @@
 
     initEditor(section, index) {
         this.$nextTick(() => {
-            const editorId = `edit-hosting-content-${section.uid}`;
+            const editorId = `edit-audit-content-${section.uid}`;
             const $el = $('#' + editorId);
 
             if (!$el.length) return;
@@ -33,7 +33,7 @@
     },
 
     syncEditor(section, index) {
-        const editorId = `edit-hosting-content-${section.uid}`;
+        const editorId = `edit-audit-content-${section.uid}`;
         const $el = $('#' + editorId);
 
         if (!$el.length) return;
@@ -62,7 +62,7 @@
         if (this.sections.length <= 1) return;
 
         const section = this.sections[index];
-        const editorId = `edit-hosting-content-${section.uid}`;
+        const editorId = `edit-audit-content-${section.uid}`;
         const $el = $('#' + editorId);
 
         if ($el.length && $el.next('.note-editor').length) {
@@ -193,7 +193,7 @@
                                     <label class="block text-xs font-semibold text-gray-500 mb-1">
                                         Konten <span class="text-red-500">*</span>
                                     </label>
-                                    <x-form-summernote id="" name="" ::id="`edit-hosting-content-${section.uid}`" ::name="`sections[${index}][content]`"
+                                    <x-form-summernote id="" name="" ::id="`edit-audit-content-${section.uid}`" ::name="`sections[${index}][content]`"
                                         :value="''" height="180"
                                         placeholder="Masukkan konten bagian audit..." />
                                 </div>

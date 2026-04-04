@@ -18,7 +18,7 @@ class TinjauanManajemen extends Model
 
     public function sections()
     {
-        return $this->hasMany(TinjauanSection::class);
+        return $this->hasMany(TinjauanSection::class, 'tinjauan_manajemen_id');
     }
 
     public function getRouteKeyName()

@@ -69,9 +69,9 @@ class TinjauanManajemenItemsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTinjauanManajemenRequest $request, TinjauanManajemen $tinjauan)
+    public function update(UpdateTinjauanManajemenRequest $request, TinjauanManajemen $tinjauan_manajeman)
     {
-        $this->service->update($tinjauan, $request->validated());
+        $this->service->update($tinjauan_manajeman, $request->validated());
 
         return back()->with('success', 'Data tinjauan manajemen berhasil diubah');
     }
@@ -79,9 +79,9 @@ class TinjauanManajemenItemsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TinjauanManajemen $tinjauan)
+    public function destroy(TinjauanManajemen $tinjauan_manajeman)
     {
-        $this->service->delete($tinjauan);
+        $this->service->delete($tinjauan_manajeman);
 
         return back()->with('success', 'Data tinjauan manajemen berhasil dihapus');
     }

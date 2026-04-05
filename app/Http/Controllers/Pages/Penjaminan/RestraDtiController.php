@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Pages\Penjaminan;
 
 use App\Http\Controllers\Controller;
+use App\Services\Admin\Penjaminan\RestraDti\RestraDtiQueryService;
 use Illuminate\Http\Request;
 
 class RestraDtiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(
+        private readonly RestraDtiQueryService $restraQuery
+    ) {}
+
     public function index()
     {
-        //
+        $restraItems = $this->restraQuery->getActive();
+
+        return view('pages.penjaminan-mutu.sop.index', compact('restraItems'));
     }
 
     /**

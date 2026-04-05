@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Pages\Penjaminan\RestraDti;
+namespace App\Services\Pages\Penjaminan;
 
 class RestraDtiPageQueryService
 {

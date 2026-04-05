@@ -1,28 +1,28 @@
 <?php
 
-namespace App\Services\Pages\Penjaminan\Audit;
+namespace App\Services\Pages\Penjaminan;
 
-use App\Models\Audit;
+use App\Models\TinjauanManajemen;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
-class AuditPageQueryService
+class TinjauanManajemenPageQueryService
 {
     /**
      * Create a new class instance.
      */
-    public function getPaginatedActive(int $perPage = 9): LengthAwarePaginator
+   public function getPaginatedActive(int $perPage = 9): LengthAwarePaginator
     {
-        return Audit::query()
+        return TinjauanManajemen::query()
             ->where('is_active', true)
             ->withCount('sections')
             ->latest('id')
             ->paginate($perPage);
     }
 
-    public function getPublishedDetailOrFail(string $identifier): Audit
+    public function getPublishedDetailOrFail(string $identifier): TinjauanManajemen
     {
-        return Audit::query()
+        return TinjauanManajemen::query()
             ->where('is_active', true)
             ->where(function ($query) use ($identifier) {
                 $query->where('slug', $identifier);
@@ -35,9 +35,9 @@ class AuditPageQueryService
             ->firstOrFail();
     }
 
-    public function getRelatedActive(Audit $hosting, int $limit = 3): Collection
+    public function getRelatedActive(TinjauanManajemen $hosting, int $limit = 3): Collection
     {
-        return Audit::query()
+        return TinjauanManajemen::query()
             ->where('is_active', true)
             ->where('id', '!=', $hosting->id)
             ->withCount('sections')

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Pages\Penjaminan;
 
 use App\Http\Controllers\Controller;
-use App\Services\Pages\Penjaminan\TinjauanManajemen\TinjauanManajemenPageQueryService;
+use App\Services\Pages\Penjaminan\TinjauanManajemenPageQueryService;
 use Illuminate\Http\Request;
 
 class TinjauanManajemenController extends Controller

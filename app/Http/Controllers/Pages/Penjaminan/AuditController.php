@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Pages\Penjaminan;
 
 use App\Http\Controllers\Controller;
-use App\Services\Pages\Penjaminan\Audit\AuditPageQueryService;
+use App\Services\Pages\Penjaminan\AuditPageQueryService;
 use Illuminate\Http\Request;
 
 class AuditController extends Controller

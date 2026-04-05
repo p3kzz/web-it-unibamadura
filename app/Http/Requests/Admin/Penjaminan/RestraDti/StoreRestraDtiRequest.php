@@ -3,26 +3,37 @@
 namespace App\Http\Requests\Admin\Penjaminan\RestraDti;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreRestraDtiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+   public function authorize(): bool
     {
-        return false;
+        return Auth::check() && Auth::user()->isAdmin();
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'file' => 'required|file|mimes:pdf|max:10240',
+            'is_active' => 'nullable|boolean',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'judul.required' => 'Judul SOP wajib diisi',
+            'judul.max' => 'Judul SOP maksimal 255 karakter',
+            'file.required' => 'File SOP wajib diupload',
+            'file.file' => 'File harus berupa dokumen',
+            'file.mimes' => 'Format file harus PDF',
+            'file.max' => 'Ukuran file maksimal 10MB',
         ];
     }
 }

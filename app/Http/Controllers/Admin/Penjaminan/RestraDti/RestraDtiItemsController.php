@@ -66,9 +66,9 @@ class RestraDtiItemsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRestraDtiRequest $request, RestraDti $restraDti)
+    public function update(UpdateRestraDtiRequest $request, RestraDti $renstra_dti)
     {
-        $this->service->update($restraDti, $request->validated());
+        $this->service->update($renstra_dti, $request->validated());
         return redirect()->back()->with('success', 'Restra Dti berhasil diperbarui.');
     }
 
@@ -76,9 +76,9 @@ class RestraDtiItemsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RestraDti $restraDti)
+    public function destroy(RestraDti $renstra_dti)
     {
-        $this->service->delete($restraDti);
+        $this->service->delete($renstra_dti);
         return redirect()->back()->with('success', 'Restra Dti berhasil dihapus.');
     }
 }

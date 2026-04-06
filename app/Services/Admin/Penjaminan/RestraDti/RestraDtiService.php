@@ -24,31 +24,31 @@ class RestraDtiService
         ]);
     }
 
-    public function update(RestraDti $renstra, array $data): RestraDti
+    public function update(RestraDti $restra_dti, array $data): RestraDti
     {
         if (isset($data['file'])) {
-            if ($renstra->file && Storage::disk('public')->exists($renstra->file)) {
-                Storage::disk('public')->delete($renstra->file);
+            if ($restra_dti->file && Storage::disk('public')->exists($restra_dti->file)) {
+                Storage::disk('public')->delete($restra_dti->file);
             }
             $data['file'] = $data['file']->store('restra-dti', 'public');
         }
 
-        $renstra->update([
+        $restra_dti->update([
             'judul' => $data['judul'],
-            'deskripsi' => $data['deskripsi'] ?? $renstra->deskripsi,
-            'file' => $data['file'] ?? $renstra->file,
-            'is_active' => $data['is_active'] ?? $renstra->is_active,
+            'deskripsi' => $data['deskripsi'] ?? $restra_dti->deskripsi,
+            'file' => $data['file'] ?? $restra_dti->file,
+            'is_active' => $data['is_active'] ?? $restra_dti->is_active,
         ]);
 
-        return $renstra->refresh();
+        return $restra_dti->refresh();
     }
 
-    public function delete(RestraDti $renstra): void
+    public function delete(RestraDti $restra_dti): void
     {
-        if ($renstra->file && Storage::disk('public')->exists($renstra->file)) {
-            Storage::disk('public')->delete($renstra->file);
+        if ($restra_dti->file && Storage::disk('public')->exists($restra_dti->file)) {
+            Storage::disk('public')->delete($restra_dti->file);
         }
 
-        $renstra->delete();
+        $restra_dti->delete();
     }
 }

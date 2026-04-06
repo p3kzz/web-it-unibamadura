@@ -19,7 +19,7 @@ class StorePrestasiRequest extends FormRequest
             'organization' => 'required|string|max:255',
             'description' => 'nullable|string',
             'achievement_date' => 'required|date',
-            'year' => 'required|integer|min:2000|max:2100',
+            'year' => 'required|integer|min:2000',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'is_active' => 'nullable|boolean',
         ];

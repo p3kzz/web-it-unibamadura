@@ -14,12 +14,14 @@ class RestraDti extends Model
 
     protected $fillable = [
         'judul',
+        'year',
         'deskripsi',
         'file',
         'is_active',
     ];
 
     protected $casts = [
+        'year' => 'integer',
         'is_active' => 'boolean',
     ];
 
@@ -28,11 +30,13 @@ class RestraDti extends Model
         return $query->where('is_active', true);
     }
 
+    public function scopeByYear($query, $year)
+    {
+        return $query->where('year', $year);
+    }
+
     public function getFileUrlAttribute(): string
     {
         return asset('storage/' . $this->file);
     }
 }
-
-
-

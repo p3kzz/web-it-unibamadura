@@ -3,6 +3,7 @@
     item: {
         id: '',
         judul: '',
+        year: '',
         deskripsi: '',
         file: '',
         is_active: false
@@ -13,6 +14,7 @@
         item = {
             id: $event.detail.id,
             judul: $event.detail.judul,
+            year: $event.detail.year || '',
             deskripsi: $event.detail.deskripsi || '',
             file: $event.detail.file || '',
             is_active: Boolean($event.detail.is_active)
@@ -51,8 +53,13 @@
 
         <div class="p-6 space-y-6">
             <div>
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Judul Renstra DTI</label>
+                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Judul Renstra
+                    DTI</label>
                 <p class="text-lg font-semibold text-gray-800" x-text="item.judul"></p>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Tahun</label>
+                <p class="text-lg font-semibold text-gray-800" x-text="item.year"></p>
             </div>
 
             <div>

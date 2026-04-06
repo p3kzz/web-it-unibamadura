@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('restra_dti', function (Blueprint $table) {
             $table->id();
             $table->string('judul', 255);
+            $table->year('year');
             $table->text('deskripsi')->nullable();
             $table->string('file', 255);
             $table->boolean('is_active')->default(true);

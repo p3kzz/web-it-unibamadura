@@ -25,7 +25,7 @@
                         </svg>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <h4 class="font-semibold text-gray-800 truncate">{{ $item->judul }}</h4>
+                        <h4 class="font-semibold text-gray-800 truncate">{{ $item->judul }} <span class="text-xs text-gray-500">({{ $item->year }})</span></h4>
                         <p class="text-sm text-gray-600 mt-1 line-clamp-2">
                             @if ($item->deskripsi)
                                 {!! Str::limit(strip_tags($item->deskripsi), 80) !!}
@@ -61,6 +61,7 @@
                         @click="$dispatch('open-show-renstra-dti', {
                         id: {{ $item->id }},
                         judul: '{{ addslashes($item->judul) }}',
+                        year: '{{ addslashes($item->year ?? '') }}',
                         deskripsi: `{!! addslashes($item->deskripsi ?? '') !!}`,
                         file: '{{ $item->file }}',
                         is_active: {{ $item->is_active ? 'true' : 'false' }}
@@ -78,6 +79,7 @@
                         @click="$dispatch('open-edit-renstra-dti', {
                         id: {{ $item->id }},
                         judul: '{{ addslashes($item->judul) }}',
+                        year: '{{ addslashes($item->year ?? '') }}',
                         deskripsi: `{!! addslashes($item->deskripsi ?? '') !!}`,
                         file: '{{ $item->file }}',
                         is_active: {{ $item->is_active ? 'true' : 'false' }}

@@ -38,7 +38,8 @@
             </button>
         </div>
 
-        <form method="POST" action="{{ route('admin.penjaminan.renstra-dti.store') }}" enctype="multipart/form-data" class="p-6">
+        <form method="POST" action="{{ route('admin.penjaminan.renstra-dti.store') }}" enctype="multipart/form-data"
+            class="p-6">
             @csrf
 
             <div class="space-y-5">
@@ -50,6 +51,18 @@
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
                         placeholder="Contoh: Renstra DTI 2023" value="{{ old('judul') }}" required>
                     @error('judul')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">
+                        Tahun <span class="text-red-500">*</span>
+                    </label>
+                    <input type="number" name="year"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
+                        placeholder="2020" min="2000" required>
+                    @error('year')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>

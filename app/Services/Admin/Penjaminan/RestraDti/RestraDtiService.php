@@ -16,12 +16,7 @@ class RestraDtiService
             $data['file'] = $data['file']->store('restra-dti', 'public');
         }
 
-        return RestraDti::create([
-            'judul' => $data['judul'],
-            'deskripsi' => $data['deskripsi'] ?? null,
-            'file' => $data['file'],
-            'is_active' => $data['is_active'] ?? true,
-        ]);
+        return RestraDti::create($data);
     }
 
     public function update(RestraDti $restra_dti, array $data): RestraDti
@@ -33,12 +28,7 @@ class RestraDtiService
             $data['file'] = $data['file']->store('restra-dti', 'public');
         }
 
-        $restra_dti->update([
-            'judul' => $data['judul'],
-            'deskripsi' => $data['deskripsi'] ?? $restra_dti->deskripsi,
-            'file' => $data['file'] ?? $restra_dti->file,
-            'is_active' => $data['is_active'] ?? $restra_dti->is_active,
-        ]);
+        $restra_dti->update($data);
 
         return $restra_dti->refresh();
     }

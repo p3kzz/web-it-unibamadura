@@ -13,6 +13,11 @@
             <span class="text-sm font-semibold text-gray-800">{{ $item->judul }}</span>
         </div>
     </td>
+    <td>
+        <span class="text-sm text-gray-600">
+            {{ $item->year }}
+        </span>
+    </td>
     <td class="px-6 py-4">
         <p class="text-sm text-gray-600 line-clamp-2">
             @if ($item->deskripsi)

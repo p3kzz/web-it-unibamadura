@@ -19,6 +19,7 @@ class UpdateRestraDtiRequest extends FormRequest
     {
         return [
             'judul' => 'required|string|max:255',
+            'year' => 'required|integer|min:2000',
             'deskripsi' => 'nullable|string',
             'file' => 'nullable|file|mimes:pdf|max:10240',
             'is_active' => 'nullable|boolean',
@@ -30,6 +31,10 @@ class UpdateRestraDtiRequest extends FormRequest
         return [
             'judul.required' => 'Judul SOP wajib diisi',
             'judul.max' => 'Judul SOP maksimal 255 karakter',
+            'year.required' => 'Tahun wajib diisi',
+            'year.integer' => 'Tahun harus berupa angka',
+            'year.min' => 'Tahun tidak valid',
+            'year.max' => 'Tahun tidak valid',
             'file.file' => 'File harus berupa dokumen',
             'file.mimes' => 'Format file harus PDF',
             'file.max' => 'Ukuran file maksimal 10MB',

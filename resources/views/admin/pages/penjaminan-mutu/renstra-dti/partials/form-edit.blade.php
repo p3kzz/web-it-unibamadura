@@ -3,6 +3,7 @@
     form: {
         id: '',
         judul: '',
+        year: '',
         deskripsi: '',
         file: '',
         is_active: false
@@ -13,6 +14,7 @@
         form = {
             id: $event.detail.id,
             judul: $event.detail.judul,
+            year: $event.detail.year,
             deskripsi: $event.detail.deskripsi || '',
             file: $event.detail.file || '',
             is_active: Boolean($event.detail.is_active)
@@ -65,6 +67,15 @@
                     <input type="text" name="judul" x-model="form.judul"
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
                         placeholder="Contoh: Renstra DTI 2023" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">
+                        Tahun <span class="text-red-500">*</span>
+                    </label>
+                    <input type="number" name="year" x-model="form.year"
+                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-20 transition-all duration-200 outline-none"
+                        min="2000" max="2100" required>
                 </div>
 
                 <div>

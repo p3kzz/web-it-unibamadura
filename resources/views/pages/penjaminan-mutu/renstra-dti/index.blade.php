@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Standard Operating Procedure - UPT TIK UNIBA Madura')
+@section('title', 'Renstra DTI - UPT TIK UNIBA Madura')
 
 @section('content')
 
@@ -21,10 +21,10 @@
                     Penjaminan Mutu
                 </span>
                 <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 animate-fade-in-up stagger-1">
-                    Standard Operating Procedure
+                    Rencana Strategis DTI
                 </h1>
                 <p class="text-lg text-blue-100 animate-fade-in-up stagger-2">
-                    Dokumen prosedur standar operasional untuk menjamin kualitas layanan UPT TIK UNIBA Madura
+                    Dokumen rencana strategis Divisi Teknologi Informasi UPT TIK UNIBA Madura
                 </p>
             </div>
         </div>
@@ -50,12 +50,13 @@
                         <div class="w-14 h-14 bg-blue-500 rounded-xl flex items-center justify-center mb-4">
                             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                                </path>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">Standarisasi Proses</h3>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Visi & Misi</h3>
                         <p class="text-gray-600 text-sm leading-relaxed">
-                            Memastikan setiap proses berjalan sesuai standar yang telah ditetapkan
+                            Arah pengembangan teknologi informasi yang selaras dengan visi universitas
                         </p>
                     </div>
 
@@ -65,12 +66,12 @@
                         <div class="w-14 h-14 bg-green-500 rounded-xl flex items-center justify-center mb-4">
                             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">Efisiensi Kerja</h3>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Target Strategis</h3>
                         <p class="text-gray-600 text-sm leading-relaxed">
-                            Meningkatkan produktivitas dengan prosedur yang jelas dan terukur
+                            Sasaran terukur untuk pengembangan infrastruktur dan layanan TIK
                         </p>
                     </div>
 
@@ -80,13 +81,13 @@
                         <div class="w-14 h-14 bg-purple-500 rounded-xl flex items-center justify-center mb-4">
                             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
                                 </path>
                             </svg>
                         </div>
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">Dokumentasi Lengkap</h3>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Program Kerja</h3>
                         <p class="text-gray-600 text-sm leading-relaxed">
-                            Seluruh prosedur terdokumentasi dengan baik dan dapat diakses kapan saja
+                            Rencana aksi dan program prioritas untuk mencapai tujuan strategis
                         </p>
                     </div>
                 </div>
@@ -94,7 +95,7 @@
         </div>
     </section>
 
-    {{-- SOP Documents Section --}}
+    {{-- Renstra Documents Section --}}
     <section class="py-20 bg-white" x-data="{ showPreview: false, previewUrl: '', previewTitle: '' }">
         <div class="container mx-auto px-4">
             <div class="text-center mb-14 scroll-animate">
@@ -102,14 +103,14 @@
                     class="inline-block bg-red-100 text-red-600 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-4">
                     Download Dokumen
                 </span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Dokumen SOP</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Dokumen Renstra DTI</h2>
                 <div class="w-24 h-1.5 bg-gradient-to-r from-red-500 to-red-600 mx-auto rounded-full mb-4"></div>
                 <p class="text-gray-600 max-w-2xl mx-auto text-lg">
-                    Akses dan unduh dokumen Standard Operating Procedure untuk berbagai layanan TIK
+                    Akses dan unduh dokumen Rencana Strategis Divisi Teknologi Informasi
                 </p>
             </div>
 
-            @if ($sopItems->count() > 0)
+            @if ($restraItems->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                     @php
                         $colors = [
@@ -164,7 +165,7 @@
                         ];
                     @endphp
 
-                    @foreach ($sopItems as $index => $sop)
+                    @foreach ($restraItems as $index => $renstra)
                         @php
                             $color = $colors[$index % count($colors)];
                         @endphp
@@ -203,12 +204,12 @@
                                 <div class="p-6 flex-grow flex flex-col">
                                     <h3
                                         class="text-xl font-bold text-gray-900 mb-3 group-hover:{{ $color['text'] }} transition-colors line-clamp-2">
-                                        {{ $sop->judul }}
+                                        {{ $renstra->judul }}
                                     </h3>
 
-                                    @if ($sop->deskripsi)
+                                    @if ($renstra->deskripsi)
                                         <div class="text-gray-600 flex-grow mb-5 line-clamp-3 leading-relaxed">
-                                            {!! Str::limit(strip_tags($sop->deskripsi), 120) !!}
+                                            {!! Str::limit(strip_tags($renstra->deskripsi), 120) !!}
                                         </div>
                                     @else
                                         <p class="text-gray-400 italic text-sm flex-grow mb-5">Tidak ada deskripsi tersedia
@@ -217,7 +218,7 @@
 
                                     {{-- Action Buttons --}}
                                     <div class="flex gap-3">
-                                        <a href="{{ asset('storage/' . $sop->file) }}" download
+                                        <a href="{{ asset('storage/' . $renstra->file) }}" download
                                             class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 {{ $color['bg'] }} {{ $color['text'] }} font-semibold rounded-xl {{ $color['hover'] }} transition-all duration-200 group/btn">
                                             <svg class="w-5 h-5 group-hover/btn:-translate-y-1 transition-transform"
                                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -228,7 +229,7 @@
                                             Download
                                         </a>
                                         <button type="button"
-                                            @click="showPreview = true; previewUrl = '{{ asset('storage/' . $sop->file) }}'; previewTitle = '{{ $sop->judul }}'"
+                                            @click="showPreview = true; previewUrl = '{{ asset('storage/' . $renstra->file) }}'; previewTitle = '{{ $renstra->judul }}'"
                                             class="inline-flex items-center justify-center px-4 py-3 bg-gray-100 text-gray-600 font-semibold rounded-xl hover:bg-gray-200 transition-colors duration-200 cursor-pointer"
                                             title="Lihat Dokumen">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -245,6 +246,8 @@
                         </div>
                     @endforeach
                 </div>
+
+                {{-- PDF Preview Modal --}}
                 <x-pdf-preview-modal />
             @else
                 {{-- Empty State --}}
@@ -257,9 +260,9 @@
                             </path>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Belum Ada Dokumen SOP</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Belum Ada Dokumen Renstra DTI</h3>
                     <p class="text-gray-500 text-lg leading-relaxed">
-                        Dokumen Standard Operating Procedure sedang dalam proses penyusunan dan akan segera tersedia.
+                        Dokumen Rencana Strategis DTI sedang dalam proses penyusunan dan akan segera tersedia.
                     </p>
                 </div>
             @endif
@@ -294,7 +297,7 @@
                     Butuh Informasi Lebih Lanjut?
                 </h2>
                 <p class="text-blue-100 mb-10 text-lg max-w-2xl mx-auto leading-relaxed">
-                    Jika Anda memiliki pertanyaan terkait Standard Operating Procedure atau membutuhkan bantuan teknis, tim
+                    Jika Anda memiliki pertanyaan terkait Rencana Strategis DTI atau membutuhkan informasi lebih detail, tim
                     kami siap membantu Anda
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">

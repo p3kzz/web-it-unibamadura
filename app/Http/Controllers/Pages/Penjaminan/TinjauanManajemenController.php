@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class TinjauanManajemenController extends Controller
 {
-   public function __construct(
+    public function __construct(
         private readonly TinjauanManajemenPageQueryService $tinjauanManajemenQuery
     ) {}
 

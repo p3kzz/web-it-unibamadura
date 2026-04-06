@@ -16,7 +16,7 @@ class RestraDtiController extends Controller
     {
         $restraItems = $this->restraQuery->getActive();
 
-        return view('pages.penjaminan-mutu.sop.index', compact('restraItems'));
+        return view('pages.penjaminan-mutu.renstra-dti.index', compact('restraItems'));
     }
 
     /**

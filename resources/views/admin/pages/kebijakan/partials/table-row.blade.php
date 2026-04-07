@@ -32,6 +32,15 @@
             @endif
         </p>
     </td>
+    <td class="px-6 py-4">
+        <p class="text-sm text-gray-600 line-clamp-2">
+            @if ($item->content)
+                {{ Str::limit(strip_tags($item->content), 80) }}
+            @else
+                <span class="text-gray-400 italic">Tidak ada content</span>
+            @endif
+        </p>
+    </td>
     <td class="px-6 py-4 text-center">
         @if ($item->is_active)
             <span

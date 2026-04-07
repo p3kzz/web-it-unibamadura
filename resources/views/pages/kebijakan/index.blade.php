@@ -99,19 +99,6 @@
     {{-- Policy Categories Section --}}
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            <div class="text-center mb-14 scroll-animate">
-                <span
-                    class="inline-block bg-blue-100 text-uniba-blue text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-4">
-                    Daftar Kebijakan
-                </span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    Kebijakan Berdasarkan Kategori
-                </h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">
-                    Temukan kebijakan dan aturan yang relevan dengan kebutuhan Anda
-                </p>
-            </div>
-
             @forelse ($categories as $category)
                 <div class="mb-12 scroll-animate">
                     <div class="flex items-center gap-3 mb-6">

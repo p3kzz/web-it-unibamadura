@@ -9,13 +9,17 @@
     </button>
     <div
         class="absolute right-0 top-full w-72 bg-white border-t-4 border-uniba-yellow shadow-lg py-2 rounded-b-lg invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300">
-        @forelse ($navPolicyCategories ?? [] as $category)
+        <a href="{{ route('policy.index') }}"
+            class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors text-gray-700 font-medium border-b border-gray-100">
+            Kebijakan dan Aturan Umum
+        </a>
+        @forelse ($navPolicyCategories as $category)
             <a href="{{ route('policy.category', $category->slug) }}"
                 class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors text-gray-700">
                 {{ $category->name }}
             </a>
         @empty
-            <span class="block px-4 py-2 text-gray-400 text-sm italic">Belum ada kebijakan</span>
+            <span class="block px-4 py-2 text-gray-400 text-sm italic">Belum ada kategori</span>
         @endforelse
     </div>
 </div>

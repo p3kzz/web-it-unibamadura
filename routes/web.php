@@ -89,6 +89,7 @@ Route::resource('/email-akun', EmailAkunController::class);
 
 // Kebijakan & Aturan (Public)
 Route::get('/kebijakan-aturan', [PublicPolicyController::class, 'index'])->name('policy.index');
+Route::get('/kebijakan-aturan/kategori/{slug}', [PublicPolicyController::class, 'category'])->name('policy.category');
 Route::get('/kebijakan-aturan/{slug}', [PublicPolicyController::class, 'show'])->name('policy.show');
 
 

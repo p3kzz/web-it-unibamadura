@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pages\Penjaminan;
 
 use App\Http\Controllers\Controller;
+use App\Models\PolicyCategory;
 use App\Services\Admin\Penjaminan\Policy\PolicyQueryService;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,23 @@ class PolicyController extends Controller
     {
         $categories = $this->policyQuery->getCategoriesWithActivePolicies();
 
-        return view('pages.penjaminan-mutu.policy.index', compact('categories'));
+        return view('pages.kebijakan.index', compact('categories'));
+    }
+
+    public function category(string $slug)
+    {
+        $category = PolicyCategory::query()
+            ->with(['activePolicies' => fn($q) => $q->latest()])
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        $otherCategories = PolicyCategory::query()
+            ->whereHas('activePolicies')
+            ->where('id', '!=', $category->id)
+            ->orderBy('name')
+            ->get();
+
+        return view('pages.kebijakan.category', compact('category', 'otherCategories'));
     }
 
     public function show(string $slug)
@@ -34,6 +51,6 @@ class PolicyController extends Controller
             ->limit(5)
             ->get();
 
-        return view('pages.penjaminan-mutu.policy.show', compact('policy', 'relatedPolicies'));
+        return view('pages.kebijakan.show', compact('policy', 'relatedPolicies'));
     }
 }

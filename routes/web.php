@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\Layanan\KategoriLayanan\KategoriLayananItemsContr
 use App\Http\Controllers\Admin\Layanan\LicensesSoftware\LicensesItemController;
 use App\Http\Controllers\Admin\Layanan\WebHosting\WebHostingItemsController;
 use App\Http\Controllers\Admin\Penjaminan\Audit\AuditItemsController;
+use App\Http\Controllers\Admin\Penjaminan\Policy\PolicyCategoryController;
+use App\Http\Controllers\Admin\Penjaminan\Policy\PolicyItemsController;
 use App\Http\Controllers\Admin\Penjaminan\RestraDti\RestraDtiItemsController;
 use App\Http\Controllers\Admin\Penjaminan\Sop\SopItemsController;
 use App\Http\Controllers\Admin\Penjaminan\SistemDokumen\SistemDokumenItemsController;
@@ -31,6 +33,7 @@ use App\Http\Controllers\Pages\Layanan\KatalogLayananController;
 use App\Http\Controllers\Pages\Layanan\LicensesSoftwareController;
 use App\Http\Controllers\Pages\Layanan\WebHostingController;
 use App\Http\Controllers\Pages\Penjaminan\AuditController;
+use App\Http\Controllers\Pages\Penjaminan\PolicyController as PublicPolicyController;
 use App\Http\Controllers\Pages\Penjaminan\RestraDtiController;
 use App\Http\Controllers\Pages\Penjaminan\SopController as PublicSopController;
 use App\Http\Controllers\Pages\Penjaminan\SistemDokumenController as PublicSistemDokumenController;
@@ -84,6 +87,10 @@ Route::resource('/lisensi-software', LicensesSoftwareController::class);
 Route::resource('/web-hosting', WebHostingController::class);
 Route::resource('/email-akun', EmailAkunController::class);
 
+// Kebijakan & Aturan (Public)
+Route::get('/kebijakan-aturan', [PublicPolicyController::class, 'index'])->name('policy.index');
+Route::get('/kebijakan-aturan/{slug}', [PublicPolicyController::class, 'show'])->name('policy.show');
+
 
 Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->group(function () {
     Route::resource('/dashboard', DashboardAdminController::class);
@@ -134,6 +141,10 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     Route::resource('/audit', AuditItemsController::class)->names('penjaminan.audit');
     Route::resource('/tinjauan-manajemen', TinjauanManajemenItemsController::class)->names('penjaminan.tinjauan-manajemen');
     Route::resource('/renstra-dti', RestraDtiItemsController::class)->names('penjaminan.renstra-dti');
+
+    // Kebijakan & Aturan (Admin)
+    Route::resource('/kebijakan-kategori', PolicyCategoryController::class)->names('penjaminan.policy-category');
+    Route::resource('/kebijakan', PolicyItemsController::class)->names('penjaminan.policy');
 });
 
 require __DIR__ . '/auth.php';

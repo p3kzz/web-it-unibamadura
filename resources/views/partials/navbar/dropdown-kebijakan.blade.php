@@ -1,6 +1,6 @@
 <div class="relative group">
     <button class="flex items-center text-gray-600 hover:text-uniba-blue h-20 group-hover:text-uniba-blue transition-colors">
-        <span>Kebijakan</span>
+        <span>Kebijakan & Aturan Umum</span>
         <svg class="w-3 h-3 ml-1 transform group-hover:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
         </svg>

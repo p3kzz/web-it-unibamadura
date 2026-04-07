@@ -217,7 +217,7 @@
 
                                     {{-- Action Buttons --}}
                                     <div class="flex gap-3">
-                                        <a href="{{ asset('storage/' . $sop->file) }}" download
+                                        <a href="{{ asset('storage/' . $sop->file) }}" download 
                                             class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 {{ $color['bg'] }} {{ $color['text'] }} font-semibold rounded-xl {{ $color['hover'] }} transition-all duration-200 group/btn">
                                             <svg class="w-5 h-5 group-hover/btn:-translate-y-1 transition-transform"
                                                 fill="none" stroke="currentColor" viewBox="0 0 24 24">

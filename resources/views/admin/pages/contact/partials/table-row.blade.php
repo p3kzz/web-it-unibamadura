@@ -20,7 +20,8 @@
 
     <td class="px-6 py-4 whitespace-nowrap align-top">
         @if ($item->type)
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-uniba-blue text-xs font-semibold rounded-full">
+            <span
+                class="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-100 text-uniba-blue text-xs font-semibold rounded-full">
                 <span class="w-1.5 h-1.5 bg-uniba-blue rounded-full"></span>
                 {{ ucfirst($item->type) }}
             </span>

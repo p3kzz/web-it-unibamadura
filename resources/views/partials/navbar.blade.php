@@ -24,7 +24,7 @@
                 <a href="/fasilitas"
                     class="text-gray-600 hover:text-uniba-blue hover:scale-105 transition-all">Fasilitas</a>
 
-                <a href="#"
+                <a href="/kontak"
                     class="px-5 py-2.5 bg-uniba-blue text-white rounded-lg hover:bg-blue-800 transition shadow-lg flex items-center gap-2 hover:shadow-xl hover:scale-105 transform">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

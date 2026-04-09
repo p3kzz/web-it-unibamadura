@@ -45,6 +45,7 @@ use App\Http\Controllers\Pages\Tentang\SdmController;
 use App\Http\Controllers\Pages\Tentang\SejarahController;
 use App\Http\Controllers\Pages\Tentang\StrukturOrganisasiController;
 use App\Http\Controllers\Pages\Tentang\VisiMisiController;
+use App\Http\Controllers\Pages\Contact\ContactController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -92,6 +93,9 @@ Route::resource('/email-akun', EmailAkunController::class);
 Route::get('/kebijakan-aturan', [PublicPolicyController::class, 'index'])->name('policy.index');
 Route::get('/kebijakan-aturan/kategori/{slug}', [PublicPolicyController::class, 'category'])->name('policy.category');
 Route::get('/kebijakan-aturan/{slug}', [PublicPolicyController::class, 'show'])->name('policy.show');
+
+// Kontak (Public)
+Route::resource('/kontak', ContactController::class)->only(['index']);
 
 
 Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->group(function () {

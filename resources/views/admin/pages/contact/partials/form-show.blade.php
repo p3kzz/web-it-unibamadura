@@ -1,8 +1,7 @@
 <div x-data="{
     open: false,
     item: { label: '', value: '', type: '' }
-}"
-    x-on:open-show-contact.window="
+}" x-on:open-show-contact.window="
         open = true;
         item = $event.detail
     "

@@ -41,12 +41,12 @@
     <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
             <colgroup>
-                <col style="width: 70px;">  {{-- No --}}
-                <col style="width: 180px;">  {{-- Label --}}
-                <col>  {{-- Value (flexible) --}}
-                <col style="width: 120px;">  {{-- Type --}}
-                <col style="width: 120px;">  {{-- Status --}}
-                <col style="width: 160px;">  {{-- Aksi --}}
+                <col style="width: 70px;"> {{-- No --}}
+                <col style="width: 180px;"> {{-- Label --}}
+                <col> {{-- Value (flexible) --}}
+                <col style="width: 120px;"> {{-- Type --}}
+                <col style="width: 120px;"> {{-- Status --}}
+                <col style="width: 160px;"> {{-- Aksi --}}
             </colgroup>
             <thead>
                 <tr class="bg-uniba-blue text-white">

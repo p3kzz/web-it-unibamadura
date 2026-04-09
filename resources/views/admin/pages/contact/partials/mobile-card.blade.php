@@ -127,7 +127,8 @@
             </p>
             <p class="text-gray-400 text-sm mb-5 leading-relaxed">
                 @if ($search)
-                    Tidak ditemukan kontak dengan kata kunci "<span class="font-semibold text-gray-700">{{ $search }}</span>"
+                    Tidak ditemukan kontak dengan kata kunci "<span
+                        class="font-semibold text-gray-700">{{ $search }}</span>"
                 @else
                     Belum ada data kontak yang ditambahkan
                 @endif

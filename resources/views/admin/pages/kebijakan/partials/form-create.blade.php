@@ -73,7 +73,7 @@
                         @enderror
                     </div>
                 </div>
-
+{{--
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">
                         Slug (opsional)
@@ -85,7 +85,7 @@
                     @error('slug')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
-                </div>
+                </div> --}}
 
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">

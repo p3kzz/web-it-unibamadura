@@ -41,40 +41,33 @@ class PolicyItemsController extends Controller
 
     public function create()
     {
-        $categories = $this->categoryService->getAllCategories();
-
-        return view('admin.pages.kebijakan.create', compact('categories'));
+        //
     }
 
     public function store(StorePolicyRequest $request)
     {
         $this->service->store($request->validated());
 
-        return redirect()
-            ->route('admin.penjaminan.policy.index')
+        return back()
             ->with('success', 'Kebijakan berhasil ditambahkan.');
     }
 
-    public function edit(Policy $policy)
+    public function edit(Policy $kebijakan)
     {
-        $policy->load('category');
-        $categories = $this->categoryService->getAllCategories();
-
-        return view('admin.pages.kebijakan.edit', compact('policy', 'categories'));
+        //
     }
 
-    public function update(UpdatePolicyRequest $request, Policy $policy)
+    public function update(UpdatePolicyRequest $request, Policy $kebijakan)
     {
-        $this->service->update($policy, $request->validated());
+        $this->service->update($kebijakan, $request->validated());
 
-        return redirect()
-            ->route('admin.penjaminan.policy.index')
+        return back()
             ->with('success', 'Kebijakan berhasil diperbarui.');
     }
 
-    public function destroy(Policy $policy)
+    public function destroy(Policy $kebijakan)
     {
-        $this->service->delete($policy);
+        $this->service->delete($kebijakan);
 
         return redirect()
             ->back()

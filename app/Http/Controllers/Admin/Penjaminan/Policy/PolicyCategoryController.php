@@ -37,24 +37,24 @@ class PolicyCategoryController extends Controller
             ->with('success', 'Kategori kebijakan berhasil ditambahkan.');
     }
 
-    public function update(UpdatePolicyCategoryRequest $request, PolicyCategory $policyCategory)
+    public function update(UpdatePolicyCategoryRequest $request, PolicyCategory $kebijakan_kategori)
     {
-        $this->service->update($policyCategory, $request->validated());
+        $this->service->update($kebijakan_kategori, $request->validated());
 
         return redirect()
             ->back()
             ->with('success', 'Kategori kebijakan berhasil diperbarui.');
     }
 
-    public function destroy(PolicyCategory $policyCategory)
+    public function destroy(PolicyCategory $kebijakan_kategori)
     {
-        if ($policyCategory->policies()->exists()) {
+        if ($kebijakan_kategori->policies()->exists()) {
             return redirect()
                 ->back()
                 ->with('error', 'Kategori tidak dapat dihapus karena masih memiliki kebijakan.');
         }
 
-        $this->service->delete($policyCategory);
+        $this->service->delete($kebijakan_kategori);
 
         return redirect()
             ->back()

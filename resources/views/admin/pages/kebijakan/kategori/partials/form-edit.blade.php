@@ -59,7 +59,7 @@
                         placeholder="Contoh: Kebijakan Keamanan" required>
                 </div>
 
-                <div>
+                {{-- <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">
                         Slug (opsional)
                     </label>
@@ -67,7 +67,7 @@
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
                         placeholder="Otomatis dibuat dari nama jika kosong">
                     <p class="mt-1 text-xs text-gray-500">Biarkan kosong untuk membuat slug otomatis dari nama</p>
-                </div>
+                </div> --}}
 
             </div>
 

@@ -11,28 +11,20 @@ class PolicyService
     public function store(array $data): Policy
     {
         return DB::transaction(function () use ($data) {
-            return Policy::create([
-                'policy_category_id' => $data['policy_category_id'],
-                'title' => $data['title'],
-                'slug' => $data['slug'] ?? Str::slug($data['title']),
-                'excerpt' => $data['excerpt'] ?? null,
-                'content' => $data['content'],
-                'is_active' => $data['is_active'] ?? true,
-            ]);
+            $data['slug'] = $this->generateUniqueSlug($data['title']);
+            return Policy::create($data);
         });
     }
 
     public function update(Policy $policy, array $data): Policy
     {
         return DB::transaction(function () use ($policy, $data) {
-            $policy->update([
-                'policy_category_id' => $data['policy_category_id'],
-                'title' => $data['title'],
-                'slug' => $data['slug'] ?? $policy->slug,
-                'excerpt' => $data['excerpt'] ?? $policy->excerpt,
-                'content' => $data['content'],
-                'is_active' => $data['is_active'] ?? $policy->is_active,
-            ]);
+            if (isset($data['title']) && $data['title'] !== $policy->title) {
+                $data['slug'] = $this->generateUniqueSlug($data['title'], $policy->id);
+            }
+
+            $policy->update($data);
+
 
             return $policy->refresh();
         });
@@ -43,5 +35,25 @@ class PolicyService
         DB::transaction(function () use ($policy) {
             $policy->delete();
         });
+    }
+
+    protected function generateUniqueSlug(string $title, ?int $ignoreId = null): string
+    {
+        $slug = Str::slug($title);
+        $originalSlug = $slug;
+
+        $count = 1;
+
+        while (
+            Policy::query()
+            ->where('slug', $slug)
+            ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
+            ->exists()
+        ) {
+            $slug = $originalSlug . '-' . $count++;
+        }
+
+
+        return $slug;
     }
 }

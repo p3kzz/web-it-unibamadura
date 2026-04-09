@@ -72,6 +72,11 @@
             <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
             <span class="text-sm">Fasilitas</span>
         </a>
+        <a href="/admin_tik/kontak"
+            class="group flex items-center px-4 py-2.5 text-blue-100 hover:bg-blue-800 hover:bg-opacity-50 rounded-lg transition-all duration-200 hover:translate-x-1">
+            <div class="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
+            <span class="text-sm">Kontak</span>
+        </a>
 
     </div>
 </div>

@@ -4,7 +4,6 @@
 
 @section('content')
 
-    {{-- Hero Section --}}
     <section class="relative bg-gradient-to-br from-uniba-blue via-blue-700 to-uniba-dark py-20 overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
@@ -122,10 +121,7 @@
                         </div>
                     @endforelse
                 </div>
-
-                {{-- Sidebar --}}
                 <aside class="space-y-6">
-                    {{-- Other Categories --}}
                     @if ($otherCategories->count() > 0)
                         <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
                             <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -160,7 +156,6 @@
                         </div>
                     @endif
 
-                    {{-- Quick Actions --}}
                     <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl border border-blue-200 p-6">
                         <h3 class="text-lg font-bold text-gray-900 mb-4">Butuh Bantuan?</h3>
                         <p class="text-gray-600 text-sm mb-4">

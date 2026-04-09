@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Contact\ContactItemsController;
 use App\Http\Controllers\Admin\Content\ContentItemsController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\Periode\PeriodeController;
@@ -146,6 +147,9 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     // Kebijakan & Aturan (Admin)
     Route::resource('/kebijakan-kategori', PolicyCategoryController::class)->names('penjaminan.policy-category');
     Route::resource('/kebijakan', PolicyItemsController::class)->names('penjaminan.policy');
+
+    //kontak
+    Route::resource('/kontak', ContactItemsController::class)->names('contact');
 });
 
 require __DIR__ . '/auth.php';

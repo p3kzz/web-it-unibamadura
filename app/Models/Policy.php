@@ -15,7 +15,6 @@ class Policy extends Model
     protected $table = 'policies';
 
     protected $fillable = [
-        'policy_category_id',
         'title',
         'slug',
         'excerpt',
@@ -42,11 +41,6 @@ class Policy extends Model
                 $policy->slug = Str::slug($policy->title);
             }
         });
-    }
-
-    public function category(): BelongsTo
-    {
-        return $this->belongsTo(PolicyCategory::class, 'policy_category_id');
     }
 
     public function scopeActive(Builder $query): Builder

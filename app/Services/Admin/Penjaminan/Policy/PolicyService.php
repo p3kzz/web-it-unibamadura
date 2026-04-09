@@ -24,8 +24,7 @@ class PolicyService
             }
 
             $policy->update($data);
-
-
+            
             return $policy->refresh();
         });
     }

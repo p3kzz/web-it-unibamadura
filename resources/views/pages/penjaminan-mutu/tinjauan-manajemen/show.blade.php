@@ -68,7 +68,7 @@
             <div class="max-w-5xl mx-auto space-y-6">
                 @forelse ($tinjauan->sections as $index => $section)
                     <article class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden scroll-animate">
-                        <div class="bg-gradient-to-r from-uniba-blue to-blue-600 px-8 md:px-10 py-6">
+                        <div class="bg-uniba-blue px-8 md:px-10 py-6">
                             <h3 class="text-xl font-bold text-white flex items-center gap-3">
                                 <span
                                     class="inline-flex items-center justify-center w-8 h-8 bg-white/20 rounded-lg text-sm font-bold">

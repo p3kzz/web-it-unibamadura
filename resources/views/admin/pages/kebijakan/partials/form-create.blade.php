@@ -53,7 +53,7 @@
                         @enderror
                     </div>
 
-                    <div>
+                    {{-- <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">
                             Kategori <span class="text-red-500">*</span>
                         </label>
@@ -71,7 +71,7 @@
                         @error('policy_category_id')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> --}}
                 </div>
 {{--
                 <div>

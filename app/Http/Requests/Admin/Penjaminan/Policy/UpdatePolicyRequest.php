@@ -18,7 +18,6 @@ class UpdatePolicyRequest extends FormRequest
         $policyId = $this->route('policy')?->id ?? $this->route('policy');
 
         return [
-            'policy_category_id' => 'required|exists:policy_categories,id',
             'title' => 'required|string|max:255',
             'slug' => [
                 'nullable',
@@ -35,8 +34,6 @@ class UpdatePolicyRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'policy_category_id.required' => 'Kategori kebijakan wajib dipilih',
-            'policy_category_id.exists' => 'Kategori kebijakan tidak valid',
             'title.required' => 'Judul kebijakan wajib diisi',
             'title.max' => 'Judul kebijakan maksimal 255 karakter',
             'slug.unique' => 'Slug sudah digunakan',

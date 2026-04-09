@@ -16,13 +16,13 @@
             <div class="text-center max-w-4xl mx-auto">
                 <span
                     class="inline-block bg-blue-800/50 backdrop-blur-sm text-blue-200 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-4 animate-fade-in-up border border-blue-700/50">
-                    Layanan UPT TIK
+                    Penjaminan Mutu UPT TIK
                 </span>
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-fade-in-up stagger-1">
                     Tinjauan Manajemen
                 </h1>
                 <p class="text-lg md:text-xl text-blue-100 mb-10 animate-fade-in-up stagger-2 max-w-2xl mx-auto">
-                    Informasi layanan tinjauan manajemen resmi untuk mendukung kebutuhan evaluasi dan peningkatan mutu institusi.
+                    Informasi penjaminan mutu tinjauan manajemen resmi untuk mendukung kebutuhan evaluasi dan peningkatan mutu institusi.
                 </p>
             </div>
         </div>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="bg-white rounded-2xl p-4 md:p-6 shadow-lg text-center border border-gray-100">
                     <div class="text-2xl md:text-3xl font-bold text-indigo-600">Aktif</div>
-                    <div class="text-xs md:text-sm text-gray-500 font-medium">Status Publik</div>
+                    <div class="text-xs md:text-sm text-gray-500 font-medium">Status </div>
                 </div>
             </div>
         </div>
@@ -116,7 +116,7 @@
                 @empty
                     <div class="md:col-span-2 xl:col-span-3 scroll-animate">
                         <div class="bg-white border-2 border-dashed border-gray-200 rounded-3xl p-12 md:p-16 text-center">
-                            <h3 class="font-bold text-xl text-gray-900 mb-2">Belum ada layanan tinjauan manajemen</h3>
+                            <h3 class="font-bold text-xl text-gray-900 mb-2">Belum ada penjaminan mutu tinjauan manajemen</h3>
                             <p class="text-gray-500 mb-8 max-w-md mx-auto">
                                 Data tinjauan manajemen belum dipublikasikan. Silakan cek kembali beberapa saat lagi.
                             </p>

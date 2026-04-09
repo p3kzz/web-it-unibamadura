@@ -91,7 +91,6 @@ Route::resource('/email-akun', EmailAkunController::class);
 
 // Kebijakan & Aturan (Public)
 Route::get('/kebijakan-aturan', [PublicPolicyController::class, 'index'])->name('policy.index');
-Route::get('/kebijakan-aturan/kategori/{slug}', [PublicPolicyController::class, 'category'])->name('policy.category');
 Route::get('/kebijakan-aturan/{slug}', [PublicPolicyController::class, 'show'])->name('policy.show');
 
 // Kontak (Public)
@@ -148,8 +147,7 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     Route::resource('/tinjauan-manajemen', TinjauanManajemenItemsController::class)->names('penjaminan.tinjauan-manajemen');
     Route::resource('/renstra-dti', RestraDtiItemsController::class)->names('penjaminan.renstra-dti');
 
-    // Kebijakan & Aturan (Admin)
-    Route::resource('/kebijakan-kategori', PolicyCategoryController::class)->names('penjaminan.policy-category');
+    // Kebijakan & Aturan
     Route::resource('/kebijakan', PolicyItemsController::class)->names('penjaminan.policy');
 
     //kontak

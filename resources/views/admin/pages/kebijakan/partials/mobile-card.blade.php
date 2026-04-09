@@ -1,4 +1,4 @@
-<div class="lg:hidden space-y-4">
+{{-- <div class="lg:hidden space-y-4">
     <div class="bg-white rounded-xl shadow-md border border-gray-200 p-4">
         <div class="flex items-center justify-between mb-4">
             <h3 class="font-bold text-gray-800">Daftar Kebijakan</h3>
@@ -132,4 +132,4 @@
             </div>
         @endif
     </div>
-</div>
+</div> --}}

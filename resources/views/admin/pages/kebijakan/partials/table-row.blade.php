@@ -13,15 +13,8 @@
             </div>
             <div class="min-w-0">
                 <span class="text-sm font-semibold text-gray-800 block truncate">{{ $item->title }}</span>
-                <span class="text-xs text-gray-400">{{ $item->slug }}</span>
             </div>
         </div>
-    </td>
-    <td class="px-6 py-4">
-        <span
-            class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700">
-            {{ $item->category->name ?? '-' }}
-        </span>
     </td>
     <td class="px-6 py-4">
         <p class="text-sm text-gray-600 line-clamp-2">
@@ -65,8 +58,6 @@
                 slug: '{{ $item->slug }}',
                 excerpt: '{{ addslashes($item->excerpt ?? '') }}',
                 content: `{!! addslashes($item->content ?? '') !!}`,
-                category_id: {{ $item->policy_category_id }},
-                category_name: '{{ addslashes($item->category->name ?? '') }}',
                 is_active: {{ $item->is_active ? 'true' : 'false' }}
             })"
                 class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-150"
@@ -87,7 +78,6 @@
                 slug: '{{ $item->slug }}',
                 excerpt: '{{ addslashes($item->excerpt ?? '') }}',
                 content: `{!! addslashes($item->content ?? '') !!}`,
-                category_id: {{ $item->policy_category_id }},
                 is_active: {{ $item->is_active ? 'true' : 'false' }}
             })"
                 class="p-2 text-amber-600 hover:bg-amber-50 rounded-lg transition-colors duration-150" title="Edit">

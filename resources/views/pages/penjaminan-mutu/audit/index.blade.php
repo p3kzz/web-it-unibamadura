@@ -16,13 +16,13 @@
             <div class="text-center max-w-4xl mx-auto">
                 <span
                     class="inline-block bg-blue-800/50 backdrop-blur-sm text-blue-200 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-4 animate-fade-in-up border border-blue-700/50">
-                    Layanan UPT TIK
+                    Penjaminan Mutu UPT TIK
                 </span>
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-fade-in-up stagger-1">
                     Audit
                 </h1>
                 <p class="text-lg md:text-xl text-blue-100 mb-10 animate-fade-in-up stagger-2 max-w-2xl mx-auto">
-                    Informasi layanan audit resmi untuk mendukung kebutuhan evaluasi dan peningkatan mutu institusi.
+                    Informasi penjaminan mutu audit resmi untuk mendukung kebutuhan evaluasi dan peningkatan mutu institusi.
                 </p>
             </div>
         </div>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="bg-white rounded-2xl p-4 md:p-6 shadow-lg text-center border border-gray-100">
                     <div class="text-2xl md:text-3xl font-bold text-indigo-600">Aktif</div>
-                    <div class="text-xs md:text-sm text-gray-500 font-medium">Status Publik</div>
+                    <div class="text-xs md:text-sm text-gray-500 font-medium">Status </div>
                 </div>
             </div>
         </div>

@@ -2,18 +2,18 @@
 
 namespace App\View\Composers;
 
-use App\Models\PolicyCategory;
+use App\Models\Policy;
 use Illuminate\View\View;
 
 class PolicyNavComposer
 {
     public function compose(View $view): void
     {
-        $policyCategories = PolicyCategory::query()
-            ->whereHas('activePolicies')
-            ->orderBy('name')
-            ->get();
+        $policies = Policy::query()
+            ->active()
+            ->orderBy('title')
+            ->get(['id', 'title', 'slug']);
 
-        $view->with('navPolicyCategories', $policyCategories);
+        $view->with('navPolicies', $policies);
     }
 }

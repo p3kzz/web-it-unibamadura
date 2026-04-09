@@ -12,14 +12,10 @@ class PolicyQueryService
     public function getPolicies(array $filters): Paginator
     {
         return Policy::query()
-            ->with('category')
             ->when($filters['search'] ?? null, function ($q) use ($filters) {
                 $search = $filters['search'];
                 $q->where('title', 'like', "%{$search}%")
                     ->orWhere('excerpt', 'like', "%{$search}%");
-            })
-            ->when($filters['category_id'] ?? null, function ($q) use ($filters) {
-                $q->where('policy_category_id', $filters['category_id']);
             })
             ->latest()
             ->simplePaginate(10)
@@ -29,34 +25,15 @@ class PolicyQueryService
     public function getActivePolicies(int $limit = null): Collection
     {
         return Policy::query()
-            ->with('category')
             ->active()
             ->latest()
             ->when($limit, fn($q) => $q->limit($limit))
             ->get();
     }
 
-    public function getCategories(): Collection
-    {
-        return PolicyCategory::query()
-            ->withCount(['policies', 'activePolicies'])
-            ->orderBy('name')
-            ->get();
-    }
-
-    public function getCategoriesWithActivePolicies(): Collection
-    {
-        return PolicyCategory::query()
-            ->with(['activePolicies' => fn($q) => $q->latest()])
-            ->whereHas('activePolicies')
-            ->orderBy('name')
-            ->get();
-    }
-
     public function findPolicyBySlug(string $slug): ?Policy
     {
         return Policy::query()
-            ->with('category')
             ->where('slug', $slug)
             ->first();
     }
@@ -64,7 +41,6 @@ class PolicyQueryService
     public function findActivePolicyBySlug(string $slug): ?Policy
     {
         return Policy::query()
-            ->with('category')
             ->active()
             ->where('slug', $slug)
             ->first();
@@ -72,6 +48,23 @@ class PolicyQueryService
 
     public function findById(int $id): ?Policy
     {
-        return Policy::with('category')->find($id);
+        return Policy::find($id);
     }
+
+    public function getAllActivePolicies()
+{
+    return Policy::query()
+        ->where('is_active', true)
+        ->latest()
+        ->get();
+}
+public function getRelatedPolicies(int $excludeId, int $limit = 5)
+{
+    return Policy::query()
+        ->where('is_active', true)
+        ->where('id', '!=', $excludeId)
+        ->latest()
+        ->limit($limit)
+        ->get();
+}
 }

@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Pages\Penjaminan;
 
 use App\Http\Controllers\Controller;
-use App\Models\PolicyCategory;
 use App\Services\Admin\Penjaminan\Policy\PolicyQueryService;
-use Illuminate\Http\Request;
 
 class PolicyController extends Controller
 {
@@ -13,29 +11,19 @@ class PolicyController extends Controller
         private readonly PolicyQueryService $policyQuery
     ) {}
 
+    /**
+     * Halaman list kebijakan
+     */
     public function index()
     {
-        $categories = $this->policyQuery->getCategoriesWithActivePolicies();
+        $policies = $this->policyQuery->getAllActivePolicies();
 
-        return view('pages.kebijakan.index', compact('categories'));
+        return view('pages.kebijakan.index', compact('policies'));
     }
 
-    public function category(string $slug)
-    {
-        $category = PolicyCategory::query()
-            ->with(['activePolicies' => fn($q) => $q->latest()])
-            ->where('slug', $slug)
-            ->firstOrFail();
-
-        $otherCategories = PolicyCategory::query()
-            ->whereHas('activePolicies')
-            ->where('id', '!=', $category->id)
-            ->orderBy('name')
-            ->get();
-
-        return view('pages.kebijakan.category', compact('category', 'otherCategories'));
-    }
-
+    /**
+     * Detail kebijakan
+     */
     public function show(string $slug)
     {
         $policy = $this->policyQuery->findActivePolicyBySlug($slug);
@@ -44,13 +32,9 @@ class PolicyController extends Controller
             abort(404, 'Kebijakan tidak ditemukan');
         }
 
-        $relatedPolicies = $policy->category
-            ->activePolicies()
-            ->where('id', '!=', $policy->id)
-            ->latest()
-            ->limit(5)
-            ->get();
+        $relatedPolicies = $this->policyQuery->getRelatedPolicies($policy->id);
 
         return view('pages.kebijakan.show', compact('policy', 'relatedPolicies'));
     }
+
 }

@@ -56,7 +56,7 @@
                 </div>
                 <div class="bg-white rounded-2xl p-4 md:p-6 shadow-lg text-center border border-gray-100">
                     <div class="text-2xl md:text-3xl font-bold text-indigo-600">Aktif</div>
-                    <div class="text-xs md:text-sm text-gray-500 font-medium">Status Publik</div>
+                    <div class="text-xs md:text-sm text-gray-500 font-medium">Status</div>
                 </div>
             </div>
         </div>

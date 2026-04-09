@@ -13,13 +13,12 @@
             class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors text-gray-700 font-medium border-b border-gray-100">
             Kebijakan dan Aturan Umum
         </a>
-        @forelse ($navPolicyCategories as $category)
-            <a href="{{ route('policy.category', $category->slug) }}"
+        @foreach ($navPolicies as $item)
+            <a href="{{ route('policy.show', $item->slug) }}"
                 class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors text-gray-700">
-                {{ $category->name }}
+                {{ $item->title }}
             </a>
-        @empty
-            <span class="block px-4 py-2 text-gray-400 text-sm italic">Belum ada kategori</span>
-        @endforelse
+        @endforeach
+
     </div>
 </div>

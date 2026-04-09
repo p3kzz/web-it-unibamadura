@@ -36,14 +36,14 @@
                 </ol>
             </nav>
 
-            <div class="max-w-4xl mx-auto text-center">
+            <div class="max-w-2xl mx-auto text-center">
                 <span
                     class="inline-block bg-emerald-100 text-emerald-700 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider mb-4">
-                    Layanan Aktif
+                    Penjaminan Mutu
                 </span>
 
                 <h1
-                    class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6 animate-fade-in-up stagger-2">
+                    class="text-4xl md:text-2xl lg:text-4xl font-extrabold text-white leading-tight mb-6 animate-fade-in-up stagger-2">
                     {{ $audit->title }}
                 </h1>
 

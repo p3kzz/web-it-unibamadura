@@ -10,7 +10,7 @@
         </svg>
     </div>
 
-    <select name="category_id"
+    {{-- <select name="category_id"
         class="border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none text-sm"
         onchange="this.form.submit()">
         <option value="">Semua Kategori</option>
@@ -19,5 +19,5 @@
                 {{ $category->name }}
             </option>
         @endforeach
-    </select>
+    </select> --}}
 </form>

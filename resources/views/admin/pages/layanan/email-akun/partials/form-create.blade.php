@@ -118,7 +118,7 @@
                     </label>
                     <input type="text" name="title"
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                        value="{{ old('title') }}" placeholder="Contoh: Layanan Hosting Website Kampus" required>
+                        value="{{ old('title') }}" placeholder="Contoh: Layanan Email dan Akun Uniba" required>
                     @error('title')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -128,7 +128,7 @@
                     <label class="block text-sm font-bold text-gray-700 mb-2">Deskripsi Singkat</label>
                     <textarea name="description" rows="3"
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none resize-none"
-                        placeholder="Masukkan deskripsi singkat layanan web hosting...">{{ old('description') }}</textarea>
+                        placeholder="Masukkan deskripsi singkat layanan Email dan Akun Uniba...">{{ old('description') }}</textarea>
                     @error('description')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror

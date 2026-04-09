@@ -6,8 +6,6 @@
         slug: '',
         excerpt: '',
         content: '',
-        category_id: '',
-        category_name: '',
         is_active: false
     }
 }"
@@ -19,8 +17,6 @@
             slug: $event.detail.slug || '',
             excerpt: $event.detail.excerpt || '',
             content: $event.detail.content || '',
-            category_id: $event.detail.category_id,
-            category_name: $event.detail.category_name || '',
             is_active: Boolean($event.detail.is_active)
         };
     "
@@ -62,19 +58,19 @@
                     <p class="text-lg font-semibold text-gray-800" x-text="item.title"></p>
                 </div>
 
-                <div>
+                {{-- <div>
                     <label
                         class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Kategori</label>
                     <span
                         class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-700"
                         x-text="item.category_name"></span>
-                </div>
+                </div> --}}
             </div>
 
-            <div>
+            {{-- <div>
                 <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Slug</label>
                 <p class="text-sm text-gray-600 font-mono bg-gray-50 px-3 py-2 rounded-lg" x-text="item.slug"></p>
-            </div>
+            </div> --}}
 
             <div>
                 <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Status</label>

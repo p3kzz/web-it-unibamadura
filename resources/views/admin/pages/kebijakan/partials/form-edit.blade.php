@@ -6,7 +6,7 @@
         slug: '',
         excerpt: '',
         content: '',
-        category_id: '',
+        {{-- category_id: '', --}}
         is_active: false
     }
 }"
@@ -18,7 +18,7 @@
             slug: $event.detail.slug || '',
             excerpt: $event.detail.excerpt || '',
             content: $event.detail.content || '',
-            category_id: $event.detail.category_id,
+            {{-- category_id: $event.detail.category_id, --}}
             is_active: Boolean($event.detail.is_active)
         };
         $nextTick(() => {
@@ -71,7 +71,7 @@
                             placeholder="Contoh: Kebijakan Keamanan Data" required>
                     </div>
 
-                    <div>
+                    {{-- <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">
                             Kategori <span class="text-red-500">*</span>
                         </label>
@@ -85,7 +85,7 @@
                                 </option>
                             @endforeach
                         </select>
-                    </div>
+                    </div> --}}
                 </div>
 
                 {{-- <div>

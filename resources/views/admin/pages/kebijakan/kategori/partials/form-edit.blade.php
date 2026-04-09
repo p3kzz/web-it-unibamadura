@@ -45,7 +45,7 @@
             </button>
         </div>
 
-        <form :action="`{{ url('admin_tik/kebijakan-kategori') }}/${form.id}`" method="POST" class="p-6">
+        <form :action="`{{ url('admin_tik/kebijakan-kategori') }}/${form.slug}`" method="POST" class="p-6">
             @csrf
             @method('PUT')
 

@@ -13,7 +13,7 @@
             class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors text-gray-700 font-medium border-b border-gray-100">
             Kebijakan dan Aturan Umum
         </a>
-        @foreach ($navPolicies as $item)
+        @foreach ($navPolicis as $item)
             <a href="{{ route('policy.show', $item->slug) }}"
                 class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors text-gray-700">
                 {{ $item->title }}

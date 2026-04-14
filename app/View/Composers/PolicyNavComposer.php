@@ -14,6 +14,6 @@ class PolicyNavComposer
             ->orderBy('title')
             ->get(['id', 'title', 'slug']);
 
-        $view->with('navPolicies', $policies);
+        $view->with('navPolicis', $policies);
     }
 }

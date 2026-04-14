@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Penjaminan\RestraDti\RestraDtiItemsController;
 use App\Http\Controllers\Admin\Penjaminan\Sop\SopItemsController;
 use App\Http\Controllers\Admin\Penjaminan\SistemDokumen\SistemDokumenItemsController;
 use App\Http\Controllers\Admin\Penjaminan\TinjauanManajemen\TinjauanManajemenItemsController;
+use App\Http\Controllers\Admin\SettingWeb\KonfigurasiLogo\KonfigurasiLogoController;
 use App\Http\Controllers\Admin\Tentang\Prestasi\PrestasiController as AdminPrestasiController;
 use App\Http\Controllers\Admin\Tentang\ProgramKerja\ProgramKerjaController as AdminProgramKerjaController;
 use App\Http\Controllers\Admin\Tentang\Sdm\PegawaiController;
@@ -151,6 +152,9 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
 
     //kontak
     Route::resource('/kontak', ContactItemsController::class)->names('contact');
+
+    // Setting Web
+    Route::resource('/konfigurasi-logo', KonfigurasiLogoController::class)->names('setting-logo');
 });
 
 require __DIR__ . '/auth.php';

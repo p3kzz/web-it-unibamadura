@@ -11,7 +11,7 @@
                         clip-rule="evenodd"></path>
                 </svg>
             </div>
-            <span class="text-sm font-semibold">Pengaturan</span>
+            <span class="text-sm font-semibold">Setting</span>
         </div>
         <svg class="w-4 h-4 transform transition-transform duration-200" :class="settingsOpen ? 'rotate-180' : ''"
             fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,17 +25,17 @@
         x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
         class="px-3 pb-2 space-y-1">
 
-        <a href="# route('admin.manajemen-user') }}"
+        <a href="/admin_tik/konfigurasi-logo"
             class="flex items-center px-4 py-2 text-blue-200 hover:bg-blue-800 hover:bg-opacity-50 rounded-lg transition-all duration-200 hover:translate-x-1">
             <div class="w-1.5 h-1.5 bg-red-400 rounded-full mr-3"></div>
-            <span class="text-sm">Manajemen User</span>
+            <span class="text-sm">Konfigurasi Logo</span>
         </a>
 
-        {{-- <a href="# route('admin.konfigurasi-website') }}"
+        <a href="#"
             class="flex items-center px-4 py-2 text-blue-200 hover:bg-blue-800 hover:bg-opacity-50 rounded-lg transition-all duration-200 hover:translate-x-1">
             <div class="w-1.5 h-1.5 bg-red-400 rounded-full mr-3"></div>
-            <span class="text-sm">Konfigurasi Website</span>
-        </a> --}}
+            <span class="text-sm">Konfigurasi Footer</span>
+        </a>
 
     </div>
 

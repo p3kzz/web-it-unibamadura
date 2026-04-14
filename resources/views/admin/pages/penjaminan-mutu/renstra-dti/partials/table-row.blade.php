@@ -13,7 +13,7 @@
             <span class="text-sm font-semibold text-gray-800">{{ $item->judul }}</span>
         </div>
     </td>
-    <td>
+    <td class="px-6 py-4">
         <span class="text-sm text-gray-600">
             {{ $item->year }}
         </span>
@@ -52,14 +52,7 @@
                 </svg>
             </a>
 
-            <button
-                @click="$dispatch('open-show-renstra-dti', {
-                id: {{ $item->id }},
-                judul: '{{ addslashes($item->judul) }}',
-                deskripsi: `{!! addslashes($item->deskripsi ?? '') !!}`,
-                file: '{{ $item->file }}',
-                is_active: {{ $item->is_active ? 'true' : 'false' }}
-            })"
+            <button @click="$dispatch('open-show-renstra-dti', {{ $item->toJson() }})"
                 class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-150"
                 title="Lihat Detail">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,14 +64,7 @@
                 </svg>
             </button>
 
-            <button
-                @click="$dispatch('open-edit-renstra-dti', {
-                id: {{ $item->id }},
-                judul: '{{ addslashes($item->judul) }}',
-                deskripsi: `{!! addslashes($item->deskripsi ?? '') !!}`,
-                file: '{{ $item->file }}',
-                is_active: {{ $item->is_active ? 'true' : 'false' }}
-            })"
+            <button @click="$dispatch('open-edit-renstra-dti', {{ $item->toJson() }})"
                 class="p-2 text-amber-600 hover:bg-amber-50 rounded-lg transition-colors duration-150" title="Edit">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

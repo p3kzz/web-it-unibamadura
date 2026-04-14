@@ -42,10 +42,10 @@
         <table class="w-full text-left border-collapse">
             <colgroup>
                 <col style="width: 70px;">
-                <col style="width: 70px;">
-
+                <col style="width: 250px;">
                 <col style="width: 120px;">
                 <col>
+                <col style="width: 160px;">
                 <col style="width: 160px;">
             </colgroup>
             <thead>

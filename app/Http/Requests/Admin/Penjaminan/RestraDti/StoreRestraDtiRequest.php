@@ -19,7 +19,7 @@ class StoreRestraDtiRequest extends FormRequest
     {
         return [
             'judul' => 'required|string|max:255',
-            'year' => 'required|integer|min:2000',
+            'year' => 'required|integer|min:2000|max:2100',
             'deskripsi' => 'nullable|string',
             'file' => 'required|file|mimes:pdf|max:10240',
             'is_active' => 'nullable|boolean',

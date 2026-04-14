@@ -28,7 +28,7 @@
     @yield('content')
 
     @include('partials.footer')
-    @include('partials.developer-modal')
+    {{-- @include('partials.developer-modal') --}}
 
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>

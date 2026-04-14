@@ -116,7 +116,6 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     Route::get('/unit-organisasi/{unit}', [UnitOrganisasiController::class, 'show'])->name('tentang.unit-organisasi.show');
     Route::put('/unit-organisasi/{unit}', [UnitOrganisasiController::class, 'update'])->name('tentang.unit-organisasi.update');
     Route::delete('/unit-organisasi/{unit}', [UnitOrganisasiController::class, 'destroy'])->name('tentang.unit-organisasi.destroy');
-    Route::post('/unit-organisasi/update-order', [UnitOrganisasiController::class, 'updateOrder'])->name('tentang.unit-organisasi.update-order');
 
     // Pilar Transformasi
     Route::resource('/pilar-transformasi', PilarTransformasiController::class)->names('tentang.pilar-transformasi');

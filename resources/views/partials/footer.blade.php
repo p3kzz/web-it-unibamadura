@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <div class="container mx-auto px-4 mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+    {{-- <div class="container mx-auto px-4 mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
         <p>&copy; {{ date('Y') }} UPT TIK Universitas Bahaudin Mudhary Madura.</p>
         <p class="mt-2 md:mt-0 flex items-center gap-1">
             Developed by
@@ -33,5 +33,5 @@
                 [Muhammad Afifullah]
             </button>
         </p>
-    </div>
+    </div> --}}
 </footer>

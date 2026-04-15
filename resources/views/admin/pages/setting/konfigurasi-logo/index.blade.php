@@ -16,19 +16,18 @@
                 </svg>
                 Tambah Konfigurasi Logo
             </button>
-            {{-- <x-search-table :endpoint="route('admin.konfigurasi-logo.index')" placeholder="Cari konfigurasi logo..." /> --}}
         </div>
 
         @include('admin.pages.setting.konfigurasi-logo.partials.table')
 
-        {{-- @include('admin.pages.setting.konfigurasi-logo.partials.card') --}}
+        @include('admin.pages.setting.konfigurasi-logo.partials.mobile')
 
     </div>
 
     {{-- Modal create --}}
-    {{-- @include('admin.pages.setting.konfigurasi-logo.partials.form-create') --}}
+    @include('admin.pages.setting.konfigurasi-logo.partials.form-create')
 
     {{-- Modal edit --}}
-    {{-- @include('admin.pages.setting.konfigurasi-logo.partials.form-edit') --}}
+    @include('admin.pages.setting.konfigurasi-logo.partials.form-edit')
 
 @endsection

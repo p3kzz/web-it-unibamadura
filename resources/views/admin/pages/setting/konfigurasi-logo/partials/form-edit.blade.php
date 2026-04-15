@@ -2,19 +2,26 @@
     open: false,
     form: {
         id: null,
-        name: '',
-        start_year: '',
-        end_year: '',
+        nama_web: '',
+        logo_web: '',
         is_active: false
-    }
+    },
+    logoPreview: null,
+
+    fileChosen(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => { this.logoPreview = e.target.result; };
+        reader.readAsDataURL(file);
+    },
 }"
-    x-on:open-edit-periode.window="
+    x-on:open-edit-konfigurasi-logo.window="
         open = true;
         form = {
             id: $event.detail.id,
-            name: $event.detail.name,
-            start_year: $event.detail.start_year,
-            end_year: $event.detail.end_year,
+            nama_web: $event.detail.nama_web,
+            logo_web: $event.detail.logo_web,
             is_active: Boolean($event.detail.is_active)
         };
     "
@@ -40,10 +47,10 @@
                 </div>
                 <div>
                     <h3 class="text-xl font-bold text-white">
-                        Edit Periode
+                        Edit
                     </h3>
                     <p class="text-blue-100 text-sm">
-                        Perbarui data periode
+                        Perbarui data
                     </p>
                 </div>
             </div>
@@ -56,38 +63,47 @@
             </button>
         </div>
 
-        <form method="POST" :action="`/admin_tik/periode/${form.id}`" class="p-6">
+        <form method="POST" :action="`/admin_tik/konfigurasi-logo/${form.id}`" class="p-6">
             @csrf
             @method('PUT')
 
             <div class="space-y-5">
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">
-                        Nama Periode <span class="text-red-500">*</span>
+                        Nama Website <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" name="name" x-model="form.name" required
-                        placeholder="Contoh: Periode 2024-2028"
+                    <input type="text" name="nama_web" x-model="form.nama_web" placeholder="Contoh: Nama Website"
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5
                             focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none">
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">
-                            Tahun Mulai <span class="text-red-500">*</span>
-                        </label>
-                        <input type="number" name="start_year" x-model="form.start_year" required placeholder="2024"
-                            class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5
-                                focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">
-                            Tahun Selesai <span class="text-red-500">*</span>
-                        </label>
-                        <input type="number" name="end_year" x-model="form.end_year" required placeholder="2028"
-                            class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5
-                                focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Logo</label>
+                    <div class="flex items-center gap-4 p-3 border-2 border-dashed border-gray-200 rounded-xl">
+                        <div class="relative w-20 h-20 flex-shrink-0">
+                            <template x-if="logoPreview">
+                                <img :src="logoPreview"
+                                    class="w-20 h-20 rounded-lg object-cover border border-uniba-blue">
+                            </template>
+                            <template x-if="form.logo_web && !logoPreview">
+                                <img :src="'{{ asset('storage') }}/' + form.logo_web"
+                                    class="w-20 h-20 rounded-lg object-cover">
+                            </template>
+                            <template x-if="!logoPreview && !form.logo_web">
+                                <div
+                                    class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="flex-1">
+                            <input type="file" name="logo_web" accept="image/*" @change="fileChosen"
+                                class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-50 file:text-uniba-blue hover:file:bg-blue-100 transition-all">
+                        </div>
                     </div>
                 </div>
 
@@ -103,14 +119,7 @@
             </div>
 
             <div class="flex items-center justify-between gap-3 mt-8 pt-6 border-t border-gray-200">
-                <div class="text-sm text-gray-500 flex items-center gap-1">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="text-red-500">*</span> Field wajib diisi
-                </div>
+
                 <div class="flex gap-3">
                     <button type="button" @click="open = false"
                         class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg transition-all duration-200 flex items-center gap-2">

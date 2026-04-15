@@ -12,7 +12,7 @@ class UpdateKonfigurasiLogoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::check() && Auth::user()->is_admin;
+        return Auth::check() && Auth::user()->isAdmin();
     }
 
     /**
@@ -25,6 +25,7 @@ class UpdateKonfigurasiLogoRequest extends FormRequest
         return [
             'logo_web' => 'nullable|image|mimes:png|max:2048',
             'nama_web' => 'nullable|string|max:255',
+            'is_active' => 'nullable|boolean',
         ];
     }
 
@@ -36,6 +37,7 @@ class UpdateKonfigurasiLogoRequest extends FormRequest
             'logo_web.max' => 'Ukuran gambar tidak boleh lebih dari 2MB',
             'nama_web.string' => 'Nama web harus berupa teks',
             'nama_web.max' => 'Nama web tidak boleh lebih dari 255 karakter',
+            'is_active.boolean' => 'Status aktif harus berupa nilai boolean',
         ];
     }
 }

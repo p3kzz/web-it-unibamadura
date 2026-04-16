@@ -23,7 +23,7 @@ class UpdateKonfigurasiLogoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'logo_web' => 'nullable|image|mimes:png|max:2048',
+            'logo_web' => 'nullable|image|mimes:png,jpg,jpeg,webp|max:2048',
             'nama_web' => 'nullable|string|max:255',
             'is_active' => 'nullable|boolean',
         ];
@@ -33,7 +33,7 @@ class UpdateKonfigurasiLogoRequest extends FormRequest
     {
         return [
             'logo_web.image' => 'File yang diunggah harus berupa gambar',
-            'logo_web.mimes' => 'Format gambar harus png',
+            'logo_web.mimes' => 'Format gambar harus png, jpg, jpeg, atau webp',
             'logo_web.max' => 'Ukuran gambar tidak boleh lebih dari 2MB',
             'nama_web.string' => 'Nama web harus berupa teks',
             'nama_web.max' => 'Nama web tidak boleh lebih dari 255 karakter',

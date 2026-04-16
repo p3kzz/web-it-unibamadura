@@ -21,7 +21,7 @@
     </td>
 
     <td class="px-6 py-4 text-sm text-gray-700">
-        <p class="font-semibold text-gray-800">{{ $item->nama_web }}</p>
+        <p class="font-semibold text-gray-800">{{ $item->nama_web ?? 'belum ada nama web' }}</p>
     </td>
 
     <td class="px-6 py-4 text-center">

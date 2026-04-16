@@ -76,7 +76,6 @@
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5
                             focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none">
                 </div>
-
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">Logo</label>
                     <div class="flex items-center gap-4 p-3 border-2 border-dashed border-gray-200 rounded-xl">
@@ -101,7 +100,8 @@
                             </template>
                         </div>
                         <div class="flex-1">
-                            <input type="file" name="logo_web" accept="image/*" @change="fileChosen"
+                            <input type="file" name="logo_web" value="form.logo_web" accept="image/*"
+                                @change="fileChosen"
                                 class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-50 file:text-uniba-blue hover:file:bg-blue-100 transition-all">
                         </div>
                     </div>

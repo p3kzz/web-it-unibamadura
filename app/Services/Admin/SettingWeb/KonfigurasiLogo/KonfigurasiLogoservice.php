@@ -25,12 +25,14 @@ class KonfigurasiLogoservice
     public function update(KonfigurasiLogo $konfigurasiLogo, array $data): KonfigurasiLogo
     {
         return DB::transaction(function () use ($konfigurasiLogo, $data) {
-            if (isset($data['logo_web'])) {
+            if (isset($data['logo_web']) && $data['logo_web']) {
                 if ($konfigurasiLogo->logo_web && Storage::disk('public')->exists($konfigurasiLogo->logo_web)) {
                     Storage::disk('public')->delete($konfigurasiLogo->logo_web);
                 }
                 $data['logo_web'] = $data['logo_web']
                     ->store('logo_web', 'public');
+            } else {
+                unset($data['logo_web']);
             }
             $konfigurasiLogo->update($data);
             return $konfigurasiLogo->refresh();

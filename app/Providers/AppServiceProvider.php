@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\View\Composers\KonfigurasiLogoComposer;
 use App\View\Composers\PolicyNavComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -24,6 +25,11 @@ class AppServiceProvider extends ServiceProvider
         View::composer(
             'partials.navbar.dropdown-kebijakan',
             PolicyNavComposer::class
+        );
+
+        View::composer(
+            'partials.navbar',
+            KonfigurasiLogoComposer::class
         );
     }
 }

@@ -21,6 +21,13 @@ class KonfigurasiLogo extends Model
 
     public function getLogoWebUrlAttribute()
     {
-        return $this->logo_web ? asset('storage/' . $this->logo_web) : null;
+        return !empty($this->logo_web)
+            ? asset('storage/' . $this->logo_web)
+            : asset('images/logo/logo.webp');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
     }
 }

@@ -17,12 +17,7 @@ class PeriodeService
                 $this->deactivateAll();
             }
 
-            return Periode::create([
-                'name'       => $data['name'],
-                'start_year' => $data['start_year'],
-                'end_year'   => $data['end_year'],
-                'is_active'  => $isActive,
-            ]);
+            return Periode::create($data);
         });
     }
 
@@ -37,12 +32,7 @@ class PeriodeService
                 $this->deactivateAll($periode->id);
             }
 
-            $periode->update([
-                'name'       => $data['name'],
-                'start_year' => $data['start_year'],
-                'end_year'   => $data['end_year'],
-                'is_active'  => $isActive,
-            ]);
+            $periode->update($data);
 
             return $periode;
         });

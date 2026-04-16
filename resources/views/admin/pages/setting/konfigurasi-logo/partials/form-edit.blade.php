@@ -63,7 +63,8 @@
             </button>
         </div>
 
-        <form method="POST" :action="`/admin_tik/konfigurasi-logo/${form.id}`" class="p-6">
+        <form method="POST" :action="`/admin_tik/konfigurasi-logo/${form.id}`" enctype="multipart/form-data"
+            class="p-6">
             @csrf
             @method('PUT')
 
@@ -100,8 +101,7 @@
                             </template>
                         </div>
                         <div class="flex-1">
-                            <input type="file" name="logo_web" value="form.logo_web" accept="image/*"
-                                @change="fileChosen"
+                            <input type="file" name="logo_web" accept="image/*" @change="fileChosen"
                                 class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-50 file:text-uniba-blue hover:file:bg-blue-100 transition-all">
                         </div>
                     </div>

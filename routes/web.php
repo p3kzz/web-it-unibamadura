@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Penjaminan\RestraDti\RestraDtiItemsController;
 use App\Http\Controllers\Admin\Penjaminan\Sop\SopItemsController;
 use App\Http\Controllers\Admin\Penjaminan\SistemDokumen\SistemDokumenItemsController;
 use App\Http\Controllers\Admin\Penjaminan\TinjauanManajemen\TinjauanManajemenItemsController;
+use App\Http\Controllers\Admin\SettingWeb\KonfigurasiFooter\KonfigurasiFooterController;
 use App\Http\Controllers\Admin\SettingWeb\KonfigurasiLogo\KonfigurasiLogoController;
 use App\Http\Controllers\Admin\Tentang\Prestasi\PrestasiController as AdminPrestasiController;
 use App\Http\Controllers\Admin\Tentang\ProgramKerja\ProgramKerjaController as AdminProgramKerjaController;
@@ -155,6 +156,7 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
 
     // Setting Web
     Route::resource('/konfigurasi-logo', KonfigurasiLogoController::class)->names('setting-logo');
+    Route::resource('/konfigurasi-footer',KonfigurasiFooterController::class)->names('setting-footer');
 });
 
 require __DIR__ . '/auth.php';

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\View\Composers\KonfigurasiFooterComposer;
 use App\View\Composers\KonfigurasiLogoComposer;
 use App\View\Composers\PolicyNavComposer;
 use Illuminate\Support\Facades\View;
@@ -30,6 +31,11 @@ class AppServiceProvider extends ServiceProvider
         View::composer(
             'partials.navbar',
             KonfigurasiLogoComposer::class
+        );
+
+        View::composer(
+            'partials.footer',
+            KonfigurasiFooterComposer::class
         );
     }
 }

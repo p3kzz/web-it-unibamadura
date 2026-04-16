@@ -10,17 +10,24 @@
         <div class="animate-fade-in-up stagger-2">
             <h3 class="text-white text-lg font-bold mb-4">Tautan Cepat</h3>
             <ul class="space-y-2 text-sm">
-                <li><a href="#" class="hover:text-white transition-colors transform hover:translate-x-1 inline-block">SIAKAD</a></li>
-                <li><a href="#" class="hover:text-white transition-colors transform hover:translate-x-1 inline-block">E-Learning</a></li>
-                <li><a href="#" class="hover:text-white transition-colors transform hover:translate-x-1 inline-block">Pendaftaran Mahasiswa Baru</a></li>
+                @foreach ($konfigurasiFooter as $footer)
+                    @if ($footer->type === 'tautan cepat')
+                        <li><a href="{{ $footer->url }}"
+                                class="hover:text-white transition-colors transform hover:translate-x-1 inline-block">{{ $footer->nama ?? 'Tautan Cepat' }}</a>
+                        </li>
+                    @endif
+                @endforeach
             </ul>
         </div>
         <div class="animate-fade-in-up stagger-3">
             <h3 class="text-white text-lg font-bold mb-4">Media Sosial</h3>
             <div class="flex space-x-4">
-                <a href="#" class="text-gray-400 hover:text-white transition-all transform hover:scale-110">Instagram</a>
-                <a href="#" class="text-gray-400 hover:text-white transition-all transform hover:scale-110">Facebook</a>
-                <a href="#" class="text-gray-400 hover:text-white transition-all transform hover:scale-110">YouTube</a>
+                @foreach ($konfigurasiFooter as $footer)
+                    @if ($footer->type === 'sosial media')
+                        <a href="{{ $footer->url }}"
+                            class="text-gray-400 hover:text-white transition-all transform hover:scale-110">{{ $footer->nama ?? 'Media Sosial' }}</a>
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>

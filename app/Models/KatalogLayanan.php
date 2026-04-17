@@ -11,8 +11,9 @@ class KatalogLayanan extends Model
     protected $table = 'katalog_layanan';
 
     protected $fillable = [
-        'kategori_layanan_id',
+        'kode',
         'nama',
+        'icon',
         'deskripsi',
         'pengguna_sasaran',
         'service_owner',
@@ -30,8 +31,9 @@ class KatalogLayanan extends Model
         'is_active' => 'boolean',
     ];
 
-    public function kategori()
+    public function getIconUrlAttribute()
     {
-        return $this->belongsTo(KategoriLayanan::class, 'kategori_layanan_id');
+        return $this->icon ? asset('storage/' . $this->icon) : null;
     }
+
 }

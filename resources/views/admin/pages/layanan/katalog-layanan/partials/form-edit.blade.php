@@ -1,13 +1,8 @@
-@php
-    $kategoriLayananOptions = \App\Models\KategoriLayanan::query()->orderBy('nama')->get();
-@endphp
-
 <div x-data="{
     open: false,
-    kategoriMap: @js($kategoriLayananOptions->pluck('nama', 'id')),
     form: {
         id: '',
-        kategori_layanan_id: '',
+        icon: '',
         nama: '',
         deskripsi: '',
         pengguna_sasaran: '',
@@ -21,15 +16,20 @@
         kontak: '',
         is_active: true,
     },
-    syncNamaFromKategori() {
-        this.form.nama = this.kategoriMap[this.form.kategori_layanan_id] || '';
+    iconPreview: null,
+    fileChosen(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => { this.iconPreview = e.target.result; };
+        reader.readAsDataURL(file);
     }
 }"
     x-on:open-edit-katalog-layanan.window="
         open = true;
         form = {
             id: $event.detail.id,
-            kategori_layanan_id: $event.detail.kategori_layanan_id || '',
+            icon: $event.detail.icon,
             nama: $event.detail.nama || '',
             deskripsi: $event.detail.deskripsi || '',
             pengguna_sasaran: $event.detail.pengguna_sasaran || '',
@@ -43,7 +43,6 @@
             kontak: $event.detail.kontak || '',
             is_active: Boolean($event.detail.is_active),
         };
-        syncNamaFromKategori();
         $nextTick(() => {
             initSummernote('deskripsi-edit', form.deskripsi);
             initSummernote('sla-edit', form.sla);
@@ -82,31 +81,47 @@
             </button>
         </div>
 
-        <form :action="`{{ url('admin_tik/katalog-layanan') }}/${form.id}`" method="POST" class="p-6">
+        <form :action="`{{ url('admin_tik/katalog-layanan') }}/${form.id}`" method="POST" enctype="multipart/form-data"
+            class="p-6">
             @csrf
             @method('PUT')
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">
-                        Kategori Layanan <span class="text-red-500">*</span>
-                    </label>
-                    <select name="kategori_layanan_id" x-model="form.kategori_layanan_id"
-                        @change="syncNamaFromKategori()"
-                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                        required>
-                        <option value="">Pilih kategori layanan</option>
-                        @foreach ($kategoriLayananOptions as $kategori)
-                            <option value="{{ $kategori->id }}">{{ $kategori->nama }}</option>
-                        @endforeach
-                    </select>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">icon</label>
+                    <div class="flex items-center gap-4 p-3 border-2 border-dashed border-gray-200 rounded-xl">
+                        <div class="relative w-20 h-20 flex-shrink-0">
+                            <template x-if="iconPreview">
+                                <img :src="iconPreview"
+                                    class="w-20 h-20 rounded-lg object-cover border border-uniba-blue">
+                            </template>
+                            <template x-if="form.icon && !iconPreview">
+                                <img :src="'{{ asset('storage') }}/' + form.icon"
+                                    class="w-20 h-20 rounded-lg object-cover">
+                            </template>
+                            <template x-if="!iconPreview && !form.icon">
+                                <div
+                                    class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="flex-1">
+                            <input type="file" name="icon" accept="image/*" @change="fileChosen"
+                                class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-50 file:text-uniba-blue hover:file:bg-blue-100 transition-all">
+                        </div>
+                    </div>
                 </div>
 
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">
                         Nama Layanan <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" name="nama" x-model="form.nama" readonly
+                    <input type="text" name="nama" x-model="form.nama"
                         class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
                         required>
                 </div>

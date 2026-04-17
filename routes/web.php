@@ -10,11 +10,9 @@ use App\Http\Controllers\Admin\Tentang\PilarTransformasi\PilarTransformasiContro
 use App\Http\Controllers\Admin\Fasilitas\FasilitasController;
 use App\Http\Controllers\Admin\Layanan\EmailAkun\EmailAkunItemsController;
 use App\Http\Controllers\Admin\Layanan\KatalogLayanan\KatalogLayananItemsController;
-use App\Http\Controllers\Admin\Layanan\KategoriLayanan\KategoriLayananItemsController;
 use App\Http\Controllers\Admin\Layanan\LicensesSoftware\LicensesItemController;
 use App\Http\Controllers\Admin\Layanan\WebHosting\WebHostingItemsController;
 use App\Http\Controllers\Admin\Penjaminan\Audit\AuditItemsController;
-use App\Http\Controllers\Admin\Penjaminan\Policy\PolicyCategoryController;
 use App\Http\Controllers\Admin\Penjaminan\Policy\PolicyItemsController;
 use App\Http\Controllers\Admin\Penjaminan\RestraDti\RestraDtiItemsController;
 use App\Http\Controllers\Admin\Penjaminan\Sop\SopItemsController;
@@ -127,7 +125,6 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     Route::resource('/program-kerja', AdminProgramKerjaController::class)->names('tentang.program-kerja');
 
     //Kategori Layanan
-    Route::resource('/kategori-layanan', KategoriLayananItemsController::class)->names('layanan.kategori-layanan');
     Route::resource('/katalog-layanan', KatalogLayananItemsController::class)->names('layanan.katalog-layanan');
     Route::resource('/lisensi-software', LicensesItemController::class)->names('layanan.lisensi-software');
     Route::resource('/web-hosting', WebHostingItemsController::class)->names('layanan.web-hosting');

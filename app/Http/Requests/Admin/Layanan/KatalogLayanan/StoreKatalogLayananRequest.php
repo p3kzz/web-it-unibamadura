@@ -24,8 +24,8 @@ class StoreKatalogLayananRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kategori_layanan_id' => 'required|exists:kategori_layanan,id',
             'nama' => 'required|string|max:255',
+            'icon' => 'nullable|image|max:2048|mimes:png,jpg,jpeg,webp',
             'deskripsi' => 'required|string',
             'pengguna_sasaran' => 'required|string',
             'service_owner' => 'required|string',
@@ -43,8 +43,9 @@ class StoreKatalogLayananRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'kategori_layanan_id.required' => 'Kategori layanan wajib diisi',
-            'kategori_layanan_id.exists' => 'Kategori layanan tidak valid',
+            'icon.image' => 'Icon layanan harus berupa gambar',
+            'icon.max' => 'Icon layanan maksimal 2048 KB',
+            'icon.mimes' => 'Icon layanan harus berformat png, jpg, jpeg, atau webp',
             'nama.required' => 'Nama layanan wajib diisi',
             'nama.string' => 'Nama layanan harus berupa string',
             'nama.max' => 'Nama layanan maksimal 255 karakter',

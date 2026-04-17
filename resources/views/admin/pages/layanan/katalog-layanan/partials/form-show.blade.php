@@ -2,7 +2,7 @@
     open: false,
     item: {
         id: '',
-        kategori_layanan_id: '',
+        icon: '',
         nama: '',
         deskripsi: '',
         pengguna_sasaran: '',
@@ -21,7 +21,7 @@
         open = true;
         item = {
             id: $event.detail.id,
-            kategori_layanan_id: $event.detail.kategori_layanan_id || '',
+            icon: $event.detail.icon,
             nama: $event.detail.nama || '',
             deskripsi: $event.detail.deskripsi || '',
             pengguna_sasaran: $event.detail.pengguna_sasaran || '',
@@ -77,8 +77,9 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Kategori</label>
-                    <p class="text-sm text-gray-800" x-text="item.kategori?.nama ?? '-' "></p>
+                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">icon</p>
+                    <img :src="`{{ asset('storage/') }}/${item.icon}`" :alt="item.nama"
+                        class="w-full max-h-48 object-cover rounded-xl border border-gray-200">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Status
@@ -102,11 +103,11 @@
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">SLA</label>
-                    <p class="text-sm text-gray-800" x-text="item.sla || '-' "></p>
+                    <p class="text-sm text-gray-800" x-html="item.sla || '-' "></p>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Biaya</label>
-                    <p class="text-sm text-gray-800" x-text="item.biaya || '-' "></p>
+                    <p class="text-sm text-gray-800" x-html="item.biaya || '-' "></p>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Kontak</label>

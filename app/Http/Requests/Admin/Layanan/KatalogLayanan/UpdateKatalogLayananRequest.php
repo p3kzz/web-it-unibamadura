@@ -24,7 +24,7 @@ class UpdateKatalogLayananRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kategori_layanan_id' => 'sometimes|exists:kategori_layanan,id',
+            'icon' => 'nullable|image|max:2048|mimes:png,jpg,jpeg,webp',
             'nama' => 'sometimes|string|max:255',
             'deskripsi' => 'sometimes|string',
             'pengguna_sasaran' => 'sometimes|string',
@@ -43,7 +43,9 @@ class UpdateKatalogLayananRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'kategori_layanan_id.exists' => 'Kategori layanan tidak valid',
+            'icon.image' => 'Icon layanan harus berupa gambar',
+            'icon.max' => 'Icon layanan maksimal 2048 KB',
+            'icon.mimes' => 'Icon layanan harus berformat png, jpg, jpeg, atau webp',
             'nama.string' => 'Nama layanan harus berupa string',
             'nama.max' => 'Nama layanan maksimal 255 karakter',
             'deskripsi.string' => 'Deskripsi layanan harus berupa string',

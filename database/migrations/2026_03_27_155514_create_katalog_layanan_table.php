@@ -13,11 +13,8 @@ return new class extends Migration
     {
         Schema::create('katalog_layanan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kategori_layanan_id')->constrained('kategori_layanan')->cascadeOnDelete();
-
-            $table->string('kode')->nullable();
             $table->string('nama');
-
+            $table->string('icon')->nullable();
             $table->text('deskripsi')->nullable();
             $table->string('pengguna_sasaran')->nullable();
             $table->string('service_owner')->nullable();
@@ -32,6 +29,7 @@ return new class extends Migration
             $table->string('kontak')->nullable();
 
             $table->boolean('is_active')->default(true);
+
             $table->timestamps();
         });
     }

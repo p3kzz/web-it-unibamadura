@@ -18,12 +18,10 @@ class KatalogLayananController extends Controller
      */
     public function index()
     {
-        $katalogLayanan = $this->layananQuery->getPaginatedKatalog(12);
-        $kategoriLayanan = $this->layananQuery->getActiveKategori();
+        $katalogLayanan = $this->layananQuery->getPaginatedKatalog(6);
 
         return view('pages.layanan.katalog-layanan.index', compact(
             'katalogLayanan',
-            'kategoriLayanan'
         ));
     }
 
@@ -33,9 +31,8 @@ class KatalogLayananController extends Controller
     public function show(KatalogLayanan $katalogLayanan)
     {
         $katalogLayanan = $this->layananQuery->getPublishedDetailOrFail($katalogLayanan);
-        $relatedLayanan = $this->layananQuery->getRelatedKatalog($katalogLayanan);
 
-        return view('pages.layanan.katalog-layanan.show', compact('katalogLayanan', 'relatedLayanan'));
+        return view('pages.layanan.katalog-layanan.show', compact('katalogLayanan'));
     }
 
     /**

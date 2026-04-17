@@ -21,13 +21,13 @@
         </div>
     </td>
 
-    <td class="px-6 py-4 whitespace-nowrap align-top">
+    {{-- <td class="px-6 py-4 whitespace-nowrap align-top">
         <div class="flex flex-col gap-1">
             <span class="font-medium text-sm text-gray-900">
                 {{ $item->kategori->nama ?? '-' }}
             </span>
         </div>
-    </td>
+    </td> --}}
 
     <td class="px-6 py-4 align-top">
         <div class="text-sm text-gray-700 leading-relaxed break-words line-clamp-2">

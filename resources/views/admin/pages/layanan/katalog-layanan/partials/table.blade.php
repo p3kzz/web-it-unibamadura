@@ -35,7 +35,6 @@
 
         <div class="flex flex-col md:flex-row gap-3">
             @include('admin.pages.layanan.katalog-layanan.partials.search')
-            @include('admin.pages.layanan.katalog-layanan.partials.kategori-filter')
         </div>
     </div>
 
@@ -78,17 +77,7 @@
                                     d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z">
                                 </path>
                             </svg>
-                            Deskripsi   
-                        </div>
-                    </th>
-                    <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">
-                        <div class="flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                </path>
-                            </svg>
-                            Kategori Layanan
+                            Deskripsi
                         </div>
                     </th>
                     <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">
@@ -161,4 +150,4 @@
     @endif
 </div>
 
-@include('admin.pages.layanan.katalog-layanan.partials.mobile-card')
+{{-- @include('admin.pages.layanan.katalog-layanan.partials.mobile-card') --}}

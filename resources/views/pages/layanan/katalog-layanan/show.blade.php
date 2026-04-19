@@ -174,7 +174,7 @@
                 <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden scroll-animate">
                     <div class="p-8 md:p-10">
                         <div class="flex items-center gap-4 mb-6">
-                            <div class="w-1.5 h-10 bg-gradient-to-b from-uniba-blue to-blue-400 rounded-full"></div>
+                            <div class="w-1.5 h-10 bg-uniba-blue rounded-full"></div>
                             <div>
                                 <h2 class="text-2xl font-bold text-gray-900">Tentang Layanan</h2>
                                 <p class="text-sm text-gray-500">Deskripsi lengkap mengenai layanan ini</p>
@@ -189,7 +189,7 @@
 
                 @if ($katalogLayanan->cara_akses)
                     <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden scroll-animate">
-                        <div class="bg-gradient-to-r from-uniba-blue to-blue-600 px-8 md:px-10 py-6">
+                        <div class="bg-uniba-blue px-8 md:px-10 py-6">
                             <h2 class="text-xl font-bold text-white flex items-center gap-3">
                                 <span
                                     class="flex items-center justify-center w-10 h-10 bg-white/20 backdrop-blur rounded-xl">
@@ -214,7 +214,7 @@
                 <div class="grid md:grid-cols-2 gap-6 scroll-animate">
                     <div
                         class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all">
-                        <div class="bg-gradient-to-r from-amber-50 to-amber-100/50 px-6 py-4 border-b border-amber-100">
+                        <div class="bg-amber-100 px-6 py-4 border-b border-amber-100">
                             <h3 class="font-bold text-gray-900 flex items-center gap-3">
                                 <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
                                     <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor"
@@ -235,7 +235,7 @@
 
                     <div
                         class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all">
-                        <div class="bg-gradient-to-r from-indigo-50 to-indigo-100/50 px-6 py-4 border-b border-indigo-100">
+                        <div class="bg-indigo-100 px-6 py-4 border-b border-indigo-100">
                             <h3 class="font-bold text-gray-900 flex items-center gap-3">
                                 <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
                                     <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor"
@@ -256,7 +256,7 @@
                 </div>
 
                 @if ($katalogLayanan->dependencies)
-                    <div class="bg-blue-50 rounded-3xl p-6 md:p-8 border border-blue-100 scroll-animate">
+                    <div class="bg-blue-200 rounded-3xl p-6 md:p-8 border border-blue-100 scroll-animate">
                         <div class="flex items-start gap-4">
                             <div
                                 class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-uniba-blue shadow-sm flex-shrink-0">
@@ -273,45 +273,6 @@
                     </div>
                 @endif
 
-                @if ($relatedLayanan->isNotEmpty())
-                    <div class="scroll-animate">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-1.5 h-10 bg-gradient-to-b from-uniba-blue to-blue-400 rounded-full"></div>
-                            <div>
-                                <h2 class="text-2xl font-bold text-gray-900">Layanan Terkait</h2>
-                                <p class="text-sm text-gray-500">Layanan lain yang mungkin Anda butuhkan</p>
-                            </div>
-                        </div>
-                        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            @foreach ($relatedLayanan as $related)
-                                <a href="{{ route('katalog-layanan.show', $related->id) }}"
-                                    class="bg-white flex items-center gap-4 p-5 rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
-                                    <div
-                                        class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-uniba-blue transition-all text-uniba-blue group-hover:text-white">
-                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                        </svg>
-                                    </div>
-                                    <div class="min-w-0 flex-1">
-                                        <p
-                                            class="text-sm font-bold text-gray-900 truncate group-hover:text-uniba-blue transition-colors">
-                                            {{ $related->nama }}
-                                        </p>
-                                        <p class="text-[11px] text-gray-400 font-medium uppercase tracking-wider mt-0.5">
-                                            {{ $related->kategori?->nama }}
-                                        </p>
-                                    </div>
-                                    <svg class="w-4 h-4 text-gray-300 group-hover:text-uniba-blue transition-colors shrink-0"
-                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
 
             </div>
         </div>

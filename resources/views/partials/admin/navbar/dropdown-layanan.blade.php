@@ -25,15 +25,16 @@
         x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
         class="space-y-1">
 
-        <a href="/admin_tik/kategori-layanan"
-            class="group flex items-center px-4 py-2.5 text-blue-100 hover:bg-blue-800 hover:bg-opacity-50 rounded-lg transition-all duration-200 hover:translate-x-1">
-            <div class="w-1.5 h-1.5 bg-green-400 rounded-full mr-3"></div>
-            <span class="text-sm">Kategori Layanan</span>
-        </a>
         <a href="/admin_tik/katalog-layanan"
             class="group flex items-center px-4 py-2.5 text-blue-100 hover:bg-blue-800 hover:bg-opacity-50 rounded-lg transition-all duration-200 hover:translate-x-1">
             <div class="w-1.5 h-1.5 bg-green-400 rounded-full mr-3"></div>
             <span class="text-sm">Katalog Layanan</span>
+        </a>
+
+        <a href="/admin_tik/katalog-layanan"
+            class="group flex items-center px-4 py-2.5 text-blue-100 hover:bg-blue-800 hover:bg-opacity-50 rounded-lg transition-all duration-200 hover:translate-x-1">
+            <div class="w-1.5 h-1.5 bg-green-400 rounded-full mr-3"></div>
+            <span class="text-sm">Detail Layanan</span>
         </a>
 
         <a href="/admin_tik/lisensi-software"

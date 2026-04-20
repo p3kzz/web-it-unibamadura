@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
+use App\Models\KatalogLayanan;
 use App\Services\Pages\Content\ContentPageQueryService;
 
 class HomeController extends Controller
@@ -17,6 +18,12 @@ class HomeController extends Controller
         $announcementItems = $this->contentQuery->getLatestByType('announcement');
         $agendaItems = $this->contentQuery->getUpcomingAgenda();
 
-        return view('home', compact('newsItems', 'announcementItems', 'agendaItems'));
+        $katalogLayanan = KatalogLayanan::query()
+            ->select(['id', 'nama', 'icon'])
+            ->where('is_active', true)
+            ->orderBy('nama')
+            ->get();
+
+        return view('home', compact('newsItems', 'announcementItems', 'agendaItems', 'katalogLayanan'));
     }
 }

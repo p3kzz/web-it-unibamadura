@@ -47,6 +47,7 @@ use App\Http\Controllers\Pages\Tentang\SejarahController;
 use App\Http\Controllers\Pages\Tentang\StrukturOrganisasiController;
 use App\Http\Controllers\Pages\Tentang\VisiMisiController;
 use App\Http\Controllers\Pages\Contact\ContactController;
+use App\Http\Controllers\Pages\Layanan\DetailLayananPageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -81,14 +82,13 @@ Route::resource('/program-kerja', ProgramKerjaController::class);
 Route::resource('/prestasi', PrestasiController::class);
 Route::resource('/fasilitas', FasilitasItemsController::class);
 Route::resource('/katalog-layanan', KatalogLayananController::class);
+Route::get('/layanan/{slug}', [DetailLayananPageController::class, 'show'])
+    ->name('layanan.show');
 Route::resource('/sop', PublicSopController::class);
 Route::resource('/sistem-dokumen', PublicSistemDokumenController::class);
 Route::resource('/audit', AuditController::class);
 Route::resource('/tinjauan-manajemen', TinjauanManajemenController::class);
 Route::resource('/renstra-dti', RestraDtiController::class);
-Route::resource('/lisensi-software', LicensesSoftwareController::class);
-Route::resource('/web-hosting', WebHostingController::class);
-Route::resource('/email-akun', EmailAkunController::class);
 
 // Kebijakan & Aturan (Public)
 Route::get('/kebijakan-aturan', [PublicPolicyController::class, 'index'])->name('policy.index');
@@ -128,9 +128,6 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     //Kategori Layanan
     Route::resource('/katalog-layanan', KatalogLayananItemsController::class)->names('layanan.katalog-layanan');
     Route::resource('/detail-layanan', DetailLayananController::class)->names('layanan.detail-layanan');
-    Route::resource('/lisensi-software', LicensesItemController::class)->names('layanan.lisensi-software');
-    Route::resource('/web-hosting', WebHostingItemsController::class)->names('layanan.web-hosting');
-    Route::resource('/email-akun', EmailAkunItemsController::class)->names('layanan.email-akun');
 
     // Prestasi
     Route::resource('/prestasi', AdminPrestasiController::class)->names('tentang.prestasi');
@@ -155,7 +152,7 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
 
     // Setting Web
     Route::resource('/konfigurasi-logo', KonfigurasiLogoController::class)->names('setting-logo');
-    Route::resource('/konfigurasi-footer',KonfigurasiFooterController::class)->names('setting-footer');
+    Route::resource('/konfigurasi-footer', KonfigurasiFooterController::class)->names('setting-footer');
 });
 
 require __DIR__ . '/auth.php';

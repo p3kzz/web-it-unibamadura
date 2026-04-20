@@ -3,23 +3,20 @@
 namespace App\Http\Controllers\Pages\Layanan;
 
 use App\Http\Controllers\Controller;
-use App\Services\Pages\Layanan\WebHostingPageQueryService;
+use App\Services\Pages\Layanan\DetailLayananPageQuery;
 use Illuminate\Http\Request;
 
-class WebHostingController extends Controller
+class DetailLayananPageController extends Controller
 {
     public function __construct(
-        private readonly WebHostingPageQueryService $hostingQuery
+        private readonly DetailLayananPageQuery $query
     ) {}
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $hostings = $this->hostingQuery->getPaginatedActive(9);
-
-        return view('pages.layanan.web-hosting.index', compact('hostings'));
+        // return view('pages.layanan.detail-layanan.index');
     }
 
     /**
@@ -27,7 +24,7 @@ class WebHostingController extends Controller
      */
     public function create()
     {
-        abort(404);
+        //
     }
 
     /**
@@ -35,18 +32,17 @@ class WebHostingController extends Controller
      */
     public function store(Request $request)
     {
-        abort(404);
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $web_hosting)
-    {   
-        $hosting = $this->hostingQuery->getPublishedDetailOrFail($web_hosting);
-        $relatedHostings = $this->hostingQuery->getRelatedActive($hosting);
+    public function show(string $slug)
+    {
+        $detail = $this->query->getDetailBySlug($slug);
 
-        return view('pages.layanan.web-hosting.show', compact('hosting', 'relatedHostings'));
+        return view('pages.layanan.detail-layanan.index', compact('detail'));
     }
 
     /**
@@ -54,7 +50,7 @@ class WebHostingController extends Controller
      */
     public function edit(string $id)
     {
-        abort(404);
+        //
     }
 
     /**
@@ -62,7 +58,7 @@ class WebHostingController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        abort(404);
+        //
     }
 
     /**
@@ -70,6 +66,6 @@ class WebHostingController extends Controller
      */
     public function destroy(string $id)
     {
-        abort(404);
+        //
     }
 }

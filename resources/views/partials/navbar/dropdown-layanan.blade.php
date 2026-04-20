@@ -11,15 +11,14 @@
         class="absolute left-0 top-full w-56 bg-white border-t-4 border-uniba-yellow shadow-lg py-2 rounded-b-lg invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300">
         <a href="/katalog-layanan"
             class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Katalog Layanan</a>
-        <a href="/lisensi-software"
-            class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Lisensi
-            Software</a>
-        <a href="/web-hosting" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Web
-            Hosting</a>
-        <a href="/email-akun" class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Email &
-            Akun
-            Uniba</a>
-        {{-- <a href="#" class="block px-4 py-2 hover:bg-gray-50 text-green-600 font-bold transition-colors">Network
-            Service Status</a> --}}
+
+        @foreach ($navLayanan as $layanan)
+            @foreach ($layanan->detailKatalogLayanan as $detail)
+                <a href="{{ route('layanan.show', $detail->slug) }}"
+                    class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">
+                    {{ $detail->title }}
+                </a>
+            @endforeach
+        @endforeach
     </div>
 </div>

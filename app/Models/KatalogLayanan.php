@@ -8,10 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class KatalogLayanan extends Model
 {
     use HasFactory;
-    protected $table = 'katalog_layanan';
+    protected $table = 'katalog_layanans';
 
     protected $fillable = [
-        'kode',
         'nama',
         'icon',
         'deskripsi',
@@ -36,4 +35,8 @@ class KatalogLayanan extends Model
         return $this->icon ? asset('storage/' . $this->icon) : null;
     }
 
+    public function detailKatalogLayanan()
+    {
+        return $this->hasMany(DetailKatalogLayanan::class, 'katalog_layanan_id');
+    }
 }

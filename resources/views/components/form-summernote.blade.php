@@ -3,7 +3,7 @@
 <textarea id="{{ $id }}" name="{{ $name }}"
     {{ $attributes->merge([
         'class' => 'summernote w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue outline-none',
-    ]) }}>{{ $value }}</textarea>
+    ]) }}></textarea>
 
 @push('scripts')
     <script>

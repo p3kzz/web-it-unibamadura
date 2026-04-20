@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('email_akuns', function (Blueprint $table) {
+        Schema::create('detail_katalog_layanan', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('katalog_layanan_id')->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->text('description')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->longText('content');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('email_akuns');
+        Schema::dropIfExists('detail_katalog_layanan');
     }
 };

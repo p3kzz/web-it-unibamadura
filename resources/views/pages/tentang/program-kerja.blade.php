@@ -27,8 +27,8 @@
                 <p class="text-lg text-blue-100 animate-fade-in-up stagger-2">
                     Rencana strategis dan program unggulan UPT TIK UNIBA Madura
                     @if (isset($periodeAktif))
-                        <br><span class="text-uniba-yellow font-semibold">Periode {{ $periodeAktif->name }}
-                            ({{ $periodeAktif->start_year }} - {{ $periodeAktif->end_year }})</span>
+                        <br><span class="text-uniba-yellow font-semibold">{{ $periodeAktif->name }}
+                        </span>
                     @endif
                 </p>
             </div>

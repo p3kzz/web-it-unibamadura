@@ -36,7 +36,7 @@
 
     <section class="relative z-10 -mt-8">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
                 @php
                     $totalLayanan = $katalogLayanan->total() ?? $katalogLayanan->count();
                     $activeCount = $katalogLayanan->where('status', 'Aktif')->count();
@@ -48,10 +48,6 @@
                 <div class="bg-white rounded-2xl p-4 md:p-6 shadow-lg text-center border border-gray-100">
                     <div class="text-2xl md:text-3xl font-bold text-emerald-600">{{ $activeCount }}</div>
                     <div class="text-xs md:text-sm text-gray-500 font-medium">Layanan Aktif</div>
-                </div>
-                <div class="bg-white rounded-2xl p-4 md:p-6 shadow-lg text-center border border-gray-100">
-                    <div class="text-2xl md:text-3xl font-bold text-amber-600">{{ count($kategoriLayanan ?? []) }}</div>
-                    <div class="text-xs md:text-sm text-gray-500 font-medium">Kategori</div>
                 </div>
                 <div class="bg-white rounded-2xl p-4 md:p-6 shadow-lg text-center border border-gray-100">
                     <div class="text-2xl md:text-3xl font-bold text-indigo-600">24/7</div>
@@ -211,7 +207,7 @@
         </div>
     </section>
 
-    <section class="py-16 bg-gradient-to-br from-uniba-blue to-uniba-dark">
+    <section class="py-16 bg-gradient-to-r from-uniba-blue to-blue-800 scroll-animate">
         <div class="container mx-auto px-4">
             <div class="max-w-3xl mx-auto text-center scroll-animate">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Butuh Bantuan?</h2>

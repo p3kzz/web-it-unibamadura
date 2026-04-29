@@ -10,15 +10,15 @@
     <div
         class="absolute left-0 top-full w-56 bg-white border-t-4 border-uniba-yellow shadow-lg py-2 rounded-b-lg invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300">
         <a href="/katalog-layanan"
-            class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Katalog Layanan</a>
+            class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">Semua Layanan</a>
 
         @foreach ($navLayanan as $layanan)
-            @foreach ($layanan->detailKatalogLayanan as $detail)
-                <a href="{{ route('layanan.show', $detail->slug) }}"
+            @if ($layanan->detailKatalogLayanan->isNotEmpty())
+                <a href="{{ route('layanan.show', $layanan->detailKatalogLayanan->first()->slug) }}"
                     class="block px-4 py-2 hover:bg-gray-50 hover:text-uniba-blue transition-colors">
-                    {{ $detail->title }}
+                    {{ $layanan->nama }}
                 </a>
-            @endforeach
+            @endif
         @endforeach
     </div>
 </div>

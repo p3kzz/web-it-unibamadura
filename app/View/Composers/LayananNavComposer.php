@@ -3,7 +3,6 @@
 namespace App\View\Composers;
 
 use App\Models\KatalogLayanan;
-use App\Services\Pages\Layanan\DetailLayananPageQuery;
 use Illuminate\View\View;
 
 class LayananNavComposer
@@ -14,7 +13,9 @@ class LayananNavComposer
         $layanan = KatalogLayanan::query()
             ->active()
             ->with([
-                'detailKatalogLayanan:id,katalog_layanan_id,title,slug'
+                'detailKatalogLayanan' => function ($query) {
+                    $query->select('id', 'katalog_layanan_id', 'title', 'slug')->limit(1);
+                }
             ])
             ->orderBy('nama')
             ->get(['id', 'nama']);

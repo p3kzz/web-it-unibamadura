@@ -47,16 +47,8 @@
                 </svg>
             </a>
 
-            <button
-                @click="$dispatch('open-show-sistem-dokumen', {
-                id: {{ $item->id }},
-                judul: '{{ addslashes($item->judul) }}',
-                deskripsi: `{!! addslashes($item->deskripsi ?? '') !!}`,
-                file: '{{ $item->file }}',
-                is_active: {{ $item->is_active ? 'true' : 'false' }}
-            })"
-                class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-150"
-                title="Lihat Detail">
+            <button @click="$dispatch('open-show-sistem-dokumen', {{ $item->toJson() }})" title="Lihat detail"
+                class="inline-flex items-center gap-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -66,15 +58,8 @@
                 </svg>
             </button>
 
-            <button
-                @click="$dispatch('open-edit-sistem-dokumen', {
-                id: {{ $item->id }},
-                judul: '{{ addslashes($item->judul) }}',
-                deskripsi: `{!! addslashes($item->deskripsi ?? '') !!}`,
-                file: '{{ $item->file }}',
-                is_active: {{ $item->is_active ? 'true' : 'false' }}
-            })"
-                class="p-2 text-amber-600 hover:bg-amber-50 rounded-lg transition-colors duration-150" title="Edit">
+            <button @click="$dispatch('open-edit-sistem-dokumen', {{ $item->toJson() }})" title="Edit data"
+                class="inline-flex items-center gap-1 px-3 py-2 bg-orange-600 hover:bg-orange-700 text-white text-xs font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
@@ -82,16 +67,14 @@
                 </svg>
             </button>
 
-            <form action="{{ route('admin.sistem-dokumen.destroy', $item) }}" method="POST" class="inline"
-                onsubmit="return confirm('Apakah Anda yakin ingin menghapus dokumen ini?')">
+            <form method="POST" action="{{ route('admin.sistem-dokumen.destroy', $item) }}">
                 @csrf
                 @method('DELETE')
-                <button type="submit"
-                    class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-150" title="Hapus">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button type="button" onclick="confirmDelete(this)" title="Hapus data"
+                    class="inline-flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-xs font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                        </path>
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
                 </button>
             </form>

@@ -1,5 +1,4 @@
 <tr class="hover:bg-blue-50 transition-colors duration-150 group">
-    {{-- No Column --}}
     <td class="px-6 py-4 whitespace-nowrap">
         <div class="flex items-center gap-2">
             <span
@@ -9,7 +8,6 @@
         </div>
     </td>
 
-    {{-- Title Column --}}
     <td class="px-6 py-4">
         <div class="flex items-center gap-3 max-w-xs">
             <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -27,7 +25,6 @@
         </div>
     </td>
 
-    {{-- Excerpt Column --}}
     <td class="px-6 py-4">
         <div class="max-w-xs">
             @if ($item->excerpt)
@@ -40,7 +37,6 @@
         </div>
     </td>
 
-    {{-- Content Column --}}
     <td class="px-6 py-4">
         <div class="max-w-md">
             @if ($item->content)
@@ -53,7 +49,6 @@
         </div>
     </td>
 
-    {{-- Status Column --}}
     <td class="px-6 py-4 text-center whitespace-nowrap">
         @if ($item->is_active)
             <span
@@ -70,61 +65,34 @@
         @endif
     </td>
 
-    {{-- Action Column --}}
     <td class="px-6 py-4 whitespace-nowrap">
         <div class="flex items-center justify-center gap-2">
-            {{-- Detail Button --}}
-            <button
-                @click="$dispatch('open-show-policy', {
-                    id: {{ $item->id }},
-                    title: '{{ addslashes($item->title) }}',
-                    slug: '{{ $item->slug }}',
-                    excerpt: '{{ addslashes($item->excerpt ?? '') }}',
-                    content: `{!! addslashes($item->content ?? '') !!}`,
-                    is_active: {{ $item->is_active ? 'true' : 'false' }}
-                })"
-                class="inline-flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-xs font-semibold rounded-lg shadow hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
-                title="Lihat Detail">
+            <button @click="$dispatch('open-show-policy', {{ $item->toJson() }})" title="Lihat detail"
+                class="inline-flex items-center gap-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                    </path>
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                 </svg>
             </button>
 
-            {{-- Edit Button --}}
-            <button
-                @click="$dispatch('open-edit-policy', {
-                    id: {{ $item->id }},
-                    title: '{{ addslashes($item->title) }}',
-                    slug: '{{ $item->slug }}',
-                    excerpt: '{{ addslashes($item->excerpt ?? '') }}',
-                    content: `{!! addslashes($item->content ?? '') !!}`,
-                    is_active: {{ $item->is_active ? 'true' : 'false' }}
-                })"
-                class="inline-flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-xs font-semibold rounded-lg shadow hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
-                title="Edit">
+            <button @click="$dispatch('open-edit-policy', {{ $item->toJson() }})" title="Edit data"
+                class="inline-flex items-center gap-1 px-3 py-2 bg-orange-600 hover:bg-orange-700 text-white text-xs font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                    </path>
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                 </svg>
             </button>
 
-            {{-- Delete Button --}}
-            <form action="{{ route('admin.penjaminan.policy.destroy', $item) }}" method="POST" class="inline"
-                onsubmit="return confirm('⚠️ Apakah Anda yakin ingin menghapus kebijakan ini?\n\nData yang dihapus tidak dapat dikembalikan!')">
+            <form method="POST" action="{{ route('admin.penjaminan.policy.destroy', $item) }}">
                 @csrf
                 @method('DELETE')
-                <button type="submit"
-                    class="inline-flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-xs font-semibold rounded-lg shadow hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5"
-                    title="Hapus">
+                <button type="button" onclick="confirmDelete(this)" title="Hapus data"
+                    class="inline-flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-xs font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
-                        </path>
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
                 </button>
             </form>

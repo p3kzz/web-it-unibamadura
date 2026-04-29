@@ -4,7 +4,6 @@
 
 @section('content')
 
-    {{-- Hero Section --}}
     <section class="relative bg-gradient-to-br from-uniba-blue via-blue-700 to-uniba-dark py-20 overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
@@ -39,12 +38,10 @@
         </div>
     </section>
 
-    {{-- Info Section --}}
     <section class="py-16 bg-gray-50 scroll-animate">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto">
                 <div class="grid md:grid-cols-3 gap-6">
-                    {{-- Card 1 --}}
                     <div
                         class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 border border-blue-200 hover:shadow-lg transition-shadow">
                         <div class="w-14 h-14 bg-blue-500 rounded-xl flex items-center justify-center mb-4">
@@ -60,7 +57,6 @@
                         </p>
                     </div>
 
-                    {{-- Card 2 --}}
                     <div
                         class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 border border-green-200 hover:shadow-lg transition-shadow">
                         <div class="w-14 h-14 bg-green-500 rounded-xl flex items-center justify-center mb-4">
@@ -76,7 +72,6 @@
                         </p>
                     </div>
 
-                    {{-- Card 3 --}}
                     <div
                         class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 border border-purple-200 hover:shadow-lg transition-shadow">
                         <div class="w-14 h-14 bg-purple-500 rounded-xl flex items-center justify-center mb-4">
@@ -96,7 +91,6 @@
         </div>
     </section>
 
-    {{-- Documents Section --}}
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-14 scroll-animate">
@@ -173,14 +167,13 @@
                         <div class="scroll-animate stagger-{{ ($index % 4) + 1 }}">
                             <div
                                 class="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-gray-100 {{ $color['border'] }} hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group h-full flex flex-col">
-                                {{-- Header --}}
+
                                 <div
                                     class="relative h-36 bg-gradient-to-br {{ $color['from'] }} {{ $color['to'] }} flex items-center justify-center overflow-hidden">
                                     <div
                                         class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
                                     </div>
 
-                                    {{-- Decorative Circles --}}
                                     <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full"></div>
                                     <div class="absolute -bottom-10 -left-10 w-24 h-24 bg-white/10 rounded-full"></div>
 
@@ -194,14 +187,12 @@
                                         </div>
                                     </div>
 
-                                    {{-- PDF Badge --}}
                                     <div
                                         class="absolute top-3 right-3 bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full">
                                         PDF
                                     </div>
                                 </div>
 
-                                {{-- Content --}}
                                 <div class="p-6 flex-grow flex flex-col">
                                     <h3
                                         class="text-xl font-bold text-gray-900 mb-3 group-hover:{{ $color['text'] }} transition-colors line-clamp-2">
@@ -217,7 +208,6 @@
                                         </p>
                                     @endif
 
-                                    {{-- Action Buttons --}}
                                     <div class="flex gap-3">
                                         <a href="{{ asset('storage/' . $dokumen->file) }}" target="_blank"
                                             class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 {{ $color['bg'] }} {{ $color['text'] }} font-semibold rounded-xl {{ $color['hover'] }} transition-all duration-200 group/btn">
@@ -247,7 +237,6 @@
                     @endforeach
                 </div>
             @else
-                {{-- Empty State --}}
                 <div class="text-center py-20 max-w-lg mx-auto">
                     <div
                         class="w-32 h-32 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
@@ -266,12 +255,10 @@
         </div>
     </section>
 
-    {{-- CTA Section --}}
     <section
-        class="py-20 bg-gradient-to-br from-uniba-blue via-blue-700 to-uniba-dark relative overflow-hidden scroll-animate">
+        class="py-16  bg-gradient-to-r from-uniba-blue to-blue-800 scroll-animate">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
-        {{-- Decorative Elements --}}
         <div
             class="absolute top-10 left-10 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20">
         </div>

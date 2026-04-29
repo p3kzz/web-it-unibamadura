@@ -7,9 +7,9 @@ services:
         UID: ${DOCKER_UID}
         GID: ${DOCKER_GID}
     env_file:
-    - .env.docker
+      - .env.docker
     container_name: laravel_app
-    user: "${DOCKER_UID}:${DOCKER_GID}" 
+    user: "${DOCKER_UID}:${DOCKER_GID}"
     volumes:
       - .:/var/www
     depends_on:
@@ -58,7 +58,7 @@ services:
       MYSQL_DATABASE: laravel
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - dbdata:/var/lib/mysql
     networks:
@@ -67,7 +67,6 @@ services:
 networks:
   laravel:
     driver: bridge
-
 
 volumes:
   dbdata:

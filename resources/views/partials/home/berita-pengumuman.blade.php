@@ -1,7 +1,6 @@
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="flex flex-col lg:flex-row gap-12">
-            {{-- Berita & Pengumuman --}}
             <div class="lg:w-2/3 scroll-animate" x-data="{ activeTab: 'berita', archiveLinks: { berita: '{{ route('content.index', ['type' => 'news']) }}', pengumuman: '{{ route('content.index', ['type' => 'announcement']) }}' } }">
                 <div class="flex justify-between items-center mb-6">
                     <div class="flex space-x-2 bg-white p-1 rounded-lg border shadow-sm">
@@ -24,20 +23,17 @@
                     </a>
                 </div>
 
-                {{-- Berita Tab --}}
                 <div x-show="activeTab === 'berita'" x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
                     @include('partials.home.berita-list')
                 </div>
 
-                {{-- Pengumuman Tab --}}
                 <div x-show="activeTab === 'pengumuman'" x-cloak x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
                     @include('partials.home.pengumuman-list')
                 </div>
             </div>
 
-            {{-- Agenda --}}
             @include('partials.home.agenda')
         </div>
     </div>

@@ -9,10 +9,7 @@ use App\Http\Controllers\Admin\Tentang\StrukturOrganisasi\StrukturOrganisasiItem
 use App\Http\Controllers\Admin\Tentang\PilarTransformasi\PilarTransformasiController;
 use App\Http\Controllers\Admin\Fasilitas\FasilitasController;
 use App\Http\Controllers\Admin\Layanan\DetailLayanan\DetailLayananController;
-use App\Http\Controllers\Admin\Layanan\EmailAkun\EmailAkunItemsController;
 use App\Http\Controllers\Admin\Layanan\KatalogLayanan\KatalogLayananItemsController;
-use App\Http\Controllers\Admin\Layanan\LicensesSoftware\LicensesItemController;
-use App\Http\Controllers\Admin\Layanan\WebHosting\WebHostingItemsController;
 use App\Http\Controllers\Admin\Penjaminan\Audit\AuditItemsController;
 use App\Http\Controllers\Admin\Penjaminan\Policy\PolicyItemsController;
 use App\Http\Controllers\Admin\Penjaminan\RestraDti\RestraDtiItemsController;
@@ -30,10 +27,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Pages\HomeController;
 use App\Http\Controllers\Pages\Content\ContentController;
 use App\Http\Controllers\Pages\Fasilitas\FasilitasItemsController;
-use App\Http\Controllers\Pages\Layanan\EmailAkunController;
 use App\Http\Controllers\Pages\Layanan\KatalogLayananController;
-use App\Http\Controllers\Pages\Layanan\LicensesSoftwareController;
-use App\Http\Controllers\Pages\Layanan\WebHostingController;
 use App\Http\Controllers\Pages\Penjaminan\AuditController;
 use App\Http\Controllers\Pages\Penjaminan\PolicyController as PublicPolicyController;
 use App\Http\Controllers\Pages\Penjaminan\RestraDtiController;
@@ -125,7 +119,7 @@ Route::middleware(['auth', 'admin_tik'])->prefix('admin_tik')->name('admin.')->g
     Route::get('/program-kerja/pilars', [AdminProgramKerjaController::class, 'getPilarsByPeriode'])->name('tentang.program-kerja.pilars');
     Route::resource('/program-kerja', AdminProgramKerjaController::class)->names('tentang.program-kerja');
 
-    //Kategori Layanan
+    //Katalog Layanan
     Route::resource('/katalog-layanan', KatalogLayananItemsController::class)->names('layanan.katalog-layanan');
     Route::resource('/detail-layanan', DetailLayananController::class)->names('layanan.detail-layanan');
 

@@ -1,6 +1,6 @@
 <div class="lg:w-2/5 flex justify-center scroll-animate w-full">
     <div class="text-center bg-white rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 transform hover:scale-105 transition-transform duration-300 w-full max-w-md lg:max-w-none">
-        {{-- Google Workspace Title --}}
+
         <div class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4 animate-fade-in">
             <span class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-700 google-font">Google</span>
             <span class="text-3xl sm:text-4xl lg:text-5xl font-medium text-gray-600 google-font">Workspace</span>
@@ -9,7 +9,6 @@
             For Education Fundamentals
         </span>
 
-        {{-- Icons Grid --}}
         <div class="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-6">
             @php
             $apps = [
@@ -33,8 +32,6 @@
             </div>
             @endforeach
         </div>
-
-        {{-- Footer Badge --}}
         <div class="pt-3 sm:pt-4 border-t border-gray-200">
             <p class="text-xs sm:text-sm text-gray-500 font-medium"> Unlimited Storage</p>
         </div>

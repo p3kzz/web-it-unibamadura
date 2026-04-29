@@ -31,10 +31,10 @@ class DetailLayananPageQuery
             ->get();
     }
 
-    public function getDetailBySlug(string $slug): DetailKatalogLayanan
+    public function getDetailBySlug(string $slug): ?DetailKatalogLayanan
     {
         return DetailKatalogLayanan::query()
             ->where('slug', $slug)
-            ->firstOrFail();
+            ->first();
     }
 }

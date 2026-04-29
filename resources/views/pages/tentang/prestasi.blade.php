@@ -38,7 +38,6 @@
         </div>
     </section>
 
-    {{-- Penghargaan Institusi Section --}}
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12 scroll-animate">
@@ -83,7 +82,6 @@
                                 <div
                                     class="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden hover:border-{{ $color }}-500 hover:shadow-2xl transition-all duration-300 group">
                                     <div class="md:flex">
-                                        {{-- Left Side - Year & Icon --}}
                                         <div
                                             class="md:w-1/4 bg-gradient-to-br from-{{ $color }}-400 to-{{ $color }}-600 p-8 text-white relative overflow-hidden">
                                             <div
@@ -108,7 +106,6 @@
                                             </div>
                                         </div>
 
-                                        {{-- Right Side - Content --}}
                                         <div class="md:w-3/4 p-8">
                                             <div class="flex items-start justify-between mb-4">
                                                 <div>
@@ -166,7 +163,6 @@
         </div>
     </section>
 
-    {{-- CTA Section --}}
     <section class="py-16 bg-gradient-to-r from-uniba-blue to-blue-800 scroll-animate">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto text-center">

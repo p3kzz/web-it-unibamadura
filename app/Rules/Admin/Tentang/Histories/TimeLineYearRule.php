@@ -20,8 +20,8 @@ class TimeLineYearRule implements ValidationRule
         $value = strtolower($value);
         $value = preg_replace('/\s*-\s*/', '-', $value);
 
-        if (!preg_match('/^\d{4}(-(\d{4}|sekarang))?$/', $value)) {
-            $fail('Format tahun harus YYYY atau YYYY-YYYY atau YYYY-Sekarang.');
+        if (!preg_match('/^\d{4}(-(\d{4}|sekarang|mendatang))?$/', $value)) {
+            $fail('Format tahun harus YYYY atau YYYY-YYYY atau YYYY-Sekarang / mendatang.');
             return;
         }
 
@@ -29,7 +29,7 @@ class TimeLineYearRule implements ValidationRule
 
         $startYear = (int) $startYear;
 
-        if (!$endYear || $endYear === 'sekarang') {
+        if (!$endYear || $endYear === 'sekarang' || $endYear === 'mendatang') {
             $endYear = now()->year;
         } else {
             $endYear = (int) $endYear;
@@ -54,7 +54,7 @@ class TimeLineYearRule implements ValidationRule
 
             [$s, $e] = array_pad(explode('-', strtolower($item->sub_title)), 2, null);
 
-            if (!$e || $e === 'sekarang') {
+            if (!$e || $e === 'sekarang' || $e === 'mendatang') {
                 return now()->year;
             }
 

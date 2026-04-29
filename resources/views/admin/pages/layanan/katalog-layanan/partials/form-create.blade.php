@@ -28,22 +28,21 @@
         x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95"
-        class="bg-white rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
+        class="bg-white rounded-2xl w-full max-w-5xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
 
-        <div class="bg-uniba-blue px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+        <div class="bg-uniba-blue px-6 py-4 flex items-center justify-between sticky top-0 z-20">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-white">Tambah Katalog Layanan</h3>
-                    <p class="text-blue-100 text-sm">Isi form di bawah untuk menambah data baru</p>
+                    <h3 class="text-xl font-bold text-white leading-tight">Tambah Katalog Layanan</h3>
+                    <p class="text-blue-100 text-xs">Pastikan informasi layanan yang diinput sudah sesuai standar</p>
                 </div>
             </div>
-            <button @click="open = false"
-                class="text-white hover:bg-white hover:bg-opacity-20 rounded-lg p-2 transition-all duration-200">
+            <button @click="open = false" class="text-white hover:bg-white/20 rounded-lg p-2 transition-all">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                     </path>
@@ -52,175 +51,151 @@
         </div>
 
         <form method="POST" action="{{ route('admin.layanan.katalog-layanan.store') }}" enctype="multipart/form-data"
-            class="p-6">
+            class="overflow-y-auto p-6 space-y-8">
             @csrf
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Icon</label>
-                    <div class="flex items-center gap-4 p-3 border-2 border-dashed border-gray-200 rounded-xl">
-                        <div class="relative w-20 h-20 flex-shrink-0">
+            <div class="space-y-4">
+                <div class="flex items-center pb-2 border-b border-gray-100">
+                    <h4 class="font-bold text-gray-800">Informasi Dasar</h4>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                    <div class="md:col-span-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Icon Layanan</label>
+                        <div
+                            class="relative group border-2 border-dashed border-gray-200 rounded-xl p-4 hover:border-uniba-blue transition-colors text-center">
                             <template x-if="iconPreview">
                                 <img :src="iconPreview"
-                                    class="w-20 h-20 rounded-lg object-cover border-2 border-gray-200">
+                                    class="mx-auto w-24 h-24 rounded-lg object-cover mb-2 shadow-md">
                             </template>
-
                             <template x-if="!iconPreview">
                                 <div
-                                    class="w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    class="mx-auto w-24 h-24 bg-gray-50 rounded-lg flex items-center justify-center text-gray-400 mb-2">
+                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16" />
+                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
                                 </div>
                             </template>
-                        </div>
-
-                        <div class="flex-1">
-                            <input type="file" name="icon" accept="image/*" @change="fileChosen"
-                                class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-50 file:text-uniba-blue hover:file:bg-blue-100 transition-all">
+                            <input type="file" name="icon" @change="fileChosen"
+                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                            <p class="text-[10px] text-gray-500">Klik untuk upload (PNG/JPG)</p>
                         </div>
                     </div>
-                    @error('icon')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
 
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">
-                        Nama Layanan <span class="text-red-500">*</span>
-                    </label>
-                    <input type="text" name="nama" x-model="form.nama"
-                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                        placeholder="Nama layanan" required>
-                    @error('nama')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-bold text-gray-700 mb-2">
-                        Deskripsi <span class="text-red-500">*</span>
-                    </label>
-                    <x-form-summernote id="deskripsi-create" name="deskripsi" :value="old('deskripsi')" height="180"
-                        placeholder="Deskripsi singkat layanan" required />
-                    @error('deskripsi')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Pengguna Sasaran</label>
-                    <input type="text" name="pengguna_sasaran"
-                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                        value="{{ old('pengguna_sasaran') }}" placeholder="Mahasiswa, Dosen, Tenaga Kependidikan">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Service Owner</label>
-                    <input type="text" name="service_owner"
-                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                        value="{{ old('service_owner') }}" placeholder="Unit/Bagian penanggung jawab">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Jam Layanan</label>
-                    <input type="text" name="jam_layanan"
-                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                        value="{{ old('jam_layanan') }}" placeholder="Senin - Jumat, 08:00 - 16:00">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">SLA</label>
-                    <x-form-summernote id="sla-create" name="sla" :value="old('sla')" height="140"
-                        placeholder="Contoh: 2 hari kerja" required />
-                    @error('sla')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Biaya</label>
-                    <x-form-summernote id="biaya-create" name="biaya" :value="old('biaya')" height="140"
-                        placeholder="Gratis / nominal tertentu" required />
-                    @error('biaya')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Status Layanan</label>
-                    <select name="status"
-                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none">
-                        @foreach (['Aktif', 'Tidak Aktif', 'Maintenance'] as $status)
-                            <option value="{{ $status }}" @selected(old('status', 'Aktif') === $status)>
-                                {{ $status }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Cara Akses</label>
-                    <x-form-summernote id="cara-akses-create" name="cara_akses" :value="old('cara_akses')" height="160"
-                        placeholder="Langkah akses layanan" required />
-                    @error('cara_akses')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Dependencies</label>
-                    <input type="text" name="dependencies"
-                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                        value="{{ old('dependencies') }}" placeholder="Syarat atau ketergantungan layanan">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Kontak</label>
-                    <input type="text" name="kontak"
-                        class="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 focus:border-uniba-blue focus:ring-2 focus:ring-uniba-blue focus:ring-opacity-20 transition-all duration-200 outline-none"
-                        value="{{ old('kontak') }}" placeholder="Email/WhatsApp/Telepon">
-                </div>
-
-                <div class="md:col-span-2">
-                    <input type="hidden" name="is_active" value="0">
-                    <div class="flex items-center gap-3">
-                        <input type="checkbox" name="is_active" value="1" checked
-                            class="w-5 h-5 text-uniba-blue border-gray-300 rounded focus:ring-uniba-blue">
-                        <label class="text-sm text-gray-700">Tandai sebagai data aktif</label>
+                    <div class="md:col-span-8 space-y-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Nama Layanan <span
+                                    class="text-red-500">*</span></label>
+                            <input type="text" name="nama"
+                                class="w-full border-gray-300 rounded-lg focus:ring-uniba-blue focus:border-uniba-blue shadow-sm"
+                                placeholder="Contoh: Pembuatan Email Institusi" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Deskripsi Singkat <span
+                                    class="text-red-500">*</span></label>
+                            <x-form-summernote id="deskripsi-create" name="deskripsi" height="120" required />
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="flex items-center justify-between gap-3 mt-8 pt-6 border-t border-gray-200">
-                <div class="text-sm text-gray-500 flex items-center gap-1">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="text-red-500">*</span> Field wajib diisi
+            <div class="space-y-4">
+                <div class="flex items-center pb-2 border-b border-gray-100">
+                    <h4 class="font-bold text-gray-800">Detail Operasional</h4>
                 </div>
-                <div class="flex gap-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Pengguna Sasaran</label>
+                        <input type="text" name="pengguna_sasaran" class="w-full border-gray-300 rounded-lg"
+                            placeholder="Mahasiswa, Dosen, Umum">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Service Owner</label>
+                        <input type="text" name="service_owner" class="w-full border-gray-300 rounded-lg"
+                            placeholder="Unit/Bagian IT">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Jam Layanan</label>
+                        <input type="text" name="jam_layanan" class="w-full border-gray-300 rounded-lg"
+                            placeholder="Senin-Jumat (08:00 - 16:00)">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Status Layanan</label>
+                        <select name="status" class="w-full border-gray-300 rounded-lg">
+                            @foreach (['Aktif', 'Tidak Aktif', 'Maintenance'] as $status)
+                                <option value="{{ $status }}">{{ $status }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="flex items-center pb-2 border-b border-gray-100">
+                    <h4 class="font-bold text-gray-800">Ketentuan & Cara Akses</h4>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">SLA (Service Level
+                            Agreement)</label>
+                        <x-form-summernote id="sla-create" name="sla" height="120" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Rincian Biaya</label>
+                        <x-form-summernote id="biaya-create" name="biaya" height="120" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Cara Akses Layanan</label>
+                    <x-form-summernote id="cara-akses-create" name="cara_akses" height="150" />
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Dependencies
+                            (Ketergantungan)</label>
+                        <input type="text" name="dependencies" class="w-full border-gray-300 rounded-lg"
+                            placeholder="Contoh: Akun SSO">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Kontak Person</label>
+                        <input type="text" name="kontak" class="w-full border-gray-300 rounded-lg"
+                            placeholder="Email / WA Penanggung Jawab">
+                    </div>
+                </div>
+            </div>
+
+            <input type="hidden" name="is_active" value="0">
+            <div class="flex items-center gap-3">
+                <input type="checkbox" name="is_active" value="1" checked
+                    class="w-5 h-5 text-orange-500 border-gray-300 rounded focus:ring-uniba-blue">
+                <label class="text-sm text-gray-700">Jadikan sebagai data aktif</label>
+            </div>
+            <div
+                class="p-6 bg-gray-50 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-xs text-gray-500 flex items-center">
+                    <svg class="w-4 h-4 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" />
+                    </svg>
+                    Isi semua kolom yang diperlukan.
+                </div>
+                <div class="flex gap-3 w-full md:w-auto">
                     <button type="button" @click="open = false"
-                        class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg transition-all duration-200 flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
+                        class="flex-1 md:flex-none px-6 py-2.5 bg-white border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-all">
                         Batal
                     </button>
                     <button type="submit"
-                        class="px-6 py-2.5 bg-uniba-blue hover:bg-blue-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5 flex items-center gap-2">
+                        class="flex-1 md:flex-none px-8 py-2.5 bg-uniba-blue text-white font-bold rounded-xl shadow-lg shadow-blue-200 hover:bg-blue-700 transform hover:-translate-y-0.5 transition-all flex items-center justify-center">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
                             </path>
                         </svg>
-                        Simpan Data
+                        Simpan
                     </button>
                 </div>
             </div>
         </form>
+
     </div>
 </div>

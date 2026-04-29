@@ -17,6 +17,14 @@
                 </div>
                 <span class="text-lg font-semibold text-gray-700">Kebijakan & Aturan</span>
             </div>
+
+            <button @click="$dispatch('open-create-policy')"
+                class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-uniba-blue text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 whitespace-nowrap">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                <span class="font-semibold">Tambah Kebijakan</span>
+            </button>
         </div>
     </div>
 

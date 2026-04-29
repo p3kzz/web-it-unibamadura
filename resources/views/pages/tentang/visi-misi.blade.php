@@ -100,12 +100,12 @@
                             @else
                                 @foreach ($misi as $index => $item)
                                     <div
-                                        class="scroll-animate bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border-l-4 border-uniba-blue">
+                                        class="scroll-animate bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border-l-4 border-uniba-yellow">
                                         <div class="flex items-start gap-4">
                                             <div class="flex-shrink-0">
                                                 <div
-                                                    class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                                    <span class="font-bold text-blue-600">{{ $index + 1 }}</span>
+                                                    class="w-12 h-12 bg-uniba-yellow rounded-lg flex items-center justify-center">
+                                                    <span class="font-bold text-uniba-blue">{{ $index + 1 }}</span>
                                                 </div>
                                             </div>
                                             <div class="flex-1">
@@ -159,15 +159,24 @@
                             @else
                                 @foreach ($tujuan as $index => $item)
                                     <div
-                                        class="scroll-animate bg-gradient-to-r from-gray-50 to-white rounded-xl p-5 border-l-4 border-green-500">
-                                        <div class="flex items-start gap-3">
-                                            <span
-                                                class="w-7 h-7 flex items-center justify-center rounded-full bg-green-500 text-white font-bold text-sm">
-                                                {{ $index + 1 }}
-                                            </span>
-                                            <p class="text-gray-700 leading-relaxed">
-                                                {{ $item->content }}
-                                            </p>
+                                        class="scroll-animate bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border-l-4 border-green-500">
+                                        <div class="flex items-start gap-4">
+                                            <div class="flex-shrink-0">
+                                                <div
+                                                    class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                                    <span class="font-bold text-green-600">{{ $index + 1 }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex-1">
+                                                @if ($item->title)
+                                                    <h3 class="text-lg font-bold text-gray-900 mb-1">
+                                                        {{ $item->title }}
+                                                    </h3>
+                                                @endif
+                                                <p class="text-gray-600 leading-relaxed">
+                                                    {{ $item->content }}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 @endforeach

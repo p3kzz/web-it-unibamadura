@@ -15,7 +15,6 @@
     </div>
 
     <div class="flex items-center gap-4">
-        {{-- User --}}
         <div x-data="{ dropdownOpen: false }" class="relative">
             <button @click="dropdownOpen = !dropdownOpen"
                 class="flex items-center gap-3 focus:outline-none hover:bg-gray-50 rounded-lg px-2 py-1 transition-colors duration-200">

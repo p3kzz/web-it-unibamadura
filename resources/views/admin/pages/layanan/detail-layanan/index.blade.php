@@ -22,7 +22,7 @@
                             @if ($selectedKatalog)
                                 {{ $selectedKatalog->nama }}
                             @else
-                                Filter Katalog
+                                Semua Katalog
                             @endif
                         </span>
                     </div>
@@ -38,7 +38,6 @@
                     x-transition:leave-end="opacity-0 scale-95"
                     class="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
 
-                    <!-- Semua Katalog Option -->
                     <a href="{{ route('admin.layanan.detail-layanan.index', array_filter(['search' => request('search')])) }}"
                         class="flex items-center gap-3 px-4 py-2.5 hover:bg-blue-50 transition-colors duration-150 {{ !$katalogLayananId ? 'bg-blue-50' : '' }}">
                         <div class="flex-shrink-0">
@@ -59,7 +58,6 @@
                         </div>
                     </a>
 
-                    <!-- List Katalog -->
                     @forelse ($katalogList as $katalog)
                         <a href="{{ route('admin.layanan.detail-layanan.index', array_filter(['katalog_layanan_id' => $katalog->id, 'search' => request('search')])) }}"
                             class="flex items-center gap-3 px-4 py-2.5 hover:bg-blue-50 transition-colors duration-150 {{ request('katalog_layanan_id') == $katalog->id ? 'bg-blue-50' : '' }}">

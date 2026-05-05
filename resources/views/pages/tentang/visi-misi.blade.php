@@ -9,7 +9,7 @@
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center max-w-3xl mx-auto">
                 <span
-                    class="inline-block bg-blue-800 text-blue-200 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-4 animate-fade-in-up">
+                    class="inline-block bg-blue-800/50 backdrop-blur-sm text-blue-200 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-4 animate-fade-in-up border border-blue-700/50">
                     Tentang Kami
                 </span>
                 <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 animate-fade-in-up stagger-1">
@@ -31,7 +31,6 @@
         </div>
     </section>
 
-    {{-- Visi Section --}}
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto">
@@ -71,7 +70,6 @@
         </div>
     </section>
 
-    {{-- Misi Section --}}
     <section class="py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto">
@@ -130,7 +128,6 @@
         </div>
     </section>
 
-    {{-- Values Section --}}
     <section class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto">
@@ -188,7 +185,6 @@
         </div>
     </section>
 
-    {{-- Sasaran Section --}}
     <section class="py-16 bg-gradient-to-br from-purple-50 to-pink-50">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto">

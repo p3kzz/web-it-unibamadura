@@ -1,6 +1,5 @@
 <div class="border-t border-blue-800 bg-gradient-to-r from-blue-900 to-uniba-dark" x-data="{ settingsOpen: false }">
 
-    {{-- Pengaturan Toggle --}}
     <button @click="settingsOpen = !settingsOpen"
         class="w-full flex items-center justify-between px-4 py-3 text-blue-200 hover:text-white hover:bg-blue-800 hover:bg-opacity-40 transition-all duration-200">
         <div class="flex items-center gap-3">
@@ -20,7 +19,6 @@
         </svg>
     </button>
 
-    {{-- Sub-menu Pengaturan --}}
     <div x-show="settingsOpen" x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
         class="px-3 pb-2 space-y-1">
@@ -38,11 +36,8 @@
         </a>
 
     </div>
-
-    {{-- Divider --}}
     <div class="mx-4 border-t border-blue-800"></div>
 
-    {{-- Logout Button --}}
     <div class="p-3">
         <form method="POST" action="{{ route('logout') }}">
             @csrf

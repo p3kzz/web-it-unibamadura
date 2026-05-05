@@ -4,11 +4,9 @@
 
 @section('content')
 
-    {{-- Hero Section --}}
     <section class="relative bg-gradient-to-br from-uniba-blue via-blue-700 to-uniba-dark py-20 overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
-        {{-- Animated Background Elements --}}
         <div
             class="absolute top-20 right-10 w-72 h-72 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow">
         </div>
@@ -34,7 +32,6 @@
             </div>
         </div>
 
-        {{-- Decorative Wave --}}
         <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
             <svg class="relative block w-full h-12" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -45,7 +42,6 @@
         </div>
     </section>
 
-    {{-- Pilar Transformasi Digital Section --}}
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="max-w-6xl mx-auto">
@@ -111,7 +107,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- Content --}}
                                     <div class="p-6 flex-1 flex flex-col">
                                         @if ($pilar->description)
                                             <p class="text-gray-600 mb-6 leading-relaxed">{{ $pilar->description }}</p>
@@ -158,7 +153,6 @@
         </div>
     </section>
 
-    {{-- Program Kerja Detail Section --}}
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="max-w-7xl mx-auto">
@@ -190,7 +184,6 @@
                 @endphp
 
                 @if (isset($programKerja) && $programKerja->count() > 0)
-                    {{-- Desktop Table --}}
                     <div class="scroll-animate hidden md:block">
                         <div class="bg-white rounded-2xl shadow-xl overflow-hidden border-t-4 border-orange-500">
                             <div class="overflow-x-auto">
@@ -299,7 +292,6 @@
                         </div>
                     </div>
 
-                    {{-- Mobile Cards for Program Kerja --}}
                     <div class="md:hidden space-y-4">
                         @foreach ($programKerja as $program)
                             @php
@@ -392,7 +384,6 @@
         </div>
     </section>
 
-    {{-- Statistics Summary Section --}}
     @if (isset($programKerja) && $programKerja->count() > 0)
         <section class="py-20 bg-gradient-to-br from-gray-900 to-blue-900 text-white relative overflow-hidden">
             <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">

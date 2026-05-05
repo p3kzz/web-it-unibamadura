@@ -4,7 +4,6 @@
 
 @section('content')
 
-    {{-- Hero Section --}}
     <section class="relative bg-gradient-to-br from-uniba-blue via-blue-700 to-uniba-dark pt-8 pb-24 overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
@@ -43,15 +42,12 @@
         </div>
     </section>
 
-    {{-- Content Section --}}
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto space-y-6">
 
-                {{-- Main Content --}}
                 <article class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
                     <div class="p-6 md:p-10">
-                        {{-- Meta Info --}}
                         <div class="flex flex-wrap items-center gap-4 mb-8 pb-6 border-b border-gray-100">
                             <div class="flex items-center gap-2 text-sm text-gray-500">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,7 +63,6 @@
                             </span>
                         </div>
 
-                        {{-- Content --}}
                         <div
                             class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-uniba-blue prose-strong:text-gray-900 prose-li:text-gray-700 prose-table:border-collapse prose-th:bg-gray-100 prose-th:p-3 prose-td:p-3 prose-td:border prose-td:border-gray-200">
                             {!! $policy->content !!}
@@ -75,7 +70,6 @@
                     </div>
                 </article>
 
-                {{-- Sidebar --}}
 
             </div>
         </div>

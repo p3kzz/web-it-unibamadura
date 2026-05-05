@@ -3,8 +3,6 @@
 @section('title', 'Kebijakan & Aturan - UPT TIK UNIBA Madura')
 
 @section('content')
-
-    {{-- Hero Section --}}
     <section class="relative bg-gradient-to-br from-uniba-blue via-blue-700 to-uniba-dark py-20 overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
@@ -39,12 +37,10 @@
         </div>
     </section>
 
-    {{-- Info Section --}}
     <section class="py-16 bg-gray-50 scroll-animate">
         <div class="container mx-auto px-4">
             <div class="max-w-5xl mx-auto">
                 <div class="grid md:grid-cols-3 gap-6">
-                    {{-- Card 1 --}}
                     <div
                         class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 border border-blue-200 hover:shadow-lg transition-shadow">
                         <div class="w-14 h-14 bg-blue-500 rounded-xl flex items-center justify-center mb-4">
@@ -60,7 +56,6 @@
                         </p>
                     </div>
 
-                    {{-- Card 2 --}}
                     <div
                         class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 border border-green-200 hover:shadow-lg transition-shadow">
                         <div class="w-14 h-14 bg-green-500 rounded-xl flex items-center justify-center mb-4">
@@ -76,7 +71,6 @@
                         </p>
                     </div>
 
-                    {{-- Card 3 --}}
                     <div
                         class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 border border-purple-200 hover:shadow-lg transition-shadow">
                         <div class="w-14 h-14 bg-purple-500 rounded-xl flex items-center justify-center mb-4">
@@ -95,69 +89,62 @@
             </div>
         </div>
     </section>
-
-    {{-- Policy Categories Section --}}
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
-            @forelse ($policies as $category)
-                <div class="mb-12 scroll-animate">
-                    
-
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        @foreach ($policies as $policy)
-                            <a href="{{ route('policy.show', $policy->slug) }}"
-                                class="group bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-xl hover:border-uniba-blue/30 transition-all duration-300">
-                                <div class="flex items-start gap-4">
-                                    <div
-                                        class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-uniba-blue transition-colors">
-                                        <svg class="w-6 h-6 text-uniba-blue group-hover:text-white transition-colors"
+            <div class="mb-12 scroll-animate">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    @forelse ($policies as $policy)
+                        <a href="{{ route('policy.show', $policy->slug) }}"
+                            class="group bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-xl hover:border-uniba-blue/30 transition-all duration-300">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-uniba-blue transition-colors">
+                                    <svg class="w-6 h-6 text-uniba-blue group-hover:text-white transition-colors"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h4
+                                        class="text-lg font-bold text-gray-900 group-hover:text-uniba-blue transition-colors mb-2">
+                                        {{ $policy->title }}
+                                    </h4>
+                                    @if ($policy->excerpt)
+                                        <p class="text-gray-600 text-sm line-clamp-2">
+                                            {{ $policy->excerpt }}
+                                        </p>
+                                    @endif
+                                    <div class="mt-3 flex items-center text-uniba-blue text-sm font-medium">
+                                        <span>Baca Selengkapnya</span>
+                                        <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform"
                                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                            </path>
+                                                d="M9 5l7 7-7 7"></path>
                                         </svg>
                                     </div>
-                                    <div class="flex-1 min-w-0">
-                                        <h4
-                                            class="text-lg font-bold text-gray-900 group-hover:text-uniba-blue transition-colors mb-2">
-                                            {{ $policy->title }}
-                                        </h4>
-                                        @if ($policy->excerpt)
-                                            <p class="text-gray-600 text-sm line-clamp-2">
-                                                {{ $policy->excerpt }}
-                                            </p>
-                                        @endif
-                                        <div class="mt-3 flex items-center text-uniba-blue text-sm font-medium">
-                                            <span>Baca Selengkapnya</span>
-                                            <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform"
-                                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M9 5l7 7-7 7"></path>
-                                            </svg>
-                                        </div>
-                                    </div>
                                 </div>
-                            </a>
-                        @endforeach
-                    </div>
+                            </div>
+                        </a>
+                    @empty
+                        <div class="text-center py-16">
+                            <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-700 mb-2">Belum Ada Kebijakan</h3>
+                            <p class="text-gray-500">Kebijakan dan aturan akan segera ditampilkan di sini.</p>
+                        </div>
+                    @endforelse
                 </div>
-            @empty
-                <div class="text-center py-16">
-                    <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                            </path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-700 mb-2">Belum Ada Kebijakan</h3>
-                    <p class="text-gray-500">Kebijakan dan aturan akan segera ditampilkan di sini.</p>
-                </div>
-            @endforelse
-        </div>
+            </div>
     </section>
 
-    {{-- CTA Section --}}
     <section class="py-20 bg-gradient-to-br from-uniba-blue via-blue-700 to-uniba-dark relative overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 

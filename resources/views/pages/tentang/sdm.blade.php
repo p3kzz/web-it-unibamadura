@@ -4,11 +4,9 @@
 
 @section('content')
 
-    {{-- Hero Section --}}
     <section class="relative bg-gradient-to-br from-uniba-blue via-blue-700 to-uniba-dark py-20 overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
 
-        {{-- Animated Background Elements --}}
         <div
             class="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow">
         </div>
@@ -30,7 +28,6 @@
             </div>
         </div>
 
-        {{-- Decorative Wave --}}
         <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
             <svg class="relative block w-full h-12" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -41,7 +38,6 @@
         </div>
     </section>
 
-    {{-- Statistics Section --}}
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
@@ -97,7 +93,6 @@
         </div>
     </section>
 
-    {{-- Profile Cards Section --}}
     <section class="py-20 bg-white">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12 scroll-animate">
@@ -125,16 +120,14 @@
                             <div
                                 class="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden hover:border-{{ $color }}-500 hover:shadow-2xl transition-all duration-300 group">
                                 <div class="md:flex">
-                                    {{-- Left Side - Profile --}}
                                     <div
                                         class="md:w-1/3 bg-gradient-to-br from-{{ $color }}-500 to-{{ $color }}-600 p-8 text-white relative overflow-hidden">
-                                        {{-- Background Pattern --}}
+
                                         <div
                                             class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
                                         </div>
 
                                         <div class="relative z-10">
-                                            {{-- Avatar --}}
                                             <div class="w-32 h-32 mx-auto mb-6 rounded-full bg-white p-1 shadow-xl">
                                                 @if ($pegawai->foto)
                                                     <img src="{{ asset('storage/' . $pegawai->foto) }}"
@@ -154,12 +147,10 @@
                                                 @endif
                                             </div>
 
-                                            {{-- Name & Position --}}
                                             <h3 class="text-xl font-bold text-center mb-2">
                                                 {{ $pegawai->nama }}
                                             </h3>
 
-                                            {{-- Position Badge --}}
                                             <div class="flex justify-center mb-4">
                                                 <span
                                                     class="inline-block bg-white bg-opacity-20 backdrop-blur-sm text-white text-xs font-bold px-4 py-2 rounded-full">
@@ -167,7 +158,6 @@
                                                 </span>
                                             </div>
 
-                                            {{-- Division --}}
                                             @if ($currentUnit)
                                                 <div class="flex items-center justify-center gap-2 mb-4">
                                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
@@ -180,8 +170,6 @@
                                                     <span class="text-sm text-white">{{ $currentUnit->name }}</span>
                                                 </div>
                                             @endif
-
-                                            {{-- Unit Type Badge --}}
                                             @if ($currentUnit)
                                                 <div
                                                     class="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-3 text-center">
@@ -200,7 +188,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- Right Side - Certifications --}}
                                     <div class="md:w-2/3 p-8">
                                         <div class="flex items-center gap-3 mb-6">
                                             <div
@@ -232,7 +219,6 @@
                                                 @endforeach
                                             </div>
 
-                                            {{-- Certification Count Badge --}}
                                             <div class="mt-6 flex items-center gap-2">
                                                 <span
                                                     class="inline-flex items-center gap-2 bg-{{ $color }}-100 text-{{ $color }}-700 px-4 py-2 rounded-full text-sm font-semibold">
@@ -262,7 +248,6 @@
                     @endforeach
                 </div>
             @else
-                {{-- Empty State --}}
                 <div class="text-center py-16">
                     <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
                         <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -280,7 +265,6 @@
         </div>
     </section>
 
-    {{-- Certification Highlight Section --}}
     @if ($totalSertifikasi > 0)
         <section class="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
             <div class="container mx-auto px-4">

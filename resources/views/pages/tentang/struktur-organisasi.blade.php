@@ -60,11 +60,9 @@
                 </p>
             </div>
 
-            {{-- Gambar Bagan --}}
             <div class="max-w-5xl mx-auto scroll-animate">
                 <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
 
-                    {{-- Image container --}}
                     <div class="relative group">
                         @if ($struktur && $struktur->image)
                             <img src="{{ asset('storage/' . $struktur->image) }}"
